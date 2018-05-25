@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Label text="Registrazione" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="TextNome" layoutX="120.0" layoutY="26.0" promptText="Inserisci nome" />
+            <TextField fx:id="TextCognome" layoutX="120.0" layoutY="65.0" promptText="Inserisci cognome" />
+            <TextField fx:id="TextIndirizzo" layoutX="120.0" layoutY="103.0" promptText="Indirizzo" />
+            <TextField fx:id="TextDataNascita" layoutX="120.0" layoutY="141.0" promptText="AAAA-MM-GG" />
+            <TextField fx:id="TextTitolo" layoutX="120.0" layoutY="181.0" promptText="Titolo di studio" />
+            <TextField fx:id="TextEmail" layoutX="120.0" layoutY="261.0" promptText="e-mail" />
+            <TextField fx:id="TextProfessione" layoutX="120.0" layoutY="220.0" promptText="Professione" />
+            <Label fx:id="LblNome" layoutX="14.0" layoutY="30.0" text="Nome" />
+            <Label fx:id="LblCognome" layoutX="14.0" layoutY="69.0" text="Cognome" />
+            <Label fx:id="LblIndirizzo" layoutX="13.0" layoutY="107.0" text="Indirizzo" />
+            <Label fx:id="LblDataNascita" layoutX="13.0" layoutY="145.0" prefHeight="17.0" prefWidth="84.0" text="Data di nascita" />
+            <Label fx:id="LblTitolo" layoutX="15.0" layoutY="185.0" text="Titolo di studio" />
+            <Label fx:id="LblProfessione" layoutX="16.0" layoutY="224.0" text="Professione" />
+            <Label fx:id="LblPassword" layoutX="15.0" layoutY="304.0" text="Password" />
+            <Label fx:id="LblEmail" layoutX="15.0" layoutY="265.0" prefHeight="17.0" prefWidth="40.0" text="e-mail" />
+            <Button fx:id="BtnInvia" layoutX="506.0" layoutY="300.0" mnemonicParsing="false" text="INVIA" />
+            <PasswordField fx:id="TxtPassword" layoutX="120.0" layoutY="300.0" promptText="Inserisci una Password" />
+            <ComboBox fx:id="ComboBoxRuolo" layoutX="403.0" layoutY="26.0" prefWidth="150.0" promptText="Scegli Ruolo" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
