@@ -1,4 +1,4 @@
-package Presentation;
+package Presentation.RegistrazionePage;
 
 public class RegistrazionePageController {
 	
