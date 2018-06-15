@@ -20,7 +20,8 @@ email varchar (50) unique not null,
 titolo_studio varchar (100) not null,
 professione varchar (100),
 ID_ruolo integer unsigned not null,
-constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade on delete cascade
+constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade on delete cascade,
+constraint utente_unico unique (email, password)
 );
 
 create table categoria (
