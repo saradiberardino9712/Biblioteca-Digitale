@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="400.0">
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="322.0" layoutY="6.0" text="Utente Base" />
+                  <Button fx:id="btnLogOut" layoutX="329.0" layoutY="361.0" mnemonicParsing="false" text="Log out" />
+                  <Label layoutX="120.0" layoutY="75.0" text="Vuoi diventare un trascrittore?" />
+                  <Button fx:id="btnModulo" layoutX="153.0" layoutY="92.0" mnemonicParsing="false" text="Invia il modulo" />
+                  <Button fx:id="btnRicerca" layoutX="150.0" layoutY="208.0" mnemonicParsing="false" text="Ricerca le opere" />
+                  <Label layoutX="77.0" layoutY="183.0" text="Ricerca le opere disponibli e consultale se vuoi" />
+               </children>
+            </Pane>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>
-
