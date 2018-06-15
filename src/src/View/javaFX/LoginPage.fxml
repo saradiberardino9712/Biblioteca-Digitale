@@ -17,7 +17,7 @@
             <Label fx:id="lblPassword" layoutX="14.0" layoutY="79.0" text="Password" />
             <Button fx:id="btnAccedi" layoutX="123.0" layoutY="111.0" mnemonicParsing="false" text="Accedi" />
             <Label layoutX="14.0" layoutY="192.0" text="Non sei ancora registrato? registrati ora!" />
-            <Button fx:id="btnRegistrati" layoutX="13.0" layoutY="209.0" mnemonicParsing="false" text="Registrati" />
+            <Button fx:id="btnRegistrati" layoutX="13.0" layoutY="209.0" mnemonicParsing="false" onAction="#Registrazione" text="Registrati" />
             <PasswordField fx:id="txtPassword" layoutX="74.0" layoutY="75.0" promptText="Password" />
             <Label fx:id="lblStatus" layoutX="13.0" layoutY="269.0" text="Status" />
          </children>
