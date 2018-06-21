@@ -21,7 +21,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class RegistrazionePagecontroller {
+public class RegistrazionePageController {
 
     @FXML
     private ResourceBundle resources;
@@ -62,7 +62,7 @@ public class RegistrazionePagecontroller {
 		// TODO Auto-generated method stub
 		combobox.setItems(list);
 	}
-	
+
     @FXML
     private Button btnRegistrati;
 
@@ -78,8 +78,9 @@ public class RegistrazionePagecontroller {
         assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
         assert combobox != null : "fx:id=\"combobox\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
         assert btnRegistrati != null : "fx:id=\"btnRegistrati\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
-    }
-    
+
+    } 
+  //String nome, String cognome,String indirizzo,String password,Date data_nascita,String email,String titolo_studio,String professione,int ID_ruolo
     public void Registrati(ActionEvent event) throws IOException {
     	boolean conferma=controller_registrazione.inviaRegistrazione(txtNome,txtCognome,txtIndirizzo, txtPassword, txtDataNascita, txtEmail, txtTitoloStudio, txtProfessione, combobox);
     	if (conferma) {
