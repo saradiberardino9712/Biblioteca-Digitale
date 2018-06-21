@@ -71,9 +71,9 @@ public class UtenteDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		Utente utente = null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM Biblioteca_digitale.utente");
+			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.utente");
 			while(resultSet.next()){
 				String nome = resultSet.getString("nome");
 				String cognome = resultSet.getString("cognome");
