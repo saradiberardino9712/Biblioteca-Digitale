@@ -2,7 +2,6 @@ package View.FrontController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +12,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class UtenteBaseController {
-	@FXML
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -23,10 +23,17 @@ public class UtenteBaseController {
     private Button btnLogout;
 
     @FXML
-    void initialize() {
-        assert btnLogout != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'UtenteBase.fxml'.";
-    }
+    private Button btnModulo;
+
+    @FXML
+    private Button btnRicerca;
     
+    @FXML
+    void initialize() {
+        assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+        assert btnModulo != null : "fx:id=\"btnModulo\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+        assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+    }
     public void Logout(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
