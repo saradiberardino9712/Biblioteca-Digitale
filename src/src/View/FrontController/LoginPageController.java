@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -42,9 +43,6 @@ public class LoginPageController {
     private PasswordField txtPassword;
 
     @FXML
-    private Label lblStatus;
-
-    @FXML
     void initialize() {
         assert txtEmail != null : "fx:id=\"txtEmail\" was not injected: check your FXML file 'LoginPage.fxml'.";
         assert lblEmail != null : "fx:id=\"lblEmail\" was not injected: check your FXML file 'LoginPage.fxml'.";
@@ -52,16 +50,23 @@ public class LoginPageController {
         assert btnAccedi != null : "fx:id=\"btnAccedi\" was not injected: check your FXML file 'LoginPage.fxml'.";
         assert btnRegistrati != null : "fx:id=\"btnRegistrati\" was not injected: check your FXML file 'LoginPage.fxml'.";
         assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'LoginPage.fxml'.";
-        assert lblStatus != null : "fx:id=\"lblStatus\" was not injected: check your FXML file 'LoginPage.fxml'.";
-
     }
     
-    public void Registrazione(ActionEvent event) throws Exception {
+    public void Registrazione(ActionEvent event) throws Exception{
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RegistrazionePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+    	Scene scene = new Scene(root);
+    	primaryStage.setScene(scene);
+    	primaryStage.show();
+    }	
+
+   public void Login(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBase.fxml"));
+    	Scene scene = new Scene(root);
+    	primaryStage.setScene(scene);
+    	primaryStage.show();
     }
 }

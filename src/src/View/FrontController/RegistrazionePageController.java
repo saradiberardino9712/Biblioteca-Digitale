@@ -1,9 +1,7 @@
 package View.FrontController;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Business.Controller.controller_registrazione;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,11 +55,6 @@ public class RegistrazionePageController {
 	public ComboBox<String> combobox;
 	
 	ObservableList<String> list = FXCollections.observableArrayList("Utente base", "Utente Privilegiato", "Acquisitore", "Supervisore", "Trascrittore", "Revisore", "Manager");
-	
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		combobox.setItems(list);
-	}
 
     @FXML
     private Button btnRegistrati;
@@ -78,20 +71,14 @@ public class RegistrazionePageController {
         assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
         assert combobox != null : "fx:id=\"combobox\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
         assert btnRegistrati != null : "fx:id=\"btnRegistrati\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
-
+        combobox.setItems(list);
     } 
-  //String nome, String cognome,String indirizzo,String password,Date data_nascita,String email,String titolo_studio,String professione,int ID_ruolo
-    public void Registrati(ActionEvent event) throws IOException {
-    	boolean conferma=controller_registrazione.inviaRegistrazione(txtNome,txtCognome,txtIndirizzo, txtPassword, txtDataNascita, txtEmail, txtTitoloStudio, txtProfessione, combobox);
+    public void Registrati(ActionEvent event) throws Exception{
+    	boolean conferma=controller_registrazione.inviaRegistrazione(txtNome,txtCognome,txtIndirizzo, txtPassword,txtDataNascita, txtEmail, txtTitoloStudio, txtProfessione, combobox);
     	if (conferma) {
     		Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Registrazione");
     		alert.setHeaderText("Registrazione avvenuta con successo. Puoi effettuare il login ora!!");
-    		alert.showAndWait();
-    	}else {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-    		alert.setTitle("Registrazione");
-    		alert.setHeaderText("Errore");
     		alert.showAndWait();
     	}
     	((Node)event.getSource()).getScene().getWindow().hide();

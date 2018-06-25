@@ -20,14 +20,14 @@ public class UtenteBaseController {
     private URL location;
 
     @FXML
-    private Button btnLogOut;
+    private Button btnLogout;
 
     @FXML
     void initialize() {
-        assert btnLogOut != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+        assert btnLogout != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'UtenteBase.fxml'.";
     }
     
-    public void LogOut(ActionEvent event) throws Exception {
+    public void Logout(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
