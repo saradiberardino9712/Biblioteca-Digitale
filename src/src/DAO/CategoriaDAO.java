@@ -7,11 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import Business.Model.Ruolo;
+import Business.Model.Categoria;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class RuoloDAO implements DAOinterface{
+public class CategoriaDAO implements DAOinterface{
 
 	@SuppressWarnings("finally")
 	public boolean insert(ArrayList<Object> args) {
@@ -20,7 +20,7 @@ public class RuoloDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.ruolo(nome_ruolo) VALUES (?)");
+			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.categoria(nome) VALUES (?)");
 			preparedStatement.setString(1,(String)args.get(0));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
@@ -53,28 +53,30 @@ public class RuoloDAO implements DAOinterface{
 						}
 					}
 		}	
+	
+	
 	@SuppressWarnings("finally")
 	public Object retrieve(ArrayList<Object> args) {
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		Ruolo ruolo= null;
+		Categoria categoria = null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.ruolo");
+			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.categoria");
 			while(resultSet.next()){
-				String nome_ruolo = resultSet.getString("nome_ruolo");
-				ruolo= new Ruolo (nome_ruolo);
+				String nome = resultSet.getString("nome");
 				
+					categoria = new Categoria(nome);
 					connect.close();
 					Statement.close();
 					resultSet.close();
-				 
-						
+					return categoria; 
+				
+				
 			}	
 		}
-		
 		catch(SQLException e){
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore");
@@ -94,8 +96,7 @@ public class RuoloDAO implements DAOinterface{
 				if(connect!=null) connect.close();
 				if(Statement!=null) Statement.close();
 				if(resultSet!=null) resultSet.close();
-				return ruolo;
-				
+				return categoria;
 			}
 			catch(final SQLException e){		
 				final Alert alert = new Alert(AlertType.INFORMATION);
@@ -109,6 +110,3 @@ public class RuoloDAO implements DAOinterface{
 		}
 	}
 }
-	
-	
-	
