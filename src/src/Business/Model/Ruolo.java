@@ -7,7 +7,7 @@ public class Ruolo {
 		this.nome_ruolo=nome_ruolo;
 	}
 	
-	public void setNomeruolo(String newnomeruolo) {
+	public void setNomeRuolo(String newnomeruolo) {
 		this.nome_ruolo=newnomeruolo;
 	}
 	

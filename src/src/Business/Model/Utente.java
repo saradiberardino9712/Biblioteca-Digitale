@@ -73,11 +73,11 @@ public class Utente {
 		return data_nascita;
 	}
 	
-	public void setemail (String newemail) {
+	public void setEmail (String newemail) {
 		this.email=newemail;
 	}
 	
-	public String getemail () {
+	public String getEmail () {
 		return email;
 	}
 	public String getTitoloStudio () {
