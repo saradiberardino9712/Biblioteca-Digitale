@@ -67,9 +67,9 @@ public class OperaDAO implements DAOinterface{
 			Statement = connect.createStatement();
 			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.opera");
 			while(resultSet.next()){
-				Int ID_categoria = resultSet.getInt("ID_categoria");
+				int ID_categoria = resultSet.getInt("ID_categoria");
 				String titolo = resultSet.getString("titolo");
-				Int anno =resultSet.getInt("anno");
+				int anno =resultSet.getInt("anno");
 				String autore = resultSet.getString("autore");
 				opera= new Opera (ID_categoria, titolo, anno, autore);
 				
