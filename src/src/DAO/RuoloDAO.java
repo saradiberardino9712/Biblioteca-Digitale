@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Business.Model.Ruolo;
+import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -59,22 +60,37 @@ public class RuoloDAO implements DAOinterface{
 		Statement Statement = null;
 		ResultSet resultSet = null;
 		Ruolo ruolo= null;
+		Utente utente=null;
+		if(args.get(0)!=null)
+			utente= (Utente)args.get(0);
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.ruolo");
+			resultSet = Statement.executeQuery("SELECT * FROM Biblioteca_digitale.ruolo");
 			while(resultSet.next()){
+				int ID= resultSet.getInt("ID");
 				String nome_ruolo = resultSet.getString("nome_ruolo");
-				ruolo= new Ruolo (nome_ruolo);
-				
+				if (utente==null) {
+					if (nome_ruolo.equals((String)args.get(1))) {
+						ruolo= new Ruolo (ID,nome_ruolo);
+						connect.close();
+						Statement.close();
+						resultSet.close();
+						return ruolo;
+					} else
+						ruolo = null;
+				}else {
+				if (utente.getIDruolo()==ID ) {
+					ruolo= new Ruolo (ID,nome_ruolo);
 					connect.close();
 					Statement.close();
 					resultSet.close();
-				 
-						
-			}	
+					return ruolo;
+				} else
+					ruolo = null;
+				}	
+			}
 		}
-		
 		catch(SQLException e){
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore");
@@ -94,8 +110,7 @@ public class RuoloDAO implements DAOinterface{
 				if(connect!=null) connect.close();
 				if(Statement!=null) Statement.close();
 				if(resultSet!=null) resultSet.close();
-				return ruolo;
-				
+				return ruolo;	
 			}
 			catch(final SQLException e){		
 				final Alert alert = new Alert(AlertType.INFORMATION);
@@ -104,8 +119,7 @@ public class RuoloDAO implements DAOinterface{
 				alert.setContentText(e.getMessage());
 				alert.showAndWait();
 				return null;
-			}
-						
+			}			
 		}
 	}
 }
