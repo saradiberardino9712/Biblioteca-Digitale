@@ -118,4 +118,12 @@ public class Utente {
 		boolean inserimentodb= new UtenteDAO().insert(lista);
 		return inserimentodb;
 	}
+	
+	public static Utente cercautentedb(String email,String password) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(email);
+		lista.add(password);
+		Utente utente=(Utente) new UtenteDAO().retrieve(lista);
+		return utente;
+	}
 }	
