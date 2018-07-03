@@ -1,4 +1,4 @@
-drop database Biblioteca_digitale;
+drop database if exists Biblioteca_digitale;
 create database Biblioteca_digitale;
 use Biblioteca_digitale;
 
@@ -68,7 +68,7 @@ create table testo_digitale (
 ID integer unsigned primary key not null auto_increment,
 ID_utente integer unsigned not null,
 ID_immagine integer unsigned not null,
-testo varchar (50000),
+testo text (50000),
 constraint testo_digitale_utente foreign key (ID_utente) references utente (ID),
 constraint testo_digitale_imamgine  foreign key (ID_immagine) references immagine (ID)
 );
