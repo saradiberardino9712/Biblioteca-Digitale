@@ -20,7 +20,7 @@ public class UtenteDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
 			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.utente(nome,cognome,indirizzo,password,data_nascita,email,titolo_studio,professione,ID_ruolo) VALUES (?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1,(String)args.get(0));
 			preparedStatement.setString(2,(String)args.get(1));
@@ -71,7 +71,7 @@ public class UtenteDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		Utente utente = null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","");
 			Statement = connect.createStatement();
 			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.utente");
 			while(resultSet.next()){

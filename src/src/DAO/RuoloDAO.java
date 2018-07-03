@@ -20,7 +20,7 @@ public class RuoloDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
 			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.ruolo(nome_ruolo) VALUES (?)");
 			preparedStatement.setString(1,(String)args.get(0));
 			preparedStatement.executeUpdate();
@@ -64,7 +64,7 @@ public class RuoloDAO implements DAOinterface{
 		if(args.get(0)!=null)
 			utente= (Utente)args.get(0);
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
 			Statement = connect.createStatement();
 			resultSet = Statement.executeQuery("SELECT * FROM Biblioteca_digitale.ruolo");
 			while(resultSet.next()){

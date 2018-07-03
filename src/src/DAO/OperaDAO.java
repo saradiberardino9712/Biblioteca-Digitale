@@ -19,7 +19,7 @@ public class OperaDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
 			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.opera(ID_categoria, titolo, anno, autore) VALUES (?,?,?,?)");
 			preparedStatement.setInt (1, 1);
 			preparedStatement.setString(2,(String)args.get(1));
@@ -63,7 +63,7 @@ public class OperaDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		Opera opera= null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","");
 			Statement = connect.createStatement();
 			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.opera");
 			while(resultSet.next()){
