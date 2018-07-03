@@ -42,4 +42,13 @@ public class UtenteBaseController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+    
+    public void Ricerca(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
 }
