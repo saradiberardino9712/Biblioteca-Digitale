@@ -117,7 +117,7 @@ public class LoginPageController {
 						break;
 		case "Manager":((Node) event.getSource()).getScene().getWindow().hide();
 						Stage primaryStage6 = new Stage();
-						AnchorPane root6 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/"));
+						AnchorPane root6 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage"));
 						Scene scene6 = new Scene(root6);
 						primaryStage6.setScene(scene6);
 						primaryStage6.show();
