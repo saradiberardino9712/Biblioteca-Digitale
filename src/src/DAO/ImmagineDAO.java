@@ -7,11 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import Business.Model.Opera;
+import Business.Model.Immagine;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
-public class OperaDAO implements DAOinterface{
+public class ImmagineDAO implements DAOinterface{
 
 	@SuppressWarnings("finally")
 	public boolean insert(ArrayList<Object> args) {
@@ -20,11 +20,9 @@ public class OperaDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.opera(ID_categoria, titolo, anno, autore) VALUES (?,?,?,?)");
+			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.immagine(numero_pagina, ID_utente) VALUES (?,?)");
 			preparedStatement.setInt(1, (int)args.get(0));
-			preparedStatement.setString(2,(String)args.get(1));
-			preparedStatement.setInt(3, (int)args.get(2));
-			preparedStatement.setString(4,(String)args.get(3));
+			preparedStatement.setInt(2, (int)args.get(1));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
@@ -61,22 +59,20 @@ public class OperaDAO implements DAOinterface{
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		Opera opera= null;
+		Immagine immagine= null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.opera");
+			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.immagine");
 			while(resultSet.next()){
-				int ID_categoria = resultSet.getInt("ID_categoria");
-				String titolo = resultSet.getString("titolo");
-				int anno =resultSet.getInt("anno");
-				String autore = resultSet.getString("autore");
-				opera= new Opera (ID_categoria, titolo, anno, autore);
+				int numero_pagina = resultSet.getInt("numero_pagina");
+				int ID_utente =resultSet.getInt("ID_utente");
+				immagine= new Immagine (numero_pagina, ID_utente);
 				
 					connect.close();
 					Statement.close();
 					resultSet.close();
-					return opera;
+					return immagine;
 				 
 						
 			}	
@@ -101,7 +97,7 @@ public class OperaDAO implements DAOinterface{
 				if(connect!=null) connect.close();
 				if(Statement!=null) Statement.close();
 				if(resultSet!=null) resultSet.close();
-				return opera;
+				return immagine;
 				
 			}
 			catch(final SQLException e){		
