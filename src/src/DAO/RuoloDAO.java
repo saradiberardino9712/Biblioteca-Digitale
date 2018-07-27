@@ -20,8 +20,8 @@ public class RuoloDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.ruolo(nome_ruolo) VALUES (?)");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root","ciao");
+			preparedStatement = connect.prepareStatement("INSERT INTO progettoprova.ruolo(nome_ruolo) VALUES (?)");
 			preparedStatement.setString(1,(String)args.get(0));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
@@ -64,9 +64,9 @@ public class RuoloDAO implements DAOinterface{
 		if(args.get(0)!=null)
 			utente= (Utente)args.get(0);
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM Biblioteca_digitale.ruolo");
+			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.ruolo");
 			while(resultSet.next()){
 				int ID= resultSet.getInt("ID");
 				String nome_ruolo = resultSet.getString("nome_ruolo");
