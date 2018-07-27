@@ -1,4 +1,4 @@
-use biblioteca_digitale;
+use bibliotecadigitale;
 
 insert into ruolo(nome_ruolo) values ('Utente base');
 insert into ruolo(nome_ruolo) values ('Utente privilegiato');

@@ -1,6 +1,6 @@
-drop database if exists Biblioteca_digitale;
-create database Biblioteca_digitale;
-use Biblioteca_digitale;
+drop database if exists bibliotecadigitale;
+create database bibliotecadigitale;
+use bibliotecadigitale;
 
 create table ruolo (
  ID integer unsigned primary key not null auto_increment,
