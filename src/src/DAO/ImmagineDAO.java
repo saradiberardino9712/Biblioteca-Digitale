@@ -19,8 +19,8 @@ public class ImmagineDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.immagine(numero_pagina, ID_utente) VALUES (?,?)");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.immagine(numero_pagina, ID_utente) VALUES (?,?)");
 			preparedStatement.setInt(1, (int)args.get(0));
 			preparedStatement.setInt(2, (int)args.get(1));
 			preparedStatement.executeUpdate();
@@ -61,9 +61,9 @@ public class ImmagineDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		Immagine immagine= null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.immagine");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.immagine");
 			while(resultSet.next()){
 				int numero_pagina = resultSet.getInt("numero_pagina");
 				int ID_utente =resultSet.getInt("ID_utente");

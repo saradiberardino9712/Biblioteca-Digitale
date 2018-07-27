@@ -55,7 +55,7 @@ public class AcquisitorePageController {
     public void Carica(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
-    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmagini.fxml"));
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmagini.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();

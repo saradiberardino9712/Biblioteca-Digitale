@@ -19,8 +19,8 @@ public class TestoDigitaleDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.testo_digitale(ID_utente, ID_immagine, textail) VALUES (?,?,?)");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.testo_digitale(ID_utente, ID_immagine, textail) VALUES (?,?,?)");
 			preparedStatement.setInt(1, (int)args.get(0));
 			preparedStatement.setInt(2, (int)args.get(1));
 			preparedStatement.setString(3,(String)args.get(2));
@@ -64,9 +64,9 @@ public class TestoDigitaleDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		TestoDigitale TestoDigitale = null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.testo_digitale");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.testo_digitale");
 			while(resultSet.next()){
 				int ID_utente=resultSet.getInt("ID_utente");
 				int ID_immagine=resultSet.getInt("ID_immagine");

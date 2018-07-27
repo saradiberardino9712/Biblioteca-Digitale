@@ -131,52 +131,5 @@ public class UtenteDAO implements DAOinterface {
 
 		}
 	}
-/*	
-	@SuppressWarnings("finally")
-	public boolean update(ArrayList<Object> args){
-		Connection connect = null;
-		Statement Statement = null;
-		ResultSet resultSet = null;
-		boolean success=true; 
-		
-		try{
-		connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
-				"root", "ciao");
-		Statement = connect.createStatement();
-		resultSet = Statement.executeQuery("UPDATE progettoprova.utente set attivo=true");
-		resultSet +=String.format("%s' WHERE email='", Utente.getEmail())
-		query = "UPDATE library.trascrizione SET validata=1, revisore='";  
-		query+= String.format("%s' WHERE titolo_opera='", email_utente); 
-		sanitizedQuery = String.format("%s", titolo_opera); 
-		sanitizedQuery = sanitizedQuery.replaceAll("'", "''"); 
-		query+=sanitizedQuery; 
-		query+= String.format("' AND numero_pagina=%d", numero_pagina); 
-		
-		Statement.executeUpdate(query);
-		
-		}
-			catch(SQLException e){
-			success=false;
-			new dialog().errorDialog("Errore Database: " + e.getMessage());
-			}
-			catch(ClassNotFoundException e){
-			success=false;
-			new dialog().errorDialog("Errore Database: " + e.getMessage());
-			}
-			catch(Exception e){
-			success=false;
-			new dialog().errorDialog("Errore generico:" + e.getMessage());
-			}
-				finally{
-					try{
-						if(connect!=null) connect.close();
-						if(Statement!=null) Statement.close();
-						return success;
-						}
-					catch(SQLException e){
-						new dialog().errorDialog("Errore Database: "+ e.getMessage());
-						return false;
-						}
-					    }*/
 }
 

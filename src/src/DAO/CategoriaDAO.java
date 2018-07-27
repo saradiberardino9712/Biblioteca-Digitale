@@ -19,8 +19,8 @@ public class CategoriaDAO implements DAOinterface{
 		PreparedStatement preparedStatement = null;
 		boolean success=true;
 		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/Biblioteca_digitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO Biblioteca_digitale.categoria(nome) VALUES (?)");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.categoria(nome) VALUES (?)");
 			preparedStatement.setString(1,(String)args.get(0));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
@@ -62,9 +62,9 @@ public class CategoriaDAO implements DAOinterface{
 		ResultSet resultSet = null;
 		Categoria categoria = null;
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_digitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM biblioteca_digitale.categoria");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.categoria");
 			while(resultSet.next()){
 				String nome = resultSet.getString("nome");
 				
