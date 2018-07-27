@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -54,7 +55,7 @@ public class AcquisitorePageController {
     public void Carica(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmagini.fxml"));
+    	AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmagini.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
