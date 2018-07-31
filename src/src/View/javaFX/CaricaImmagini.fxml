@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -17,8 +19,10 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnSeleziona1" layoutX="75.0" layoutY="53.0" mnemonicParsing="false" text="seleziona un'immagine" />
-            <Button fx:id="btnSeleziona2" layoutX="75.0" layoutY="116.0" mnemonicParsing="false" text="seleziona più immagini" />
+            <Button fx:id="btnSeleziona1" layoutX="75.0" layoutY="53.0" mnemonicParsing="false" onAction="#Seleziona1" text="seleziona un'immagine" />
+            <Button fx:id="btnSeleziona2" layoutX="75.0" layoutY="116.0" mnemonicParsing="false" onAction="#Seleziona2" text="seleziona più immagini" />
+            <ListView fx:id="listCarica" layoutX="260.0" layoutY="14.0" prefHeight="319.0" prefWidth="307.0" />
+            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="322.0" onAction="#indietro" text="Indietro" />
          </children></Pane>
    </center>
 </BorderPane>
