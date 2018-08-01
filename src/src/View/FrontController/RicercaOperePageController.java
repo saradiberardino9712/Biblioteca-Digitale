@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -28,7 +28,7 @@ public class RicercaOperePageController {
     private TextField txtCerca;
 
     @FXML
-    private TextArea txtRisultatoRicerca;
+    private ListView<?> listRisultato;
 
     @FXML
     private Hyperlink linkIndietro;
@@ -37,6 +37,7 @@ public class RicercaOperePageController {
     void initialize() {
         assert txtCerca != null : "fx:id=\"txtCerca\" was not injected: check your FXML file 'RicercaOpere.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'RicercaOpere.fxml'.";
+        assert listRisultato != null : "fx:id=\"listRisultato\" was not injected: check your FXML file 'RicercaOperePage.fxml'.";
 
     }
     

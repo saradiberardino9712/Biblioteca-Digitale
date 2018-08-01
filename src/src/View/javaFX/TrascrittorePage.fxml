@@ -17,7 +17,7 @@
                   <Button fx:id="btnRicerca" layoutX="14.0" layoutY="78.0" mnemonicParsing="false" onAction="#Ricerca" text="Ricerca" />
                   <Button fx:id="btnLogOut" layoutX="327.0" layoutY="211.0" mnemonicParsing="false" onAction="#Logout" text="Log Out" />
                   <Label layoutX="14.0" layoutY="138.0" text="Trascrivi un'opera" />
-                  <Button fx:id="btnTrascrivi" layoutX="14.0" layoutY="155.0" mnemonicParsing="false" text="Trascrivi" />
+                  <Button fx:id="btnTrascrivi" layoutX="14.0" layoutY="155.0" mnemonicParsing="false" onAction="#Trascrivi" text="Trascrivi" />
                </children></Pane>
          </center>
       </BorderPane>
