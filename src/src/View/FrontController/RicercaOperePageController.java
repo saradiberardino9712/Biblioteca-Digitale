@@ -13,6 +13,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class RicercaOperePageController {
@@ -84,12 +85,12 @@ public class RicercaOperePageController {
     						primaryStage5.show();
     						break;
     		case "Manager":((Node) event.getSource()).getScene().getWindow().hide();
-    						Stage primaryStage6 = new Stage();
-    						AnchorPane root6 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage"));
-    						Scene scene6 = new Scene(root6);
-    						primaryStage6.setScene(scene6);
-    						primaryStage6.show();
-    						break;
+							Stage primaryStage6 = new Stage();
+							BorderPane root6 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+							Scene scene6 = new Scene(root6);
+							primaryStage6.setScene(scene6);
+							primaryStage6.show();
+							break;
     		}
     	}
 }
