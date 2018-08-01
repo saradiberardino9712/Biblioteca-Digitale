@@ -35,7 +35,6 @@ public class RicercaOperePageController {
     @FXML
     void initialize() {
         assert txtCerca != null : "fx:id=\"txtCerca\" was not injected: check your FXML file 'RicercaOpere.fxml'.";
-        assert txtRisultatoRicerca != null : "fx:id=\"txtRisultatoRicerca\" was not injected: check your FXML file 'RicercaOpere.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'RicercaOpere.fxml'.";
 
     }
