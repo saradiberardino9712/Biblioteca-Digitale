@@ -1,7 +1,7 @@
 use bibliotecadigitale;
 
-insert into ruolo(nome_ruolo) values ('Utente base');
-insert into ruolo(nome_ruolo) values ('Utente privilegiato');
+insert into ruolo(nome_ruolo) values ('Utente Base');
+insert into ruolo(nome_ruolo) values ('Utente Privilegiato');
 insert into ruolo(nome_ruolo) values ('Acquisitore');
 insert into ruolo(nome_ruolo) values ('Supervisore');
 insert into ruolo(nome_ruolo) values ('Trascrittore');

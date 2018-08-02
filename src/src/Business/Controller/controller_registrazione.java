@@ -1,24 +1,26 @@
 package Business.Controller;
 
-import java.text.SimpleDateFormat;
-
+import java.sql.Date;
+import java.time.LocalDate;
 import Business.Model.Ruolo;
 import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class controller_registrazione {
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({ "rawtypes"})
 	public static boolean inviaRegistrazione(TextField txtNome, TextField txtCognome, TextField txtIndirizzo,
-			TextField txtPassword, TextField txtData, TextField txtEmail, TextField txtTitoloStudio,
+			TextField txtPassword, DatePicker datapicker, TextField txtEmail, TextField txtTitoloStudio,
 			TextField txtProfessione, ComboBox combobox) throws Exception {
 		String nome = txtNome.getText();
 		String cognome = txtCognome.getText();
 		String indirizzo = txtIndirizzo.getText();
 		String password = txtPassword.getText();
-		String data = txtData.getText();
+		LocalDate data= datapicker.getValue();
+		Date data_nascita=Date.valueOf(data);
 		String email = txtEmail.getText();
 		String titolo_studio = txtTitoloStudio.getText();
 		String professione = txtProfessione.getText();
@@ -26,11 +28,9 @@ public class controller_registrazione {
 		//associa l'id che il ruolo ha nel db con il ruolo scelto dall'utente nella combobox
 		int ID_ruolo = associaid(ruolo);
 		// controllo campi che nel database sono not null
-		if (!(controllonotnull(nome, cognome, password, data, email, titolo_studio, ID_ruolo)))
+		if (!(controllonotnull(nome, cognome, password, email, titolo_studio, ID_ruolo)))
 			return false;
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date parsed = format.parse(data);
-		java.sql.Date data_nascita = new java.sql.Date(parsed.getTime());
+		
 		boolean inserimento;
 		//inserimento dell'utente nel db tramite il model
 		inserimento = Utente.inserisciutentedb(nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
@@ -38,10 +38,8 @@ public class controller_registrazione {
 		return inserimento;
 	}
 
-	private static boolean controllonotnull(String nome, String cognome, String password, String data_nascita,
-			String email, String titolo_studio, int ID_ruolo) {
-		if (nome.length() == 0 || cognome.length() == 0 || password.length() == 0 || data_nascita.length() == 0
-				|| email.length() == 0 || titolo_studio.length() == 0 || ID_ruolo == 0) {
+	private static boolean controllonotnull(String nome, String cognome, String password,String email, String titolo_studio, int ID_ruolo) {
+		if (nome.length() == 0 || cognome.length() == 0 || password.length() == 0 || email.length() == 0 || titolo_studio.length() == 0 || ID_ruolo == 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore Registrazione");
 			alert.setHeaderText("Compilare tutti i campi obbligatori(*)");
