@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.RevisionaTrascrizioniPageController">
+   <top>
+      <Label text="Revisiona Trascrizioni" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Seleziona la trascrizione" />
+            <ListView layoutX="14.0" layoutY="31.0" prefHeight="265.0" prefWidth="231.0" />
+            <TextArea layoutX="300.0" layoutY="31.0" prefHeight="370.0" prefWidth="325.0" />
+            <Label layoutX="300.0" layoutY="14.0" text="Correggi e conferma la Trascrizione" />
+            <Button fx:id="btnConferma" layoutX="437.0" layoutY="415.0" mnemonicParsing="false" text="Conferma" />
+            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="416.0" onAction="#Indietro" text="Indietro" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
