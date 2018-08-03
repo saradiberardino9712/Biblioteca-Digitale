@@ -28,7 +28,7 @@ public class controller_registrazione {
 		//associa l'id che il ruolo ha nel db con il ruolo scelto dall'utente nella combobox
 		int ID_ruolo = associaid(ruolo);
 		// controllo campi che nel database sono not null
-		if (!(controllonotnull(nome, cognome, password, email, titolo_studio, ID_ruolo)))
+		if (!(controllonotnull(nome, cognome, password,data, email, titolo_studio, ID_ruolo)))
 			return false;
 		
 		boolean inserimento;
@@ -38,8 +38,8 @@ public class controller_registrazione {
 		return inserimento;
 	}
 
-	private static boolean controllonotnull(String nome, String cognome, String password,String email, String titolo_studio, int ID_ruolo) {
-		if (nome.length() == 0 || cognome.length() == 0 || password.length() == 0 || email.length() == 0 || titolo_studio.length() == 0 || ID_ruolo == 0) {
+	private static boolean controllonotnull(String nome, String cognome, String password,LocalDate data,String email, String titolo_studio, int ID_ruolo) {
+		if (nome.length() == 0 || cognome.length() == 0 || password.length() == 0 ||data.equals(LocalDate.now())|| email.length() == 0 || titolo_studio.length() == 0 || ID_ruolo == 0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore Registrazione");
 			alert.setHeaderText("Compilare tutti i campi obbligatori(*)");
