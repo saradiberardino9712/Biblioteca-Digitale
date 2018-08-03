@@ -21,10 +21,10 @@ public class UtenteDAO implements DAOinterface {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO progettoprova.utente(nome,cognome,indirizzo,password,data_nascita,email,titolo_studio,professione,ID_ruolo) VALUES (?,?,?,?,?,?,?,?,?)");
+					"INSERT INTO bibliotecadigitale.utente(nome,cognome,indirizzo,password,data_nascita,email,titolo_studio,professione,ID_ruolo) VALUES (?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, (String) args.get(0));
 			preparedStatement.setString(2, (String) args.get(1));
 			preparedStatement.setString(3, (String) args.get(2));
@@ -75,10 +75,10 @@ public class UtenteDAO implements DAOinterface {
 		Utente utente = null;
 		String passwordu=(String) args.get(1);
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.utente");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.utente");
 			while (resultSet.next()) {
 				String nome = resultSet.getString("nome");
 				String cognome = resultSet.getString("cognome");
@@ -141,12 +141,12 @@ public class UtenteDAO implements DAOinterface {
 		Utente utente=(Utente)args.get(0);
 		boolean valore=(boolean) args.get(1);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
 			Statement = connect.createStatement(); 
 			if(valore)
-				Statement.executeUpdate("UPDATE progettoprova.utente SET attivo=true WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
+				Statement.executeUpdate("UPDATE bibliotecadigitale.utente SET attivo=true WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
 			else
-				Statement.executeUpdate("UPDATE progettoprova.utente SET attivo=false WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
+				Statement.executeUpdate("UPDATE bibliotecadigitale.utente SET attivo=false WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
 		}catch(SQLException e){
 			success=false;
 			Alert alert = new Alert(AlertType.INFORMATION);
