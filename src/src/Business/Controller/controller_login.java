@@ -9,7 +9,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class controller_login {
 	public static String ruolo;
-	
+	public static String email;
 	public static boolean verificacredenziali(TextField txtEmail, PasswordField txtPassword) {
 		String email=txtEmail.getText();
 		String password= txtPassword.getText();
@@ -30,11 +30,21 @@ public class controller_login {
 			alert.showAndWait();
 			return false; 
 		}
-		else
+		else {
 			//attraverso l'id cerca il ruolo dell'utente che sta accedendo
 			cercaruolo=Ruolo.cercaruolodb(utente);
 			if(!(cercaruolo==null))
-			ruolo=cercaruolo.getNomeRuolo();
+				ruolo=cercaruolo.getNomeRuolo();
+			if(!(attiva(utente)))
+				return false;
+		}
 		return true;	
+	}
+	
+	public static boolean attiva(Utente utente) {
+		email=utente.getEmail();
+		if(Utente.aggiornautentedb(utente,true))
+			return true;
+		return false;
 	}
 }

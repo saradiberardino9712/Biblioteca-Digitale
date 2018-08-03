@@ -131,4 +131,12 @@ public class Utente {
 		Utente utente=(Utente) new UtenteDAO().retrieve(lista);
 		return utente;
 	}
+	
+	public static boolean aggiornautentedb(Utente utente,boolean valore) {
+		ArrayList<Object> lista =new ArrayList<>();
+		lista.add(utente);
+		lista.add(valore);
+		boolean aggiornadb=new UtenteDAO().update(lista);
+		return aggiornadb;
+	}
 }
