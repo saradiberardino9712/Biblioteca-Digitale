@@ -3,6 +3,7 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Business.Controller.controller_login;
+import Business.Controller.controller_logout;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -64,12 +65,15 @@ public class ManagerPageController {
     }
     
     public void Logout(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+    	boolean disattiva=controller_logout.disattivautente(txtemailua);
+    	if(disattiva) {
+    		((Node)event.getSource()).getScene().getWindow().hide();
+    		Stage primaryStage = new Stage();
+    		BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    	}
     }
     
     public void Trascrivi(ActionEvent event) throws Exception {
