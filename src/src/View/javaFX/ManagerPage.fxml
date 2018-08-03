@@ -21,7 +21,7 @@
             <Label layoutX="300.0" layoutY="42.0" text="Assegna pagine da trrascrivere" />
             <Button fx:id="btnAssegnaPagine" layoutX="300.0" layoutY="59.0" mnemonicParsing="false" onAction="#AssegnaPagine" text="Assegna pagine" />
             <Label layoutX="300.0" layoutY="109.0" text="Consenti pubblicazione di trascrizioni e opere" />
-            <Button layoutX="300.0" layoutY="126.0" mnemonicParsing="false" text="Consenti pubblicazione" />
+            <Button fx:id="btnConsentiPubblicazione" layoutX="300.0" layoutY="126.0" mnemonicParsing="false" onAction="#ConsentiPubblicazione" text="Consenti pubblicazione" />
             <Label layoutX="300.0" layoutY="176.0" text="Gestisci livello dei trascrittori" />
             <Button layoutX="300.0" layoutY="193.0" mnemonicParsing="false" text="Gestisci livello" />
             <Label layoutX="300.0" layoutY="243.0" text="Supervisiona immagini acquisite" />

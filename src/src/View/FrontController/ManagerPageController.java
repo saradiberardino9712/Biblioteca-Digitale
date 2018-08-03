@@ -36,6 +36,9 @@ public class ManagerPageController {
     
     @FXML
     private Button btnAssegnaPagine;
+    
+    @FXML
+    private Button btnConsentiPubblicazione;
 
     @FXML
     void initialize() {
@@ -45,6 +48,7 @@ public class ManagerPageController {
         assert btnAssegna != null : "fx:id=\"btnAssegna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnRevisiona != null : "fx:id=\"btnRevisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnAssegnaPagine != null : "fx:id=\"btnAssegnaPagine\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
 
     }
     
@@ -97,6 +101,15 @@ public class ManagerPageController {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaPagine.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
+    
+    public void ConsentiPubblicazione(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazionePage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
