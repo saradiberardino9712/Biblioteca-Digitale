@@ -19,7 +19,7 @@
             <Label layoutX="14.0" layoutY="243.0" text="Trascrivi le opere" />
             <Button fx:id="btnTrascrivi" layoutX="14.0" layoutY="260.0" mnemonicParsing="false" onAction="#Trascrivi" text="Trascrivi" />
             <Label layoutX="300.0" layoutY="42.0" text="Assegna pagine da trrascrivere" />
-            <Button layoutX="300.0" layoutY="59.0" mnemonicParsing="false" text="Assegna pagine" />
+            <Button fx:id="btnAssegnaPagine" layoutX="300.0" layoutY="59.0" mnemonicParsing="false" onAction="#AssegnaPagine" text="Assegna pagine" />
             <Label layoutX="300.0" layoutY="109.0" text="Consenti pubblicazione di trascrizioni e opere" />
             <Button layoutX="300.0" layoutY="126.0" mnemonicParsing="false" text="Consenti pubblicazione" />
             <Label layoutX="300.0" layoutY="176.0" text="Gestisci livello dei trascrittori" />
