@@ -46,6 +46,9 @@ public class ManagerPageController {
     
     @FXML
     private Hyperlink linkDati;
+    
+    @FXML
+    private Button btnRichiesta;
 
     @FXML
     void initialize() {
@@ -57,6 +60,7 @@ public class ManagerPageController {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'ManagerPage.fxml'.";
 
         txtemailua.setText(controller_login.email);
     }
@@ -126,5 +130,7 @@ public void VediDati(ActionEvent event) throws Exception {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+
 }
 

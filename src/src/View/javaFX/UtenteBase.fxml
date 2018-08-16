@@ -16,7 +16,7 @@
                   <Label layoutX="322.0" layoutY="14.0" text="Utente Base" />
                   <Button fx:id="btnLogout" layoutX="332.0" layoutY="211.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
                   <Label layoutX="14.0" layoutY="43.0" text="Vuoi diventare un trascrittore?" />
-                  <Button fx:id="btnRichiesta" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" text="Invia la richiesta" />
+                  <Button fx:id="btnRichiesta" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" onAction="#InviaRichiesta" text="Invia la richiesta" />
                   <Button fx:id="btnRicerca" layoutX="14.0" layoutY="117.0" mnemonicParsing="false" onAction="#Ricerca" text="Ricerca le opere" />
                   <Label layoutX="14.0" layoutY="100.0" text="Ricerca le opere disponibli e consultale se vuoi" />
                   <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="160.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi metadati." />

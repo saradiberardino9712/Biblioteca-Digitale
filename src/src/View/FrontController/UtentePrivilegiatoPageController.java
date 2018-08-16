@@ -29,6 +29,9 @@ public class UtentePrivilegiatoPageController {
     private Button btnRicerca;
     
     @FXML
+    private Button btnRichiesta;
+    
+    @FXML
     private Label txtemailua;
 
     @FXML
@@ -36,6 +39,7 @@ public class UtentePrivilegiatoPageController {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         txtemailua.setText(controller_login.email);
 
     }
@@ -57,4 +61,13 @@ public class UtentePrivilegiatoPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+    
+    public void InviaRichiesta(ActionEvent event) throws Exception {
+		((Node) event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ModuloRichiestaPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
 }

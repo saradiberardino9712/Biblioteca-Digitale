@@ -37,6 +37,9 @@ public class UtenteBaseController {
 	private Hyperlink linkDati;
 	
 	@FXML
+	private Button btnRichiesta;
+	
+	@FXML
     private Label txtemailua;
 
 
@@ -47,6 +50,7 @@ public class UtenteBaseController {
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		txtemailua.setText(controller_login.email);
 	}
 
@@ -62,10 +66,18 @@ public class UtenteBaseController {
 	}
 	
 	public void VediDati(ActionEvent event) throws Exception {
-		
 		((Node) event.getSource()).getScene().getWindow().hide();
 		Stage primaryStage = new Stage();
 		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	public void InviaRichiesta(ActionEvent event) throws Exception {
+		((Node) event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ModuloRichiestaPage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
