@@ -3,6 +3,7 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Business.Controller.controller_login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 public class UtentePrivilegiatoPageController {
 
@@ -25,11 +27,16 @@ public class UtentePrivilegiatoPageController {
 
     @FXML
     private Button btnRicerca;
+    
+    @FXML
+    private Label txtemailua;
 
     @FXML
     void initialize() {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        txtemailua.setText(controller_login.email);
 
     }
     

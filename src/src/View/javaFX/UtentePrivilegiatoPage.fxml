@@ -16,6 +16,7 @@
                   <Button fx:id="btnLogout" layoutX="333.0" layoutY="161.0" mnemonicParsing="false" onAction="#Logout" text="Log out" />
                   <Label layoutX="14.0" layoutY="44.0" text="Consulta le opere disponibili, consultale e fai il Dowload se vuoi" />
                   <Button fx:id="btnRicerca" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#Ricerca" text="Ricerca" />
+                  <Label fx:id="txtemailua" layoutX="14.0" layoutY="14.0" text="Label" />
                </children>
             </Pane>
          </center>

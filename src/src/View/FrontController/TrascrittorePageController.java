@@ -3,6 +3,7 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Business.Controller.controller_login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 public class TrascrittorePageController {
 
@@ -29,12 +31,17 @@ public class TrascrittorePageController {
 
 	    @FXML
 	    private Button btnTrascrivi;
+	    
+	    @FXML
+	    private Label txtemailua;
 
 	    @FXML
 	    void initialize() {
 	        assert btnConsulta != null : "fx:id=\"btnConsulta\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
 	        assert btnLogOut != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
 	        assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
+	        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
+	        txtemailua.setText(controller_login.email);
 
 	    }
 	    
