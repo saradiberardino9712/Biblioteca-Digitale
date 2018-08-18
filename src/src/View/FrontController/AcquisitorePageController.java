@@ -30,12 +30,16 @@ public class AcquisitorePageController {
     
     @FXML
     private Label txtemailua;
+    
+    @FXML
+    private Button btnInserisciMetadati;
 
     @FXML
     void initialize() {
         assert btnCarica != null : "fx:id=\"btnCarica\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
+        assert btnInserisciMetadati != null : "fx:id=\"btnInserisciMetadati\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         txtemailua.setText(controller_login.email);
 
     }
@@ -66,4 +70,14 @@ public class AcquisitorePageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+    
+    public void InserisciMetadati(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/InserisciMetadatiPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
+    
 }

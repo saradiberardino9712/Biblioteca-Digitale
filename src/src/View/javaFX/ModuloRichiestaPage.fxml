@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.ModuloRichiestaPageController">
    <top>
       <Label text="Modulo di Richiesta" BorderPane.alignment="CENTER">
@@ -20,15 +19,17 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="14.0" layoutY="58.0" text="Io sottoscritto" />
-            <Label fx:id="txtnomeua" layoutX="102.0" layoutY="58.0" text="Label" />
-            <Label fx:id="txtcognomeua" layoutX="217.0" layoutY="58.0" text="Label" />
-            <Label layoutX="360.0" layoutY="58.0" text="chiedo di assumre il ruolo di trascrittore, in" />
-            <Label layoutX="14.0" layoutY="75.0" text="quanto sono in possesso dei titoli richiesti:" />
-            <Label layoutX="14.0" layoutY="122.0" text="Titolo di studio:" />
-            <TextField fx:id="txtTitoloStudio" layoutX="102.0" layoutY="118.0" prefHeight="25.0" prefWidth="338.0" promptText="Titolo di studio" />
+            <Label layoutX="14.0" layoutY="14.0" text="Io sottoscritto" />
+            <Label fx:id="txtnomeua" layoutX="102.0" layoutY="14.0" text="Label" />
+            <Label fx:id="txtcognomeua" layoutX="217.0" layoutY="14.0" text="Label" />
+            <Label layoutX="359.0" layoutY="14.0" text="chiedo di assumre il ruolo di trascrittore, in" />
+            <Label layoutX="14.0" layoutY="31.0" text="quanto sono in possesso dei titoli richiesti:" />
+            <Label layoutX="9.0" layoutY="82.0" text="Titolo di studio:" />
+            <TextField fx:id="txtTitoloStudio" layoutX="102.0" layoutY="78.0" prefHeight="25.0" prefWidth="338.0" promptText="Titolo di studio" />
             <Button fx:id="btnInviaRichiesta" layoutX="495.0" layoutY="176.0" mnemonicParsing="false" text="Invia Richiesta" />
-            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="177.0" onAction="#Indietro" text="Indietro" />
+            <Hyperlink fx:id="linkIndietro" layoutX="9.0" layoutY="177.0" onAction="#Indietro" text="Indietro" />
+            <Label layoutX="9.0" layoutY="132.0" text="N.B. una volta inviata la domanda di Trascrittore e successiva approvazione, si perderà il ruolo" textFill="#fc0000" />
+            <Label layoutX="9.0" layoutY="149.0" text="precedentemente assunto." textFill="RED" />
          </children>
       </Pane>
    </center>

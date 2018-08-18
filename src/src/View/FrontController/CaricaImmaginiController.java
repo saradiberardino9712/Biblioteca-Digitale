@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -31,19 +32,33 @@ public class CaricaImmaginiController {
 
     @FXML
     private Button btnSeleziona1;
-
-    @FXML
-    private Button btnSeleziona2;
     
     @FXML
     private Hyperlink linkIndietro;
+    
+    @FXML
+    private TextField txtTitoloOpera;
+
+    @FXML
+    private TextField txtNumeroPagina;
+    
+    @FXML
+    private Button btnCaricaImmagine;
+    
+    @FXML
+    void CaricaImmagine(ActionEvent event) {
+
+    }
+
 
     @FXML
     void initialize() {
         assert listCarica != null : "fx:id=\"txtCarica\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert btnSeleziona1 != null : "fx:id=\"btnSeleziona1\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
-        assert btnSeleziona2 != null : "fx:id=\"btnSeleziona2\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert txtTitoloOpera != null : "fx:id=\"txtTitoloOpera\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert txtNumeroPagina != null : "fx:id=\"txtNumeroPagina\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert btnCaricaImmagine != null : "fx:id=\"btnCaricaImmagine\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
 
     }
     
@@ -54,21 +69,6 @@ public class CaricaImmaginiController {
     	
     	if(selectedFile != null) {
     		listCarica.getItems().add(selectedFile.getAbsolutePath());
-    	}
-    	else {
-    		System.out.println("file is not valid");
-    	}
-    }
-    
-    public void Seleziona2(ActionEvent event) {
-    	FileChooser fc = new FileChooser();
-    	fc.getExtensionFilters().addAll(new ExtensionFilter("FILE JPG", "*.jpg"));
-    	List<File> selectedFiles = fc.showOpenMultipleDialog(null);
-    	
-    	if(selectedFiles != null) {
-    		for(int i = 0; i < selectedFiles.size(); i++) {
-    		listCarica.getItems().add(selectedFiles.get(i).getAbsolutePath());
-    		}
     	}
     	else {
     		System.out.println("file is not valid");
