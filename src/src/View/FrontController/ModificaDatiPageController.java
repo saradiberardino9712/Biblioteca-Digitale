@@ -1,17 +1,19 @@
 package View.FrontController;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
+import Business.Controller.controller_dati;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -51,11 +53,6 @@ public class ModificaDatiPageController {
     private DatePicker datapicker;
 
     @FXML
-    void ConfermaModifica(ActionEvent event) {
-
-    }
-
-    @FXML
     void initialize() {
         assert txtNome != null : "fx:id=\"txtNome\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert txtCognome != null : "fx:id=\"txtCognome\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
@@ -66,7 +63,7 @@ public class ModificaDatiPageController {
         assert btnModificaDati != null : "fx:id=\"btnModificaDati\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert datapicker != null : "fx:id=\"datapicker\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
-        datapicker.setValue(LocalDate.now());
+        datapicker.setPromptText(controller_dati.datanascita);
 
     }
     
@@ -78,4 +75,28 @@ public class ModificaDatiPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+    
+    public void ConfermaModifica(ActionEvent event) throws Exception{
+    	boolean modifica=controller_dati.modifica(txtNome,txtCognome,txtIndirizzo,txtTitoloStudio,txtProfessione,txtPassword,datapicker);
+    	if(modifica) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Modifica dati");
+			alert.setHeaderText("Modifiche andate a buon fine!!");
+			alert.showAndWait();
+			((Node)event.getSource()).getScene().getWindow().hide();
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+    	}
+    	else {
+    		((Node)event.getSource()).getScene().getWindow().hide();
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+    	}
+    }	
 }

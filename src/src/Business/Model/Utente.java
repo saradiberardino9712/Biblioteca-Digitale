@@ -136,7 +136,21 @@ public class Utente {
 		ArrayList<Object> lista =new ArrayList<>();
 		lista.add(utente);
 		lista.add(valore);
-		boolean aggiornadb=new UtenteDAO().update(lista);
+		boolean aggiornadb=new UtenteDAO().updatelogin(lista);
 		return aggiornadb;
+	}
+	
+	public static boolean modificadatidb(Utente utente) {
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(utente.getEmail());
+		lista.add(utente.getNome());
+		lista.add(utente.getCognome());
+		lista.add(utente.getIndirizzo());
+		lista.add(utente.getPassword());
+		lista.add(utente.getDataNascita());
+		lista.add(utente.getTitoloStudio());
+		lista.add(utente.getProfessione());
+		boolean modificadb=new UtenteDAO().updatedati(lista);
+		return modificadb;
 	}
 }

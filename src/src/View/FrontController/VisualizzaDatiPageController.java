@@ -3,7 +3,7 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Business.Controller.controller_login;
+import Business.Controller.controller_dati;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,11 +70,19 @@ public class VisualizzaDatiPageController {
         assert txtRuolo != null : "fx:id=\"txtRuolo\" was not injected: check your FXML file 'VisualizzaDatiPage.fxml'.";
         assert btnModificaDati != null : "fx:id=\"btnModificaDati\" was not injected: check your FXML file 'VisualizzaDatiPage.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'VisualizzaDatiPage.fxml'.";
-
+        txtNome.setText(controller_dati.nome);
+        txtCognome.setText(controller_dati.cognome);
+        txtDataNascita.setText(controller_dati.datanascita);
+        txtIndirizzo.setText(controller_dati.indirizzo);
+        txtTitoloStudio.setText(controller_dati.titolostudio);
+        txtProfessione.setText(controller_dati.professione);
+        txtEmail.setText(controller_dati.email);
+        txtPassword.setText(controller_dati.password);
+        txtRuolo.setText(controller_dati.ruolo);
     }
     
     public void Indietro(ActionEvent event) throws Exception {
-		switch(controller_login.ruolo) {
+		switch(controller_dati.ruolo) {
 		case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 							Stage primaryStage = new Stage();
 							AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBase.fxml"));

@@ -133,10 +133,9 @@ public class UtenteDAO implements DAOinterface {
 	}
 
 	@SuppressWarnings("finally")
-	public boolean update(ArrayList<Object> args){
+	public boolean updatelogin(ArrayList<Object> args){
 		Connection connect = null;
 		Statement Statement = null;
-		//String query; 
 		boolean success=true; 
 		Utente utente=(Utente)args.get(0);
 		boolean valore=(boolean) args.get(1);
@@ -167,6 +166,57 @@ public class UtenteDAO implements DAOinterface {
 					try{
 						if(connect!=null) connect.close();
 						if(Statement!=null) Statement.close();
+						return success;
+						}
+					catch(final SQLException e){
+						final Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Errore");
+						alert.setHeaderText("Errore Database");
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+						return false;
+						}
+				}
+	}
+	
+	@SuppressWarnings("finally")
+	public boolean updatedati(ArrayList<Object> args){
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		boolean success=true; 
+		String emaildata=(String) args.get(0);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET nome=?,cognome=?,indirizzo=?,titolo_studio=?,professione=?,password=?,"
+					+ "data_nascita=? WHERE email='"+emaildata+"'");
+			preparedStatement.setString(1, (String) args.get(1));
+			preparedStatement.setString(2, (String) args.get(2));
+			preparedStatement.setString(3, (String) args.get(3));
+			preparedStatement.setString(4, (String) args.get(6));
+			preparedStatement.setString(5, (String) args.get(7));
+			preparedStatement.setString(6, (String) args.get(4));
+			preparedStatement.setDate(7, (java.sql.Date) args.get(5));
+			preparedStatement.executeUpdate();
+		}catch(SQLException e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+			catch(Exception e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+				finally{
+					try{
+						if(connect!=null) connect.close();
+						if(preparedStatement!=null) preparedStatement.close();
 						return success;
 						}
 					catch(final SQLException e){
