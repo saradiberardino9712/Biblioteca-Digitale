@@ -3,6 +3,7 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import Business.Controller.controller_dati;
 import Business.Controller.controller_login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 
 public class TrascrittorePageController {
 
@@ -34,6 +36,9 @@ public class TrascrittorePageController {
 	    
 	    @FXML
 	    private Label txtemailua;
+	    
+	    @FXML
+	    private Hyperlink linkDati;
 
 	    @FXML
 	    void initialize() {
@@ -41,6 +46,7 @@ public class TrascrittorePageController {
 	        assert btnLogOut != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
 	        assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
 	        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
+	        assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
 	        txtemailua.setText(controller_login.email);
 
 	    }
@@ -71,5 +77,17 @@ public class TrascrittorePageController {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 	    }
+	    
+	    public void VediDati(ActionEvent event) throws Exception {
+			boolean visualizza=controller_dati.visualizza(txtemailua);
+			if(visualizza) {
+				((Node) event.getSource()).getScene().getWindow().hide();
+				Stage primaryStage = new Stage();
+				BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+				Scene scene = new Scene(root);
+				primaryStage.setScene(scene);
+				primaryStage.show();
+			}
+		}
 	
 }

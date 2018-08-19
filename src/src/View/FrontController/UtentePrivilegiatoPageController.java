@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 
 public class UtentePrivilegiatoPageController {
 
@@ -33,6 +34,9 @@ public class UtentePrivilegiatoPageController {
     
     @FXML
     private Label txtemailua;
+    
+    @FXML
+    private Hyperlink linkDati;
 
     @FXML
     void initialize() {
@@ -40,6 +44,7 @@ public class UtentePrivilegiatoPageController {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         txtemailua.setText(controller_login.email);
 
     }

@@ -2,6 +2,8 @@ package View.FrontController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import Business.Controller.controller_dati;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
 import javafx.event.ActionEvent;
@@ -122,15 +124,17 @@ public class ManagerPageController {
 		primaryStage.show();
     }
     
-public void VediDati(ActionEvent event) throws Exception {
-		((Node) event.getSource()).getScene().getWindow().hide();
-		Stage primaryStage = new Stage();
-		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+    public void VediDati(ActionEvent event) throws Exception {
+		boolean visualizza=controller_dati.visualizza(txtemailua);
+		if(visualizza) {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}
 	}
-
 
 }
 
