@@ -64,9 +64,8 @@ public class ModificaDatiPageController {
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert datapicker != null : "fx:id=\"datapicker\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         datapicker.setPromptText(controller_dati.datanascita);
-
     }
-    
+
     public void Indietro(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
@@ -98,5 +97,6 @@ public class ModificaDatiPageController {
 			primaryStage.setScene(scene);
 			primaryStage.show();
     	}
-    }	
+    }
+
 }

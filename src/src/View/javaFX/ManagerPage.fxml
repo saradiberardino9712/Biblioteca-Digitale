@@ -29,7 +29,7 @@
             <Button layoutX="300.0" layoutY="260.0" mnemonicParsing="false" text="Supervisiona immagini" />
             <Button fx:id="btnLogout" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#Logout" text="Log Out" />
             <Label fx:id="txtemailua" layoutX="14.0" layoutY="6.0" text="Label" />
-            <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="306.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi metadati." />
+            <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="306.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
          </children>
       </Pane>
    </center>
