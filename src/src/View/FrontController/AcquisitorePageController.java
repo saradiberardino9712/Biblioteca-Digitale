@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.Hyperlink;
 
 public class AcquisitorePageController {
 
@@ -32,6 +33,9 @@ public class AcquisitorePageController {
     private Label txtemailua;
     
     @FXML
+    private Hyperlink linkDati;
+    
+    @FXML
     private Button btnInserisciMetadati;
 
     @FXML
@@ -40,6 +44,7 @@ public class AcquisitorePageController {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert btnInserisciMetadati != null : "fx:id=\"btnInserisciMetadati\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
+        assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         txtemailua.setText(controller_login.email);
 
     }
@@ -79,5 +84,17 @@ public class AcquisitorePageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+    
+    public void VediDati(ActionEvent event) throws Exception {
+		boolean visualizza=controller_dati.visualizza(txtemailua);
+		if(visualizza) {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}
+	}
     
 }
