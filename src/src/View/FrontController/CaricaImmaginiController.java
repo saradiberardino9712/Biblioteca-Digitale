@@ -1,10 +1,15 @@
 package View.FrontController;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +23,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 
 public class CaricaImmaginiController {
 
@@ -46,6 +54,12 @@ public class CaricaImmaginiController {
     private Button btnCaricaImmagine;
     
     @FXML
+    private ImageView imgAnteprima;
+    
+    @FXML
+    private TextField txtURL;
+    
+    @FXML
     void CaricaImmagine(ActionEvent event) {
 
     }
@@ -59,9 +73,12 @@ public class CaricaImmaginiController {
         assert txtTitoloOpera != null : "fx:id=\"txtTitoloOpera\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert txtNumeroPagina != null : "fx:id=\"txtNumeroPagina\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert btnCaricaImmagine != null : "fx:id=\"btnCaricaImmagine\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert imgAnteprima != null : "fx:id=\"imgAnteprima\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert txtURL != null : "fx:id=\"txtURL\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
 
     }
     
+    /*
     public void Seleziona1(ActionEvent event) {
     	FileChooser fc = new FileChooser();
     	fc.getExtensionFilters().addAll(new ExtensionFilter("FILE JPG", "*.jpg"));
@@ -74,6 +91,33 @@ public class CaricaImmaginiController {
     		System.out.println("file is not valid");
     	}
     }
+    */
+    
+    private FileChooser fc;
+    private File fp;
+    
+    public void Seleziona1(ActionEvent event) {
+    	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    	fc = new FileChooser();
+    	fc.getExtensionFilters().addAll(new ExtensionFilter("FILE JPG", "*.jpg"));
+    	
+    	this.fp = fc.showOpenDialog(stage);
+    	
+    	try {
+    		BufferedImage bufferedImage = ImageIO.read(fp);
+    		Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+    		imgAnteprima.setImage(image);
+    		if(fp != null) {
+        		txtURL.setText(fp.getAbsolutePath());
+        	}
+        	else {
+        		System.out.println("file is not valid");
+        	}
+    	} catch (IOException e) {
+    		System.err.println(e.getMessage());
+    	}
+    }
+    
     
     public void indietro(ActionEvent event) throws Exception {
     	((Node) event.getSource()).getScene().getWindow().hide();

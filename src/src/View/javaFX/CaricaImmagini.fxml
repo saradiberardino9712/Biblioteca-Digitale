@@ -3,13 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.CaricaImmaginiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.CaricaImmaginiController">
    <top>
       <Label text="Carica Immagini" BorderPane.alignment="CENTER">
          <font>
@@ -21,13 +21,14 @@
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnSeleziona1" layoutX="95.0" layoutY="14.0" mnemonicParsing="false" onAction="#Seleziona1" prefHeight="25.0" prefWidth="149.0" text="seleziona un'immagine" />
-            <ListView fx:id="listCarica" layoutX="260.0" layoutY="14.0" prefHeight="319.0" prefWidth="307.0" />
             <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="322.0" onAction="#indietro" text="Indietro" />
             <Label layoutX="14.0" layoutY="87.0" text="Titolo Opera" />
             <TextField fx:id="txtTitoloOpera" layoutX="95.0" layoutY="83.0" promptText="Titolo Opera" />
             <TextField fx:id="txtNumeroPagina" layoutX="95.0" layoutY="122.0" promptText="NumeroPagina" />
             <Label layoutX="14.0" layoutY="126.0" text="Numero pgina" />
             <Button fx:id="btnCaricaImmagine" layoutX="95.0" layoutY="183.0" mnemonicParsing="false" onAction="#CaricaImmagine" prefHeight="25.0" prefWidth="149.0" text="Carica Immagine" />
+            <ImageView fx:id="imgAnteprima" fitHeight="270.0" fitWidth="236.0" layoutX="300.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="txtURL" editable="false" layoutX="300.0" layoutY="297.0" prefHeight="25.0" prefWidth="236.0" />
          </children></Pane>
    </center>
 </BorderPane>
