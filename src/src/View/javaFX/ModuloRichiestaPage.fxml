@@ -22,11 +22,11 @@
             <Label layoutX="14.0" layoutY="14.0" text="Io sottoscritto" />
             <Label fx:id="txtnomeua" layoutX="102.0" layoutY="14.0" text="Label" />
             <Label fx:id="txtcognomeua" layoutX="217.0" layoutY="14.0" text="Label" />
-            <Label layoutX="359.0" layoutY="14.0" text="chiedo di assumre il ruolo di trascrittore, in" />
+            <Label layoutX="359.0" layoutY="14.0" text="chiedo di assumere il ruolo di trascrittore, in" />
             <Label layoutX="14.0" layoutY="31.0" text="quanto sono in possesso dei titoli richiesti:" />
             <Label layoutX="9.0" layoutY="82.0" text="Titolo di studio:" />
             <TextField fx:id="txtTitoloStudio" layoutX="102.0" layoutY="78.0" prefHeight="25.0" prefWidth="338.0" promptText="Titolo di studio" />
-            <Button fx:id="btnInviaRichiesta" layoutX="495.0" layoutY="176.0" mnemonicParsing="false" text="Invia Richiesta" />
+            <Button fx:id="btnInviaRichiesta" layoutX="495.0" layoutY="176.0" mnemonicParsing="false" onAction="#InviaRichiesta" text="Invia Richiesta" />
             <Hyperlink fx:id="linkIndietro" layoutX="9.0" layoutY="177.0" onAction="#Indietro" text="Indietro" />
             <Label layoutX="9.0" layoutY="132.0" text="N.B. una volta inviata la domanda di Trascrittore e successiva approvazione, si perderà il ruolo" textFill="#fc0000" />
             <Label layoutX="9.0" layoutY="149.0" text="precedentemente assunto." textFill="RED" />

@@ -26,7 +26,7 @@
             <TextField fx:id="txtIndirizzo" layoutX="106.0" layoutY="183.0" promptText="Indirizzo" />
             <TextField fx:id="txtTitoloStudio" layoutX="396.0" layoutY="33.0" promptText="Titolo di studio" />
             <TextField fx:id="txtProfessione" layoutX="396.0" layoutY="83.0" promptText="Professione" />
-            <TextField fx:id="txtPassword" layoutX="396.0" layoutY="135.0" promptText="password" />
+            <TextField fx:id="txtPassword" layoutX="396.0" layoutY="135.0" promptText="Password" />
             <Label layoutX="14.0" layoutY="87.0" text="Cognome" />
             <Label layoutX="14.0" layoutY="139.0" text="Data di nascita" />
             <Label layoutX="14.0" layoutY="187.0" text="Indirizzo" />
@@ -35,7 +35,7 @@
             <Label layoutX="300.0" layoutY="139.0" text="Password" />
             <Button fx:id="btnModificaDati" layoutX="470.0" layoutY="326.0" mnemonicParsing="false" onAction="#ConfermaModifica" text="Conferma Modifica" />
             <Hyperlink fx:id="linkIndietro" layoutX="17.0" layoutY="327.0" onAction="#Indietro" text="Indietro" />
-            <DatePicker fx:id="datapicker" layoutX="106.0" layoutY="135.0" prefHeight="25.0" prefWidth="148.0" />
+            <DatePicker fx:id="datapicker" layoutX="106.0" layoutY="135.0" prefHeight="25.0" prefWidth="148.0" promptText="aaaa/mm/gg" />
          </children></Pane>
    </center>
 </BorderPane>
