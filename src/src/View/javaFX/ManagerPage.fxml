@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.ManagerPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.ManagerPageController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="519.0" layoutY="6.0" text="Manager" />
+            <Label layoutX="685.0" layoutY="6.0" text="Manager" />
             <Label layoutX="14.0" layoutY="42.0" text="Ricerca le opere disponibili" />
             <Button fx:id="btnRicerca" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#Ricerca" text="Ricerca" />
             <Label layoutX="14.0" layoutY="109.0" text="Assegna le opere ai Trasctittori" />
@@ -27,9 +28,10 @@
             <Button fx:id="btnGestisciLivello" layoutX="300.0" layoutY="193.0" mnemonicParsing="false" onAction="#GestisciLivello" text="Gestisci livello" />
             <Label layoutX="300.0" layoutY="243.0" text="Supervisiona immagini acquisite" />
             <Button fx:id="btnSupervisiona" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#Supervisiona" text="Supervisiona immagini" />
-            <Button fx:id="btnLogout" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
+            <Button fx:id="btnLogout" layoutX="682.0" layoutY="361.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
             <Label fx:id="txtemailua" layoutX="14.0" layoutY="6.0" text="Label" />
             <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="306.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
+            <ComboBox fx:id="comboNotifiche" layoutX="559.0" layoutY="38.0" prefWidth="150.0" promptText="Notifiche" />
          </children>
       </Pane>
    </center>
