@@ -21,7 +21,7 @@ import javafx.scene.control.ComboBox;
 
 public class ManagerPageController {
 
-    @FXML
+	@FXML
     private ResourceBundle resources;
 
     @FXML
@@ -59,11 +59,30 @@ public class ManagerPageController {
 
     @FXML
     private Hyperlink linkDati;
-    
+
     @FXML
     private ComboBox<String> comboNotifiche;
-    
     ObservableList<String> list = FXCollections.observableArrayList("notifica");
+
+    @FXML
+    void AssegnaOpere(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ConsentiPubblicazione(ActionEvent event) {
+
+    }
+
+    @FXML
+    void GestisciLivello(ActionEvent event) {
+
+    }
+
+    @FXML
+    void Supervisiona(ActionEvent event) {
+
+    }
 
     @FXML
     void initialize() {
@@ -79,6 +98,9 @@ public class ManagerPageController {
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert comboNotifiche != null : "fx:id=\"comboNotifiche\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         comboNotifiche.setItems(list);
         txtemailua.setText(controller_login.email);
     }

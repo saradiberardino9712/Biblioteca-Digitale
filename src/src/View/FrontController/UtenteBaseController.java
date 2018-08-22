@@ -3,6 +3,8 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Business.Controller.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ComboBox;
 
 public class UtenteBaseController {
 
@@ -40,6 +43,10 @@ public class UtenteBaseController {
     @FXML
     private Label txtruoloua;
     
+    @FXML
+    private ComboBox<String> comboNotifiche;
+    ObservableList<String> list = FXCollections.observableArrayList("notifica");
+    
 	@FXML
 	void initialize() {
 		assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtenteBase.fxml'.";
@@ -48,6 +55,8 @@ public class UtenteBaseController {
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtruoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert comboNotifiche != null : "fx:id=\"comboNotifiche\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		comboNotifiche.setItems(list);
 		txtemailua.setText(controller_login.email);
 	}
 
