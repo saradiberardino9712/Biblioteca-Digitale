@@ -2,7 +2,6 @@ package View.FrontController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Business.Controller.controller_dati;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
@@ -12,10 +11,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Hyperlink;
 
 public class ManagerPageController {
 
@@ -29,7 +28,7 @@ public class ManagerPageController {
     private Button btnRicerca;
 
     @FXML
-    private Button btnAssegna;
+    private Button btnAssegnaOpere;
 
     @FXML
     private Button btnRevisiona;
@@ -41,29 +40,36 @@ public class ManagerPageController {
     private Button btnAssegnaPagine;
 
     @FXML
+    private Button btnConsentiPubblicazione;
+
+    @FXML
+    private Button btnGestisciLivello;
+
+    @FXML
+    private Button btnSupervisiona;
+
+    @FXML
     private Button btnLogout;
 
     @FXML
     private Label txtemailua;
-    
+
     @FXML
     private Hyperlink linkDati;
-    
-    @FXML
-    private Button btnRichiesta;
 
     @FXML
     void initialize() {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnAssegna != null : "fx:id=\"btnAssegna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnAssegnaOpere != null : "fx:id=\"btnAssegnaOpere\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnRevisiona != null : "fx:id=\"btnRevisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnAssegnaPagine != null : "fx:id=\"btnAssegnaPagine\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-
         txtemailua.setText(controller_login.email);
     }
     
@@ -125,16 +131,16 @@ public class ManagerPageController {
     }
     
     public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
-		if(visualizza) {
-			((Node) event.getSource()).getScene().getWindow().hide();
-			Stage primaryStage = new Stage();
-			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
+    	boolean visualizza=controller_dati.visualizza(txtemailua);
+    	if(visualizza) {
+    		((Node) event.getSource()).getScene().getWindow().hide();
+    		Stage primaryStage = new Stage();
+    		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    	}
 	}
-
 }
+
 

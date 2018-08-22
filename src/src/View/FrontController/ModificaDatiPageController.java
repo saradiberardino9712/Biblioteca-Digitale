@@ -98,5 +98,4 @@ public class ModificaDatiPageController {
 			primaryStage.show();
     	}
     }
-
 }

@@ -37,7 +37,9 @@ public class UtenteBaseController {
 	@FXML
 	private Label txtemailua;
 
-
+    @FXML
+    private Label txtruoloua;
+    
 	@FXML
 	void initialize() {
 		assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtenteBase.fxml'.";
@@ -45,6 +47,7 @@ public class UtenteBaseController {
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert txtruoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		txtemailua.setText(controller_login.email);
 	}
 
@@ -81,12 +84,15 @@ public class UtenteBaseController {
 		primaryStage.show();
     }
 	
-	public void InviaRichiesta(ActionEvent event) throws Exception {
-		((Node) event.getSource()).getScene().getWindow().hide();
-		Stage primaryStage = new Stage();
-		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ModuloRichiestaPage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+	public void Richiesta(ActionEvent event) throws Exception {
+		boolean prendi=controller_domanda.datirichiesta(txtemailua,txtruoloua);
+		if(prendi) {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ModuloRichiestaPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}	
 	}
 }
