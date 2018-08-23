@@ -14,13 +14,13 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="txtruoloua" layoutX="487.0" layoutY="6.0" text="Utente privilegiato" />
+                  <Label fx:id="txtruoloua" layoutX="487.0" layoutY="6.0" text="Utente Privilegiato" />
                   <Button fx:id="btnLogout" layoutX="532.0" layoutY="211.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
                   <Label layoutX="14.0" layoutY="44.0" text="Consulta le opere disponibili, consultale e fai il Dowload se vuoi" />
                   <Button fx:id="btnRicerca" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" onAction="#Ricerca" text="Ricerca" />
                   <Label fx:id="txtemailua" layoutX="14.0" layoutY="6.0" text="Label" />
                   <Label layoutX="14.0" layoutY="100.0" text="Vuoi diventare un trascrittore?" />
-                  <Button fx:id="btnRichiesta" layoutX="15.0" layoutY="117.0" mnemonicParsing="false" onAction="#InviaRichiesta" text="Invia la Richiesta" />
+                  <Button fx:id="btnRichiesta" layoutX="15.0" layoutY="117.0" mnemonicParsing="false" onAction="#Richiesta" text="Invia la Richiesta" />
                   <Hyperlink fx:id="linkDati" layoutX="15.0" layoutY="171.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
                   <ComboBox fx:id="comboNotifiche" layoutX="409.0" layoutY="40.0" prefWidth="150.0" promptText="Notifiche" />
                </children>

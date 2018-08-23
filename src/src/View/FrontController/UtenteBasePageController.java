@@ -17,7 +17,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ComboBox;
 
-public class UtenteBaseController {
+public class UtenteBasePageController {
 
 	@FXML
 	private ResourceBundle resources;
