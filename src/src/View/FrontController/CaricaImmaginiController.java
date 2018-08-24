@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
@@ -60,6 +61,9 @@ public class CaricaImmaginiController {
     private TextField txtURL;
     
     @FXML
+    private Button btnPaginatore;
+    
+    @FXML
     void CaricaImmagine(ActionEvent event) {
 
     }
@@ -75,6 +79,7 @@ public class CaricaImmaginiController {
         assert btnCaricaImmagine != null : "fx:id=\"btnCaricaImmagine\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert imgAnteprima != null : "fx:id=\"imgAnteprima\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert txtURL != null : "fx:id=\"txtURL\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert btnPaginatore != null : "fx:id=\"btnPaginatore\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
 
     }
     
@@ -126,5 +131,14 @@ public class CaricaImmaginiController {
 		Scene scene2 = new Scene(root2);
 		primaryStage2.setScene(scene2);
 		primaryStage2.show();
+    }
+    
+    public void paginatore(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmaginePaginatorePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
     }
 }

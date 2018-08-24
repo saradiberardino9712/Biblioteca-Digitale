@@ -29,6 +29,7 @@
             <Button fx:id="btnCaricaImmagine" layoutX="95.0" layoutY="183.0" mnemonicParsing="false" onAction="#CaricaImmagine" prefHeight="25.0" prefWidth="149.0" text="Carica Immagine" />
             <ImageView fx:id="imgAnteprima" fitHeight="270.0" fitWidth="236.0" layoutX="300.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="txtURL" editable="false" layoutX="300.0" layoutY="297.0" prefHeight="25.0" prefWidth="236.0" />
+            <Button fx:id="btnPaginatore" layoutX="125.0" layoutY="275.0" mnemonicParsing="false" onAction="#paginatore" text="paginatore" />
          </children></Pane>
    </center>
 </BorderPane>
