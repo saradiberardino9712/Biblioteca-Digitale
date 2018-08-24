@@ -74,5 +74,6 @@ create table richiesta(
 ID integer unsigned primary key not null auto_increment,
 nome varchar (20) not null,
 cognome varchar (20) not null,
-titolo_studio varchar (100) not null
+titolo_studio varchar (100) not null,
+stato enum('in attesa','accettata','rifiutata') not null
 );
