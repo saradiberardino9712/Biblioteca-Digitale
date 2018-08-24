@@ -3,10 +3,9 @@ package View.FrontController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import Business.Controller.controller_dati;
+import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,7 +61,6 @@ public class ManagerPageController {
 
     @FXML
     private ComboBox<String> comboNotifiche;
-    ObservableList<String> list = FXCollections.observableArrayList("notifica");
 
     @FXML
     void AssegnaOpere(ActionEvent event) {
@@ -101,7 +99,7 @@ public class ManagerPageController {
         assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        comboNotifiche.setItems(list);
+        comboNotifiche.setItems(controller_domanda.list);
         txtemailua.setText(controller_login.email);
     }
     

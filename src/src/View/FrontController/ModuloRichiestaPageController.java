@@ -79,7 +79,7 @@ public class ModuloRichiestaPageController {
 			switch(controller_domanda.ruolo) {
 			case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 								Stage primaryStage = new Stage();
-								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBase.fxml"));
+								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
 								Scene scene = new Scene(root);
 								primaryStage.setScene(scene);
 								primaryStage.show();
@@ -101,7 +101,7 @@ public class ModuloRichiestaPageController {
 			switch(controller_domanda.ruolo) {
 			case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 								Stage primaryStage = new Stage();
-								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBase.fxml"));
+								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
 								Scene scene = new Scene(root);
 								primaryStage.setScene(scene);
 								primaryStage.show();
