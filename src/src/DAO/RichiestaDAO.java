@@ -15,10 +15,10 @@ public class RichiestaDAO {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO progettoprova.richiesta(nome,cognome,titolo_studio,stato) VALUES (?,?,?,?)");
+					"INSERT INTO bibliotecadigitale.richiesta(nome,cognome,titolo_studio,stato) VALUES (?,?,?,?)");
 			preparedStatement.setString(1, (String) args.get(0));
 			preparedStatement.setString(2, (String) args.get(1));
 			preparedStatement.setString(3, (String) args.get(2));
