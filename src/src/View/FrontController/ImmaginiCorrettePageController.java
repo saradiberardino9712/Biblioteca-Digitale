@@ -15,31 +15,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class RevisioneAcquisizionePageController {
+public class ImmaginiCorrettePageController {
 	
+	@FXML
+	private ResourceBundle resources;
 
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button btnVisualizza;
+	@FXML
+	private URL location;
 
     @FXML
     private Button btnAvanti;
-
+    
     @FXML
     private Hyperlink linkIndietro;
     
     void initialize() {
-        assert btnAvanti != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'RevisioneAcquisizionePageController.fxml'.";
-        assert btnVisualizza != null : "fx:id=\"btnCarica\" was not injected: check your FXML file 'RevisioneAcquisizionePageController.fxml'.";
-        assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'RevisioneAcquisizionePageController.fxml'.";
+        assert btnAvanti != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'ImmaginiCorrettePageController.fxml'.";
+        assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'ImmaginiCorrettePageController.fxml'.";
     }
-
-    public void Indietro(ActionEvent event) throws Exception {
+    
+    public void indietro(ActionEvent event) throws Exception {
 		switch(controller_login.ruolo) {
 		case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 							Stage primaryStage = new Stage();
@@ -93,29 +88,11 @@ public class RevisioneAcquisizionePageController {
 		}
     }
     
+
+    @FXML
+    void avanti(ActionEvent event) {
+
+    }
     
-    @FXML
-    void avanti(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ImmaginiCorrettePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
-
-    }
-
-    @FXML
-    void visualizza(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisioneAcquisizione2Page.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-
-    }
-
 
 }
