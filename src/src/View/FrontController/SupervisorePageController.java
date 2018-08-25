@@ -81,7 +81,12 @@ public class SupervisorePageController {
     }
     
     public void Controlla(ActionEvent event) throws Exception {
-    	
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisioneAcquisizione.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
     }
     
     public void VediDati(ActionEvent event) throws Exception {
