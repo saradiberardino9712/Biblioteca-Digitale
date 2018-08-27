@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import Business.Controller.controller_dati;
+import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
 import javafx.collections.FXCollections;
@@ -97,7 +98,15 @@ public class UtentePrivilegiatoPageController {
 	}
     
     public void Richiesta(ActionEvent event) throws Exception {
-    	
+    	boolean prendi=controller_domanda.datirichiesta(txtemailua,txtruoloua);
+		if(prendi) {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ModuloRichiestaPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}	
     }
 }
 

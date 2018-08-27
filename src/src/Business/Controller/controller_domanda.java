@@ -1,11 +1,9 @@
 package Business.Controller;
 
-import java.time.LocalDate;
-
-import Business.Model.Richiesta;
+import java.util.ArrayList;
+import Business.Model.Notifica;
+import Business.Model.Ruolo;
 import Business.Model.Utente;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -15,7 +13,6 @@ public class controller_domanda {
 	public static String cognome;
 	public static String ruolo;
 	private static Utente utente;
-	public static ObservableList<String> list;
 	
 	public static boolean datirichiesta(Label txtemailua, Label txtruoloua) {
 		String email=txtemailua.getText();
@@ -32,8 +29,36 @@ public class controller_domanda {
 		String titolostudio=txttitolostudio.getText();
 		if(!titolostudio.equals(utente.getTitoloStudio()))
 			return false;
-		boolean inseriscirichiesta=Richiesta.inseriscirichiestadb(nome, cognome, titolostudio);
-		list=FXCollections.observableArrayList("E'stata effettuata una richiesta per diventare trascrittore. Vai nella sessione accetta richiesta!! " + LocalDate.now());
-		return inseriscirichiesta;
+		boolean modificastato=Utente.settastato(utente,"in attesa");
+		Ruolo ruolo=Ruolo.prendiiddb("Manager");
+		int idmanager=0;
+		if(ruolo==null)
+			return false;
+		else
+			idmanager=ruolo.getID();
+		int idutente=utente.getIDruolo();
+		boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca su \"Accetta Domande\" ",idmanager,idutente);
+		if(!(notifica))
+			return false;
+		return modificastato;
+	}
+	
+	public static ArrayList<String> prendinotifiche(){
+		Ruolo ruolo=Ruolo.prendiiddb("Manager");
+		int idmanager=0;
+		if(!(ruolo==null))
+			idmanager=ruolo.getID();
+		ArrayList<Notifica> elenco= Notifica.prendinotifiche(idmanager);
+		String descrizione=null;
+		String orario=null;
+		String stringa=null;
+		ArrayList<String> notifiche=new ArrayList<>();
+		for(Notifica n:elenco) {
+			descrizione=n.getdescrizione();
+			orario=(n.getorario()).toString();
+			stringa=descrizione.concat(orario);
+			notifiche.add(stringa);
+		}
+		return notifiche;
 	}
 }

@@ -30,7 +30,14 @@ public class controller_registrazione {
 		// controllo campi che nel database sono not null
 		if (!(controllonotnull(nome, cognome, password,data, email, titolo_studio, ID_ruolo)))
 			return false;
-		
+		java.sql.Date systemDate = new java.sql.Date(System.currentTimeMillis());
+		if(data_nascita.after(systemDate)){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore Registrazione");
+			alert.setHeaderText("La data è sbagliata!!");
+			alert.showAndWait();
+			return false;
+		}
 		boolean inserimento;
 		//inserimento dell'utente nel db tramite il model
 		inserimento = Utente.inserisciutentedb(nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,

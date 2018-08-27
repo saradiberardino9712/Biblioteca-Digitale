@@ -1,6 +1,7 @@
 package View.FrontController;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
@@ -14,9 +15,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
+
 
 public class ManagerPageController {
 
@@ -60,8 +63,11 @@ public class ManagerPageController {
     private Hyperlink linkDati;
 
     @FXML
-    private ComboBox<String> comboNotifiche;
+	private Menu MenuNotifiche;
 
+    @FXML
+    private Button btnAggiorna;
+    
     @FXML
     void AssegnaOpere(ActionEvent event) {
 
@@ -95,14 +101,23 @@ public class ManagerPageController {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert comboNotifiche != null : "fx:id=\"comboNotifiche\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert MenuNotifiche != null : "fx:id=\"MenuNotifiche\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        comboNotifiche.setItems(controller_domanda.list);
+        assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         txtemailua.setText(controller_login.email);
     }
-    
+    public void Aggiorna(ActionEvent event) {
+    	ArrayList<String> notifiche=controller_domanda.prendinotifiche();
+    	String finale=null;
+    	for(String e:notifiche) {
+    		finale =e;
+    		MenuItem ciao= new MenuItem(finale);
+    		MenuNotifiche.getItems().add(ciao);
+    	}	
+    }
+
     public void Ricerca(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();

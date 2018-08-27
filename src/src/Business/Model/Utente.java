@@ -103,9 +103,7 @@ public class Utente {
 		return ID_ruolo;
 	}
 
-	public void setIDruolo(int newidruolo) {
-		this.ID_ruolo = newidruolo;
-	}
+	
 
 	public static boolean inserisciutentedb(String nome, String cognome, String indirizzo, String password,
 			Date data_nascita, String email, String titolo_studio, String professione, int ID_ruolo) {
@@ -152,5 +150,13 @@ public class Utente {
 		lista.add(utente.getProfessione());
 		boolean modificadb=new UtenteDAO().updatedati(lista);
 		return modificadb;
+	}
+	
+	public static boolean settastato(Utente utente,String stato) {
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(utente.getEmail());
+		lista.add(stato);
+		boolean modificastato=new UtenteDAO().updatestato(lista);
+		return modificastato;
 	}
 }

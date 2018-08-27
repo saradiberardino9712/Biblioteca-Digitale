@@ -18,6 +18,7 @@ email varchar (50) unique not null,
 titolo_studio varchar (100) not null,
 professione varchar (100),
 attivo boolean default false,
+stato enum('in attesa','accettata','rifiutata'),
 ID_ruolo integer unsigned not null,
 constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade on delete cascade
 );
@@ -70,10 +71,11 @@ constraint testo_digitale_utente foreign key (ID_utente) references utente (ID),
 constraint testo_digitale_imamgine  foreign key (ID_immagine) references immagine (ID)
 );
 
-create table richiesta(
+create table notifica(
 ID integer unsigned primary key not null auto_increment,
-nome varchar (20) not null,
-cognome varchar (20) not null,
-titolo_studio varchar (100) not null,
-stato enum('in attesa','accettata','rifiutata') not null
+orario timestamp not null,
+descrizione varchar(100),
+IDutentenot integer unsigned not null,
+ID_utente integer unsigned not null,
+constraint notifica_utente foreign key (ID_utente) references utente(ID)
 );

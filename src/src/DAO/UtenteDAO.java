@@ -229,5 +229,49 @@ public class UtenteDAO implements DAOinterface {
 						}
 				}
 	}
+	
+	@SuppressWarnings("finally")
+	public boolean updatestato(ArrayList<Object> args){
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		boolean success=true; 
+		String emaildata=(String) args.get(0);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET stato=? WHERE email='"+emaildata+"'");
+			preparedStatement.setString(1, (String) args.get(1));
+			preparedStatement.executeUpdate();
+		}catch(SQLException e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+			catch(Exception e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+				finally{
+					try{
+						if(connect!=null) connect.close();
+						if(preparedStatement!=null) preparedStatement.close();
+						return success;
+						}
+					catch(final SQLException e){
+						final Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Errore");
+						alert.setHeaderText("Errore Database");
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+						return false;
+						}
+				}
+	}
 }	
 
