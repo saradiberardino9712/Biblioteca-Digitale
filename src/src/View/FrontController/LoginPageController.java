@@ -120,6 +120,13 @@ public class LoginPageController {
 						primaryStage6.setScene(scene6);
 						primaryStage6.show();
 						break;
+				case "Amministratore":((Node) event.getSource()).getScene().getWindow().hide();
+						Stage primaryStage7 = new Stage();
+						BorderPane root7 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/AmministratorePage.fxml"));
+						Scene scene7 = new Scene(root7);
+						primaryStage7.setScene(scene7);
+						primaryStage7.show();
+						break;		
 			}	
 		}
 	}

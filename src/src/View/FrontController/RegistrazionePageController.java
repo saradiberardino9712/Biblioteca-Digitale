@@ -86,13 +86,13 @@ public class RegistrazionePageController {
 			alert.setTitle("Registrazione");
 			alert.setHeaderText("Registrazione avvenuta con successo. Puoi effettuare il login ora!!");
 			alert.showAndWait();
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
 		}
-		((Node) event.getSource()).getScene().getWindow().hide();
-		Stage primaryStage = new Stage();
-		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
 	}
 }
 

@@ -10,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 public class controller_login {
 	public static String ruolo;
 	public static String email;
+	
 	public static boolean verificacredenziali(TextField txtEmail, PasswordField txtPassword) {
 		String email=txtEmail.getText();
 		String password= txtPassword.getText();
