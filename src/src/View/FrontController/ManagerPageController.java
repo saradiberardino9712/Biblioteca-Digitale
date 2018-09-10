@@ -1,12 +1,15 @@
 package View.FrontController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -108,14 +111,20 @@ public class ManagerPageController {
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         txtemailua.setText(controller_login.email);
     }
-    public void Aggiorna(ActionEvent event) {
-    	ArrayList<String> notifiche=controller_domanda.prendinotifiche();
+   
+	public void Aggiorna(ActionEvent event) throws Exception {
+		/*ObservableList<MenuItem> lista;
+		lista=MenuNotifiche.getItems();
+		for(MenuItem mi:lista) {
+			mi.setDisable(true);
+		}*/
+		ArrayList<String> notifiche=controller_domanda.prendinotifiche();
     	String finale=null;
     	for(String e:notifiche) {
-    		finale =e;
-    		MenuItem ciao= new MenuItem(finale);
-    		MenuNotifiche.getItems().add(ciao);
-    	}	
+    		finale=e;
+    		MenuItem item=new MenuItem(finale);
+    		MenuNotifiche.getItems().add(item);
+    	}
     }
 
     public void Ricerca(ActionEvent event) throws Exception {

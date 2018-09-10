@@ -52,14 +52,14 @@ public class ModuloRichiestaPageController {
     
     public void Indietro(ActionEvent event) throws Exception {
 		switch(controller_domanda.ruolo) {
-		case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
+			case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 							Stage primaryStage = new Stage();
 							AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
 							Scene scene = new Scene(root);
 							primaryStage.setScene(scene);
 							primaryStage.show();
 							break;
-		case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
+			case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
 									Stage primaryStage1 = new Stage();
 									AnchorPane root1 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtentePrivilegiatoPage.fxml"));
 									Scene scene1 = new Scene(root1);
@@ -77,14 +77,14 @@ public class ModuloRichiestaPageController {
 			alert.setHeaderText("Richiesta andata a buon fine!!");
 			alert.showAndWait();
 			switch(controller_domanda.ruolo) {
-			case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
+				case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
 								Stage primaryStage = new Stage();
 								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
 								Scene scene = new Scene(root);
 								primaryStage.setScene(scene);
 								primaryStage.show();
 								break;
-			case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
+				case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
 										Stage primaryStage1 = new Stage();
 										AnchorPane root1 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtentePrivilegiatoPage.fxml"));
 										Scene scene1 = new Scene(root1);
@@ -98,22 +98,6 @@ public class ModuloRichiestaPageController {
 			alert.setTitle("Invia richiesta");
 			alert.setHeaderText("Titolo di studio non corrisponde a quello inserito durante la registrazione");
 			alert.showAndWait();
-			switch(controller_domanda.ruolo) {
-			case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
-								Stage primaryStage = new Stage();
-								AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
-								Scene scene = new Scene(root);
-								primaryStage.setScene(scene);
-								primaryStage.show();
-								break;
-			case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
-										Stage primaryStage1 = new Stage();
-										AnchorPane root1 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtentePrivilegiatoPage.fxml"));
-										Scene scene1 = new Scene(root1);
-										primaryStage1.setScene(scene1);
-										primaryStage1.show();
-										break;
-			}
     	}
     }
 }

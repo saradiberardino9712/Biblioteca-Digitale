@@ -103,8 +103,6 @@ public class Utente {
 		return ID_ruolo;
 	}
 
-	
-
 	public static boolean inserisciutentedb(String nome, String cognome, String indirizzo, String password,
 			Date data_nascita, String email, String titolo_studio, String professione, int ID_ruolo) {
 		ArrayList<Object> lista = new ArrayList<>();

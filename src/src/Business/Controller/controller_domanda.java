@@ -37,12 +37,12 @@ public class controller_domanda {
 		else
 			idmanager=ruolo.getID();
 		int idutente=utente.getIDruolo();
-		boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca su \"Accetta Domande\" ",idmanager,idutente);
+		boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta Domande\" ",idmanager,idutente);
 		if(!(notifica))
 			return false;
 		return modificastato;
 	}
-	
+
 	public static ArrayList<String> prendinotifiche(){
 		Ruolo ruolo=Ruolo.prendiiddb("Manager");
 		int idmanager=0;
@@ -57,7 +57,10 @@ public class controller_domanda {
 			descrizione=n.getdescrizione();
 			orario=(n.getorario()).toString();
 			stringa=descrizione.concat(orario);
-			notifiche.add(stringa);
+			if(notifiche.contains(stringa))
+				notifiche.remove(stringa);
+			else
+				notifiche.add(stringa);
 		}
 		return notifiche;
 	}
