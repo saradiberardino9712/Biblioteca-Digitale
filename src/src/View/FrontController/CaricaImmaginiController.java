@@ -138,12 +138,12 @@ public class CaricaImmaginiController {
     }
     
     public void paginatore(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmaginePaginatorePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+    	((Node) event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage2 = new Stage();
+		AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmaginePaginatorePage.fxml"));
+		Scene scene2 = new Scene(root2);
+		primaryStage2.setScene(scene2);
+		primaryStage2.show();
     }
     
     public void VisualizzaMiniatura(ActionEvent event) throws Exception {
