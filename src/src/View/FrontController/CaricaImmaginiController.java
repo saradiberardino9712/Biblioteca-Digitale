@@ -67,6 +67,9 @@ public class CaricaImmaginiController {
     void CaricaImmagine(ActionEvent event) {
 
     }
+    
+    @FXML
+    private Button btnMiniatura;
 
 
     @FXML
@@ -80,6 +83,7 @@ public class CaricaImmaginiController {
         assert imgAnteprima != null : "fx:id=\"imgAnteprima\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert txtURL != null : "fx:id=\"txtURL\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
         assert btnPaginatore != null : "fx:id=\"btnPaginatore\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
+        assert btnMiniatura != null : "fx:id=\"btnMiniatura\" was not injected: check your FXML file 'CaricaImmagini.fxml'.";
 
     }
     
@@ -137,6 +141,15 @@ public class CaricaImmaginiController {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmaginePaginatorePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
+    
+    public void VisualizzaMiniatura(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/CaricaImmaginiMiniaturaPage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
