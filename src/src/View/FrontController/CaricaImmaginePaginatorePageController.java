@@ -70,8 +70,11 @@ File filesJpg[];
         
     	Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-         openDirectoryChooser(stage);        
+         openDirectoryChooser(stage);      
          
+         int numOfPage = filesJpg.length;
+         pagination.pageCountProperty().set(numOfPage);
+         pagination.maxPageIndicatorCountProperty().set(numOfPage);
          pagination.setPageFactory(new Callback<Integer, Node>() {
             public Node call(Integer pageIndex) {
                 return createPage(pageIndex);
