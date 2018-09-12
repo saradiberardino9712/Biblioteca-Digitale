@@ -1,6 +1,8 @@
 package Business.Controller;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
+
 import Business.Model.Notifica;
 import Business.Model.Ruolo;
 import Business.Model.Utente;
@@ -36,19 +38,19 @@ public class controller_domanda {
 			return false;
 		else
 			idmanager=ruolo.getID();
-		int idutente=utente.getIDruolo();
+		int idutente=utente.getID();
 		boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta Domande\" ",idmanager,idutente);
 		if(!(notifica))
 			return false;
 		return modificastato;
 	}
-
-	public static ArrayList<String> prendinotifiche(){
+	//prende le notifiche dal db per la domanda da trascrittore che devono arrivare al manager
+	public static ArrayList<String> prendinotifichedomanda(){
 		Ruolo ruolo=Ruolo.prendiiddb("Manager");
 		int idmanager=0;
 		if(!(ruolo==null))
 			idmanager=ruolo.getID();
-		ArrayList<Notifica> elenco= Notifica.prendinotifiche(idmanager);
+		ArrayList<Notifica> elenco= Notifica.prendinotifiche(idmanager,"Accetta Domande");
 		String descrizione=null;
 		String orario=null;
 		String stringa=null;
@@ -61,7 +63,7 @@ public class controller_domanda {
 				notifiche.remove(stringa);
 			else
 				notifiche.add(stringa);
-		}
+		}	
 		return notifiche;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 import DAO.UtenteDAO;
 
 public class Utente {
+	private int id;
 	private String nome;
 	private String cognome;
 	private String indirizzo;
@@ -16,8 +17,9 @@ public class Utente {
 	private String professione;
 	private int ID_ruolo;
 
-	public Utente(String nome, String cognome, String indirizzo, String password, Date data_nascita, String email,
+	public Utente(int id,String nome, String cognome, String indirizzo, String password, Date data_nascita, String email,
 			String titolo_studio, String professione, int ID_ruolo) {
+		this.id=id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.indirizzo = indirizzo;
@@ -33,6 +35,10 @@ public class Utente {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.indirizzo = indirizzo;
+	}
+	
+	public int getID() {
+		return id;
 	}
 
 	public void setNome(String newnome) {

@@ -3,7 +3,6 @@ package View.FrontController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.ResourceBundle;
 import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
@@ -11,6 +10,7 @@ import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -113,18 +113,36 @@ public class ManagerPageController {
     }
    
 	public void Aggiorna(ActionEvent event) throws Exception {
-		/*ObservableList<MenuItem> lista;
+		ObservableList<MenuItem> lista;
 		lista=MenuNotifiche.getItems();
 		for(MenuItem mi:lista) {
 			mi.setDisable(true);
-		}*/
-		ArrayList<String> notifiche=controller_domanda.prendinotifiche();
+		}  //quando si clicca 
+		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
     	String finale=null;
     	for(String e:notifiche) {
     		finale=e;
     		MenuItem item=new MenuItem(finale);
-    		MenuNotifiche.getItems().add(item);
-    	}
+    		MenuNotifiche.getItems().add(item);	
+    		}
+    	/*
+    	if (finale.contains("Accetta Domande")) {
+    			item.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override public void handle(ActionEvent e) {
+    					((Node)event.getSource()).getScene().getWindow().hide();
+    		    		Stage primaryStage = new Stage();
+    		    		BorderPane root = null;
+						try {
+							root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+    		    		Scene scene = new Scene(root);
+    		    		primaryStage.setScene(scene);
+    		    		primaryStage.show();
+    				}
+    			});	*/
     }
 
     public void Ricerca(ActionEvent event) throws Exception {

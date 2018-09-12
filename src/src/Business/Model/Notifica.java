@@ -9,8 +9,10 @@ public class Notifica {
 	private Timestamp orario;
 	private String descrizione;
 	private int idutente;
+	private int id;
 	
-	public Notifica(Timestamp orario,String descrizione) {
+	public Notifica(int id,Timestamp orario,String descrizione) {
+		this.id=id;
 		this.orario=orario;
 		this.descrizione=descrizione;
 	}
@@ -27,6 +29,10 @@ public class Notifica {
 		return this.idutente;
 	}
 	
+	public int getid() {
+		return this.id;
+	}
+	
 	public static boolean creanotifica(String descrizione,int idutentenot,int idutente) {
 		Timestamp orario=new Timestamp(System.currentTimeMillis());
 		ArrayList<Object> lista= new ArrayList<>();
@@ -38,8 +44,18 @@ public class Notifica {
 		return crea;
 	}
 	
-	public static ArrayList<Notifica> prendinotifiche(int idutentenot) {
-		ArrayList<Notifica> elenconotifiche= new NotificaDAO().retrieve(idutentenot);
+	public static ArrayList<Notifica> prendinotifiche(int idutentenot,String tipo) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(idutentenot);
+		lista.add(tipo);
+		ArrayList<Notifica> elenconotifiche= new NotificaDAO().retrieve(lista);
 		return elenconotifiche;
+	}
+	
+	public static boolean updatevistadb(ArrayList<Notifica> lista) {
+		ArrayList<Object> listadata= new ArrayList<>();
+		listadata.add(lista);
+		boolean update=new NotificaDAO().update(listadata);
+		return update;
 	}
 }
