@@ -75,6 +75,7 @@ create table notifica(
 ID integer unsigned primary key not null auto_increment,
 orario timestamp not null,
 descrizione varchar(100),
+vista boolean default false,
 IDutentenot integer unsigned not null,
 ID_utente integer unsigned not null,
 constraint notifica_utente foreign key (ID_utente) references utente(ID)
