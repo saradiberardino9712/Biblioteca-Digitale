@@ -20,12 +20,23 @@ public class OperaDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(ID_categoria, titolo, anno, autore) VALUES (?,?,?,?)");
-			preparedStatement.setInt(1, (int)args.get(0));
-			preparedStatement.setString(2,(String)args.get(1));
-			preparedStatement.setInt(3, (int)args.get(2));
-			preparedStatement.setString(4,(String)args.get(3));
-			preparedStatement.executeUpdate();
+			if(args.get(4)==null) {
+				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali) VALUES (?,?,?,?)");
+				preparedStatement.setString(1, (String)args.get(0));
+				preparedStatement.setInt(2,(int)args.get(1));
+				preparedStatement.setString(3, (String)args.get(2));
+				preparedStatement.setInt(4,(int)args.get(3));
+				preparedStatement.executeUpdate();
+			}
+			else {
+				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali,ID_categoria) VALUES (?,?,?,?,?)");
+				preparedStatement.setString(1, (String)args.get(0));
+				preparedStatement.setInt(2,(int)args.get(1));
+				preparedStatement.setString(3, (String)args.get(2));
+				preparedStatement.setInt(4,(int)args.get(3));
+				preparedStatement.setInt(5,(int)args.get(4));
+				preparedStatement.executeUpdate();
+			}
 		}catch(SQLException e){
 			success=false;
 			Alert alert = new Alert(AlertType.INFORMATION);

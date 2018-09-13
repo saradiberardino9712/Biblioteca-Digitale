@@ -1,5 +1,8 @@
 package Business.Model;
 
+import java.util.ArrayList;
+import DAO.OperaDAO;
+
 public class Opera {
 	private int ID_categoria;
 	private String titolo;
@@ -43,5 +46,19 @@ public class Opera {
 
 	public String getAutore() {
 		return autore;
+	}
+
+	public static boolean inseriscioperadb(String titolo,int anno,String autore,int npagine,int ID_categoria) {
+		ArrayList<Object> lista = new ArrayList<>();
+		lista.add(titolo);
+		lista.add(anno);
+		lista.add(autore);
+		lista.add(npagine);
+		if(ID_categoria==0)
+			lista.add(null);
+		else
+			lista.add(ID_categoria);
+		boolean inserimentodb = new OperaDAO().insert(lista);
+		return inserimentodb;
 	}
 }
