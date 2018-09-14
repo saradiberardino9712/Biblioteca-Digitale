@@ -72,6 +72,9 @@ public class ManagerPageController {
     private Button btnAggiorna;
     
     @FXML
+    private Button btnAccettaRifiuta;
+    
+    @FXML
     void AssegnaOpere(ActionEvent event) {
 
     }
@@ -109,6 +112,7 @@ public class ManagerPageController {
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnAccettaRifiuta != null : "fx:id=\"btnAccettaRifiuta\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         txtemailua.setText(controller_login.email);
     }
    
@@ -213,6 +217,15 @@ public class ManagerPageController {
     		primaryStage.show();
     	}
 	}
+    
+    public void AccettaRifiuta(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
 }
 
 
