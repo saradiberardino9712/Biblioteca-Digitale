@@ -19,10 +19,10 @@ public class NotificaDAO {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO progettoprova.notifica(orario,descrizione,idutentenot,ID_utente) VALUES (?,?,?,?)");
+					"INSERT INTO bibliotecadigitale.notifica(orario,descrizione,idutentenot,ID_utente) VALUES (?,?,?,?)");
 			preparedStatement.setTimestamp(1, (Timestamp) args.get(0));
 			preparedStatement.setString(2,(String) args.get(1));
 			preparedStatement.setInt(3, (int) args.get(2));
@@ -70,10 +70,10 @@ public class NotificaDAO {
 		String tipo=(String) args.get(1);
 		ArrayList<Notifica> out=new ArrayList<>();
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.notifica where vista=false");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.notifica where vista=false");
 				while (resultSet.next()) {
 					int id=resultSet.getInt("ID");
 					Timestamp orario=resultSet.getTimestamp("orario");
@@ -129,11 +129,11 @@ public class NotificaDAO {
 		@SuppressWarnings("unchecked")
 		ArrayList<Notifica> lista= (ArrayList<Notifica>) args.get(0);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
 			Statement = connect.createStatement(); 
 			for(Notifica n:lista) {
 				int id=n.getid();
-				Statement.executeUpdate("UPDATE progettoprova.notifica SET vista=true WHERE ID='" + id + " ' ");
+				Statement.executeUpdate("UPDATE bibliotecadigitale.notifica SET vista=true WHERE ID='" + id + " ' ");
 			}
 		}catch(SQLException e){
 			success=false;
