@@ -2,7 +2,6 @@ package Business.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import DAO.UtenteDAO;
 
 public class Utente {
@@ -15,10 +14,11 @@ public class Utente {
 	private String email;
 	private String titolo_studio;
 	private String professione;
+	private String statodomanda;
 	private int ID_ruolo;
 
 	public Utente(int id,String nome, String cognome, String indirizzo, String password, Date data_nascita, String email,
-			String titolo_studio, String professione, int ID_ruolo) {
+			String titolo_studio, String professione, String statodomanda, int ID_ruolo) {
 		this.id=id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -28,6 +28,15 @@ public class Utente {
 		this.email = email;
 		this.titolo_studio = titolo_studio;
 		this.professione = professione;
+		this.statodomanda=statodomanda;
+		this.ID_ruolo = ID_ruolo;
+	}
+	
+	public Utente(int id, String nome, String cognome, String titolo_studio, int ID_ruolo) {
+		this.id=id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.titolo_studio = titolo_studio;
 		this.ID_ruolo = ID_ruolo;
 	}
 
@@ -104,6 +113,10 @@ public class Utente {
 	public void setProfessione(String newprofessione) {
 		this.professione = newprofessione;
 	}
+	
+	public String getStatodomanda() {
+		return statodomanda;
+	}
 
 	public int getIDruolo() {
 		return ID_ruolo;
@@ -162,5 +175,23 @@ public class Utente {
 		lista.add(stato);
 		boolean modificastato=new UtenteDAO().updatestato(lista);
 		return modificastato;
+	}
+	
+	public static ArrayList<Utente> prendiutentidomandadb(ArrayList<Integer> listaid){
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(listaid);
+		ArrayList<Utente> listautenti=new UtenteDAO().retrieveutentidomanda(lista);
+		return listautenti;
+	} 
+	
+	public static boolean accettarifiutodomanda(String nome, String cognome, int idruolo, String titolostudio, String modifica) {
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(nome);
+		lista.add(cognome);
+		lista.add(idruolo);
+		lista.add(titolostudio);
+		lista.add(modifica);
+		boolean aggiornato=new UtenteDAO().updatedomanda(lista);
+		return aggiornato;
 	}
 }

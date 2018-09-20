@@ -8,21 +8,21 @@ import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 
 public class ManagerPageController {
 
@@ -72,9 +72,6 @@ public class ManagerPageController {
     private Button btnAggiorna;
     
     @FXML
-    private Button btnAccettaRifiuta;
-    
-    @FXML
     void AssegnaOpere(ActionEvent event) {
 
     }
@@ -112,41 +109,48 @@ public class ManagerPageController {
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnAccettaRifiuta != null : "fx:id=\"btnAccettaRifiuta\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         txtemailua.setText(controller_login.email);
+        colore();
     }
-   
+    
+    public void colore() {
+    	if(controller_domanda.notificacolore) {
+    		btnAggiorna.setStyle(" -fx-base: red;");
+    	}
+    }
+
 	public void Aggiorna(ActionEvent event) throws Exception {
-		ObservableList<MenuItem> lista;
-		lista=MenuNotifiche.getItems();
-		for(MenuItem mi:lista) {
-			mi.setDisable(true);
-		}  //quando si clicca 
+		btnAggiorna.setStyle(" -fx-base: gray;");
 		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
+		if(notifiche.isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Non ci sono notifiche al momento!!");
+			alert.showAndWait();
+		}
     	String finale=null;
     	for(String e:notifiche) {
     		finale=e;
     		MenuItem item=new MenuItem(finale);
-    		MenuNotifiche.getItems().add(item);	
-    		}
-    	/*
-    	if (finale.contains("Accetta Domande")) {
-    			item.setOnAction(new EventHandler<ActionEvent>() {
-    				@Override public void handle(ActionEvent e) {
-    					((Node)event.getSource()).getScene().getWindow().hide();
-    		    		Stage primaryStage = new Stage();
-    		    		BorderPane root = null;
-						try {
-							root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
-						} catch (IOException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-    		    		Scene scene = new Scene(root);
-    		    		primaryStage.setScene(scene);
-    		    		primaryStage.show();
-    				}
-    			});	*/
+    		MenuNotifiche.getItems().add(item);
+    		item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e) {
+					((Node)event.getSource()).getScene().getWindow().hide();
+		    		Stage primaryStage = new Stage();
+		    		BorderPane root = null;
+					try {
+						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		Scene scene = new Scene(root);
+		    		primaryStage.setScene(scene);
+		    		primaryStage.show();
+		    		item.setDisable(true);
+				}
+			});
+    	}
     }
 
     public void Ricerca(ActionEvent event) throws Exception {
@@ -217,15 +221,6 @@ public class ManagerPageController {
     		primaryStage.show();
     	}
 	}
-    
-    public void AccettaRifiuta(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
 }
 
 

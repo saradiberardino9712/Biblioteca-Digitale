@@ -89,10 +89,11 @@ public class UtenteDAO implements DAOinterface {
 				String email = resultSet.getString("email");
 				String titolo_studio = resultSet.getString("titolo_studio");
 				String professione = resultSet.getString("professione");
+				String statodomanda = resultSet.getString("statodomanda");
 				int ID_ruolo = resultSet.getInt("ID_ruolo");
 				if (email.equals((String) args.get(0)) && password.equals((String) args.get(1)) || email.equals((String) args.get(0)) && passwordu==null) {
 					utente = new Utente(id,nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
-							professione, ID_ruolo);
+							professione,statodomanda, ID_ruolo);
 					connect.close();
 					Statement.close();
 					resultSet.close();
@@ -121,6 +122,77 @@ public class UtenteDAO implements DAOinterface {
 				if (resultSet != null)
 					resultSet.close();
 				return utente;
+			} catch (final SQLException e) {
+				final Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Errore");
+				alert.setHeaderText("Errore Database");
+				alert.setContentText(e.getMessage());
+				alert.showAndWait();
+				return null;
+			}
+
+		}
+	}
+	
+	@SuppressWarnings({ "finally"})
+	public ArrayList<Utente> retrieveutentidomanda(ArrayList<Object> args) {
+		Connection connect = null;
+		Statement Statement = null;
+		ResultSet resultSet = null;
+		Utente utente=null;
+		ArrayList<Utente> listautenti = new ArrayList<>();
+		@SuppressWarnings("unchecked")
+		ArrayList<Integer> listaid= (ArrayList<Integer>) args.get(0);
+		try {
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+					"root", "ciao");
+			Statement = connect.createStatement();
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.utente");
+			while (resultSet.next()) {
+				int id=resultSet.getInt("ID");
+				String nome = resultSet.getString("nome");
+				String cognome = resultSet.getString("cognome");
+				String indirizzo = resultSet.getString("indirizzo");
+				String password = resultSet.getString("password");
+				Date data_nascita = resultSet.getDate("data_nascita");
+				String email = resultSet.getString("email");
+				String titolo_studio = resultSet.getString("titolo_studio");
+				String professione = resultSet.getString("professione");
+				String statodomanda = resultSet.getString("statodomanda");
+				int ID_ruolo = resultSet.getInt("ID_ruolo");
+				for(int i: listaid) {	
+					if(id==i) {
+						utente = new Utente(id,nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
+								professione,statodomanda, ID_ruolo);
+						listautenti.add(utente);
+					}
+				}	
+			}	
+				connect.close();
+				Statement.close();
+				resultSet.close();
+				return listautenti;		
+		} catch (SQLException e) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		} finally {
+			try {
+				if (connect != null)
+					connect.close();
+				if (Statement != null)
+					Statement.close();
+				if (resultSet != null)
+					resultSet.close();
+				return listautenti;
 			} catch (final SQLException e) {
 				final Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Errore");
@@ -241,6 +313,53 @@ public class UtenteDAO implements DAOinterface {
 			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
 			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET statodomanda=? WHERE email='"+emaildata+"'");
 			preparedStatement.setString(1, (String) args.get(1));
+			preparedStatement.executeUpdate();
+		}catch(SQLException e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+			catch(Exception e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+				finally{
+					try{
+						if(connect!=null) connect.close();
+						if(preparedStatement!=null) preparedStatement.close();
+						return success;
+						}
+					catch(final SQLException e){
+						final Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Errore");
+						alert.setHeaderText("Errore Database");
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+						return false;
+						}
+				}
+	}
+	
+	@SuppressWarnings("finally")
+	public boolean updatedomanda(ArrayList<Object> args){
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		boolean success=true; 
+		String nome=(String) args.get(0);
+		String cognome=(String) args.get(1);
+		int idruolo=(int) args.get(2);
+		String titolostudio=(String) args.get(3);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET statodomanda=? WHERE nome='"+ nome +"'and cognome='" + cognome + "' and ID_ruolo='" + idruolo + "' and titolo_studio='" + titolostudio + "'");
+			preparedStatement.setString(1, (String) args.get(4));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;

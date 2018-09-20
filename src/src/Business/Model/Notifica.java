@@ -11,10 +11,11 @@ public class Notifica {
 	private int idutente;
 	private int id;
 	
-	public Notifica(int id,Timestamp orario,String descrizione) {
+	public Notifica(int id,Timestamp orario,String descrizione, int idutente) {
 		this.id=id;
 		this.orario=orario;
 		this.descrizione=descrizione;
+		this.idutente=idutente;
 	}
 	
 	public Timestamp getorario() {
