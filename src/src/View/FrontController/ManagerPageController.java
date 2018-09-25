@@ -26,7 +26,7 @@ import javafx.stage.Stage;
 
 public class ManagerPageController {
 
-	@FXML
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -66,13 +66,16 @@ public class ManagerPageController {
     private Hyperlink linkDati;
 
     @FXML
-	private Menu MenuNotifiche;
+    private Menu MenuNotifiche;
 
     @FXML
     private Button btnAggiorna;
-    
+
     @FXML
-    void AssegnaOpere(ActionEvent event) {
+    private Button btnAccettaRifiuta;
+
+    @FXML
+    void AccettaRifiuta(ActionEvent event) {
 
     }
 
@@ -105,12 +108,11 @@ public class ManagerPageController {
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert MenuNotifiche != null : "fx:id=\"MenuNotifiche\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnAccettaRifiuta != null : "fx:id=\"btnAccettaRifiuta\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         txtemailua.setText(controller_login.email);
         colore();
+
     }
     
     public void colore() {
@@ -134,7 +136,7 @@ public class ManagerPageController {
     		MenuItem item=new MenuItem(finale);
     		MenuNotifiche.getItems().add(item);
     		item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e) {
+				 public void handle(ActionEvent e) {
 					((Node)event.getSource()).getScene().getWindow().hide();
 		    		Stage primaryStage = new Stage();
 		    		BorderPane root = null;
@@ -152,8 +154,8 @@ public class ManagerPageController {
 			});
     	}
     }
-
-    public void Ricerca(ActionEvent event) throws Exception {
+	
+	public void Ricerca(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
@@ -161,8 +163,8 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-    
-    public void Logout(ActionEvent event) throws Exception {
+	
+	public void Logout(ActionEvent event) throws Exception {
     	boolean disattiva=controller_logout.disattivautente(txtemailua);
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
@@ -173,8 +175,8 @@ public class ManagerPageController {
     		primaryStage.show();
     	}
     }
-    
-    public void Trascrivi(ActionEvent event) throws Exception {
+	
+	public void Trascrivi(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/TrascriviPage.fxml"));
@@ -182,8 +184,8 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-    
-    public void Assegna(ActionEvent event) throws Exception {
+	
+	public void AssegnaOpere(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaOpere.fxml"));
@@ -191,8 +193,8 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-    
-    public void Revisiona(ActionEvent event) throws Exception {
+	
+	public void Revisiona(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
@@ -200,8 +202,8 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-    
-    public void AssegnaPagine(ActionEvent event) throws Exception {
+	
+	public void AssegnaPagine(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaPagine.fxml"));
@@ -209,8 +211,8 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-    
-    public void VediDati(ActionEvent event) throws Exception {
+	
+	public void VediDati(ActionEvent event) throws Exception {
     	boolean visualizza=controller_dati.visualizza(txtemailua);
     	if(visualizza) {
     		((Node) event.getSource()).getScene().getWindow().hide();
@@ -222,5 +224,3 @@ public class ManagerPageController {
     	}
 	}
 }
-
-
