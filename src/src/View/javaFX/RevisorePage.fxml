@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -22,7 +23,12 @@
                   <Button fx:id="btnLogout" layoutX="432.0" layoutY="211.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
                   <Label fx:id="txtemailua" layoutX="14.0" layoutY="6.0" text="Label" />
                   <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="174.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
-                  <ComboBox fx:id="comboNotifiche" layoutX="308.0" layoutY="37.0" prefWidth="150.0" promptText="Notifiche" />
+                  <MenuBar layoutX="290.0" layoutY="37.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Notifiche" />
+                    </menus>
+                  </MenuBar>
+                  <Button fx:id="btnAggiorna" layoutX="371.0" layoutY="37.0" mnemonicParsing="false" onAction="#Aggiorna" text="Aggiorna" />
                </children>
             </Pane>
          </center>
