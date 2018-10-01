@@ -1,24 +1,29 @@
 package View.FrontController;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Business.Controller.controller_dati;
+import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
 
 public class TrascrittorePageController {
 
@@ -44,8 +49,10 @@ public class TrascrittorePageController {
     private Hyperlink linkDati;
     
     @FXML
-    private ComboBox<String> comboNotifiche;
-    ObservableList<String> list = FXCollections.observableArrayList("notifica");
+    private Button btnAggiorna;
+    
+    @FXML
+	private Menu MenuNotifiche;
 
     @FXML
     void initialize() {
@@ -54,9 +61,49 @@ public class TrascrittorePageController {
         assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
-        assert comboNotifiche != null : "fx:id=\"comboNotifiche\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
-        comboNotifiche.setItems(list);
+        assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         txtemailua.setText(controller_login.email);
+        colore();
+    }
+    
+    public void colore() {
+    	if(controller_domanda.notificacolore) {
+    		btnAggiorna.setStyle(" -fx-base: red;");
+    	}
+    }
+    
+    public void Aggiorna(ActionEvent event) throws Exception {
+		btnAggiorna.setStyle(" -fx-base: gray;");
+		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
+		if(notifiche.isEmpty()) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Non ci sono notifiche al momento!!");
+			alert.showAndWait();
+		}
+    	String finale=null;
+    	for(String e:notifiche) {
+    		finale=e;
+    		MenuItem item=new MenuItem(finale);
+    		MenuNotifiche.getItems().add(item);
+    		item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent e) {
+					((Node)event.getSource()).getScene().getWindow().hide();
+		    		Stage primaryStage = new Stage();
+		    		BorderPane root = null;
+					try {
+						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		Scene scene = new Scene(root);
+		    		primaryStage.setScene(scene);
+		    		primaryStage.show();
+		    		item.setDisable(true);
+				}
+			});
+    	}
     }
     
     public void Logout(ActionEvent event) throws Exception {

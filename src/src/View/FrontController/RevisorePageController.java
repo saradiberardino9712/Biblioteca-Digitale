@@ -9,8 +9,6 @@ import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
