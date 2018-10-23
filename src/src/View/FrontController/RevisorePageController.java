@@ -122,7 +122,7 @@ public class RevisorePageController {
     public void Ricerca(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -140,8 +140,13 @@ public class RevisorePageController {
 		}
 	}
     
-    public void Revisiona(ActionEvent event) throws Exception {
-    	
-    }
+    	public void Revisiona(ActionEvent event) throws Exception {
+        	((Node)event.getSource()).getScene().getWindow().hide();
+        	Stage primaryStage = new Stage();
+        	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+        }
 }
 
