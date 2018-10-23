@@ -11,10 +11,16 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,6 +42,21 @@ public class TrascriviPageController {
     
     @FXML
     private HTMLEditor TextEditor;
+    
+    @FXML
+    private Label lblWarning;
+    
+    @FXML
+    private Button btnConfermaTrascrizione;
+
+    @FXML
+    private Hyperlink linkIndietro;
+
+    @FXML
+    void ConfermaTrascrizione(ActionEvent event) {
+
+    }
+    
 
 
     @FXML
@@ -43,6 +64,9 @@ public class TrascriviPageController {
         assert immagine != null : "fx:id=\"immagine\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
         assert btnImmagine != null : "fx:id=\"btnImmagine\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
         assert TextEditor != null : "fx:id=\"TextEditor\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
+        assert btnConfermaTrascrizione != null : "fx:id=\"btnConfermaTrascrizione\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
+        assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
+        assert lblWarning != null : "fx:id=\"lblWarning\" was not injected: check your FXML file 'TrascriviPage.fxml'.";
 
     }
     
@@ -63,6 +87,15 @@ public class TrascriviPageController {
     	} catch (IOException e) {
     		System.err.println(e.getMessage());
     	}
+    }
+    
+    public void Indietro(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage4 = new Stage();
+		AnchorPane root4 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/TrascrittorePage.fxml"));
+		Scene scene4 = new Scene(root4);
+		primaryStage4.setScene(scene4);
+		primaryStage4.show();
     }
     
 }
