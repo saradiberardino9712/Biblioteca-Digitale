@@ -23,7 +23,7 @@
       <Label layoutX="398.0" layoutY="88.0" text="(separate da virgola)" />
       <TextArea layoutX="41.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" />
       <TextArea layoutX="352.0" layoutY="116.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="btnAvanti" layoutX="274.0" layoutY="342.0" mnemonicParsing="false" text="Avanti" />
+      <Button fx:id="btnAvanti" layoutX="274.0" layoutY="342.0" mnemonicParsing="false" onAction="#avanti" text="Avanti" />
       <Hyperlink fx:id="linkIndietro" layoutX="28.0" layoutY="356.0" onAction="#indietro" text="Indietro" />
    </children>
 </Pane>
