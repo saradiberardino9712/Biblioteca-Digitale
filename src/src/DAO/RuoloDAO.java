@@ -29,9 +29,9 @@ public class RuoloDAO implements DAOinterface{
 		if(args.get(0)!=null)
 			utente= (Utente)args.get(0);
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.ruolo");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.ruolo");
 			while(resultSet.next()){
 				int ID= resultSet.getInt("ID");
 				String nome_ruolo = resultSet.getString("nome_ruolo");
