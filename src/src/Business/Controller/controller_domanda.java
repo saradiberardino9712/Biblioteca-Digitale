@@ -20,14 +20,13 @@ public class controller_domanda {
 	public static boolean notificacolore;
 	public static ArrayList<Notifica> elenco;
 	
-	public static boolean datirichiesta(Label txtemailua, Label txtruoloua) {
-		String email=txtemailua.getText();
-		utente=Utente.cercautentedb(email, null);
+	public static boolean datirichiesta() {
+		utente=Utente.getIstance();
 		if(utente==null)
 			return false;
 		nome=utente.getNome();
 		cognome=utente.getCognome();
-		ruolo=txtruoloua.getText();
+		ruolo=utente.getNomeRuolo();
 		ArrayList<Notifica> elenconot=Notifica.prendinotifiche(prendiidmanager(),"Accetta Domande");
 		for(Notifica n: elenconot) {
 			int id=n.getidutente();

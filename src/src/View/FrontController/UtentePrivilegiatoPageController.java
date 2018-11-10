@@ -1,29 +1,25 @@
 package View.FrontController;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import Business.Controller.controller_dati;
 import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
 
 public class UtentePrivilegiatoPageController {
 
@@ -34,7 +30,7 @@ public class UtentePrivilegiatoPageController {
     private URL location;
 
     @FXML
-    private Label txtruoloua;
+    private Label txtRuoloua;
 
     @FXML
     private Button btnLogout;
@@ -43,7 +39,7 @@ public class UtentePrivilegiatoPageController {
     private Button btnRicerca;
 
     @FXML
-    private Label txtemailua;
+    private Label txtEmailua;
 
     @FXML
     private Button btnRichiesta;
@@ -52,66 +48,24 @@ public class UtentePrivilegiatoPageController {
     private Hyperlink linkDati;
     
     @FXML
-    private Button btnAggiorna;
-    
-    @FXML
-	private Menu MenuNotifiche;
-    
+    private ComboBox<String> comboNotifiche;
+    ObservableList<String> list = FXCollections.observableArrayList("notifica");
+
     @FXML
     void initialize() {
-        assert txtruoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        assert txtRuoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
-        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRichiesta != null : "fx:id=\"btnRichiesta\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
-        assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
-        txtemailua.setText(controller_login.email);
-        colore();
-    }
-    
-    public void colore() {
-    	if(controller_domanda.notificacolore) {
-    		btnAggiorna.setStyle(" -fx-base: red;");
-    	}
-    }
-    
-    public void Aggiorna(ActionEvent event) throws Exception {
-		btnAggiorna.setStyle(" -fx-base: gray;");
-		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
-		if(notifiche.isEmpty()) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Notifiche");
-			alert.setHeaderText("Non ci sono notifiche al momento!!");
-			alert.showAndWait();
-		}
-    	String finale=null;
-    	for(String e:notifiche) {
-    		finale=e;
-    		MenuItem item=new MenuItem(finale);
-    		MenuNotifiche.getItems().add(item);
-    		item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e) {
-					((Node)event.getSource()).getScene().getWindow().hide();
-		    		Stage primaryStage = new Stage();
-		    		BorderPane root = null;
-					try {
-						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		    		Scene scene = new Scene(root);
-		    		primaryStage.setScene(scene);
-		    		primaryStage.show();
-		    		item.setDisable(true);
-				}
-			});
-    	}
+        assert comboNotifiche != null : "fx:id=\"comboNotifiche\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
+        comboNotifiche.setItems(list);
+        txtEmailua.setText(controller_login.email);
     }
     
     public void Logout(ActionEvent event) throws Exception {
-    	boolean disattiva=controller_logout.disattivautente(txtemailua);
+    	boolean disattiva=controller_logout.disattivautente();
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
     		Stage primaryStage = new Stage();
@@ -132,7 +86,7 @@ public class UtentePrivilegiatoPageController {
     }
     
     public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
+		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();

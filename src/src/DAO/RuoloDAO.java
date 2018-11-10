@@ -2,7 +2,6 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,47 +12,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class RuoloDAO implements DAOinterface{
-
-	@SuppressWarnings("finally")
+	
+	@Override
 	public boolean insert(ArrayList<Object> args) {
-		Connection connect = null;
-		PreparedStatement preparedStatement = null;
-		boolean success=true;
-		try{	
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.ruolo(nome_ruolo) VALUES (?)");
-			preparedStatement.setString(1,(String)args.get(0));
-			preparedStatement.executeUpdate();
-		}catch(SQLException e){
-			success=false;
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Errore Database");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
-		}catch(Exception e){
-			success=false;
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Errore");
-			alert.setHeaderText("Errore Generico");
-			alert.setContentText(e.getMessage());
-			alert.showAndWait();
-		}finally{
-				try{
-						if(connect!=null) connect.close();
-						if(preparedStatement!=null) preparedStatement.close();
-						return success;
-						}
-					catch(final SQLException e){
-						final Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Errore");
-						alert.setHeaderText("Errore Database");
-						alert.setContentText(e.getMessage());
-						alert.showAndWait();
-						return false;
-						}
-					}
-		}	
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	@SuppressWarnings("finally")
 	public Object retrieve(ArrayList<Object> args) {
 		Connection connect = null;
@@ -64,9 +29,9 @@ public class RuoloDAO implements DAOinterface{
 		if(args.get(0)!=null)
 			utente= (Utente)args.get(0);
 		try{
-			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.ruolo");
+			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.ruolo");
 			while(resultSet.next()){
 				int ID= resultSet.getInt("ID");
 				String nome_ruolo = resultSet.getString("nome_ruolo");
@@ -122,6 +87,8 @@ public class RuoloDAO implements DAOinterface{
 			}			
 		}
 	}
+
+
 }
 	
 	

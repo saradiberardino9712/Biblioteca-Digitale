@@ -36,12 +36,11 @@ public class controller_registrazione {
 			alert.setTitle("Errore Registrazione");
 			alert.setHeaderText("La data è sbagliata!!");
 			alert.showAndWait();
+			datapicker.setValue(null);
+			datapicker.setStyle(" -fx-base: red;");
 			return false;
 		}
-		boolean inserimento;
-		//inserimento dell'utente nel db tramite il model
-		inserimento = Utente.inserisciutentedb(nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
-				professione, ID_ruolo);
+		boolean inserimento=Utente.inserisciutentedb(nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, ID_ruolo);
 		return inserimento;
 	}
 

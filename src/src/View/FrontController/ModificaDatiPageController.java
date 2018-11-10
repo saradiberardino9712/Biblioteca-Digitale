@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
@@ -41,10 +42,13 @@ public class ModificaDatiPageController {
     private TextField txtProfessione;
 
     @FXML
-    private TextField txtPassword;
+    private PasswordField txtPassword;
+    
+    @FXML
+    private PasswordField txtPassword1;
 
     @FXML
-    private Button btnModificaDati;
+    private Button btnConfermaModifica;
 
     @FXML
     private Hyperlink linkIndietro;
@@ -60,7 +64,8 @@ public class ModificaDatiPageController {
         assert txtTitoloStudio != null : "fx:id=\"txtTitoloStudio\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert txtProfessione != null : "fx:id=\"txtProfessione\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert txtPassword != null : "fx:id=\"txtPassword\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
-        assert btnModificaDati != null : "fx:id=\"btnModificaDati\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
+        assert txtPassword1 != null : "fx:id=\"txtPassword1\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
+        assert btnConfermaModifica != null : "fx:id=\"btnModificaDati\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         assert datapicker != null : "fx:id=\"datapicker\" was not injected: check your FXML file 'ModificaDatiPage.fxml'.";
         datapicker.setPromptText(controller_dati.datanascita);
@@ -76,21 +81,13 @@ public class ModificaDatiPageController {
     }
     
     public void ConfermaModifica(ActionEvent event) throws Exception{
-    	boolean modifica=controller_dati.modifica(txtNome,txtCognome,txtIndirizzo,txtTitoloStudio,txtProfessione,txtPassword,datapicker);
+    	boolean modifica=controller_dati.modifica(txtNome,txtCognome,txtIndirizzo,txtTitoloStudio,txtProfessione,txtPassword,txtPassword1,datapicker);
     	if(modifica) {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Modifica dati");
 			alert.setHeaderText("Modifiche andate a buon fine!!");
 			alert.showAndWait();
 			((Node)event.getSource()).getScene().getWindow().hide();
-	    	Stage primaryStage = new Stage();
-	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-    	}
-    	else {
-    		((Node)event.getSource()).getScene().getWindow().hide();
 	    	Stage primaryStage = new Stage();
 	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
 			Scene scene = new Scene(root);

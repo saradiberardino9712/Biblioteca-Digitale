@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-
 import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -21,10 +20,10 @@ public class UtenteDAO implements DAOinterface {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO bibliotecadigitale.utente(nome,cognome,indirizzo,password,data_nascita,email,titolo_studio,professione,ID_ruolo) VALUES (?,?,?,?,?,?,?,?,?)");
+					"INSERT INTO progettoprova.utente(nome,cognome,indirizzo,password,data_nascita,email,titolo_studio,professione,ID_ruolo) VALUES (?,?,?,?,?,?,?,?,?)");
 			preparedStatement.setString(1, (String) args.get(0));
 			preparedStatement.setString(2, (String) args.get(1));
 			preparedStatement.setString(3, (String) args.get(2));
@@ -75,10 +74,10 @@ public class UtenteDAO implements DAOinterface {
 		Utente utente = null;
 		String passwordu=(String) args.get(1);
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
 					"root", "ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.utente");
+			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.utente");
 			while (resultSet.next()) {
 				int id=resultSet.getInt("ID");
 				String nome = resultSet.getString("nome");
@@ -92,8 +91,7 @@ public class UtenteDAO implements DAOinterface {
 				String statodomanda = resultSet.getString("statodomanda");
 				int ID_ruolo = resultSet.getInt("ID_ruolo");
 				if (email.equals((String) args.get(0)) && password.equals((String) args.get(1)) || email.equals((String) args.get(0)) && passwordu==null) {
-					utente = new Utente(id,nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
-							professione,statodomanda, ID_ruolo);
+					utente = Utente.setInstance(id, nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, statodomanda, ID_ruolo);
 					connect.close();
 					Statement.close();
 					resultSet.close();
@@ -144,10 +142,10 @@ public class UtenteDAO implements DAOinterface {
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> listaid= (ArrayList<Integer>) args.get(0);
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
 					"root", "ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.utente");
+			resultSet = Statement.executeQuery("SELECT * FROM progettoprova.utente");
 			while (resultSet.next()) {
 				int id=resultSet.getInt("ID");
 				String nome = resultSet.getString("nome");
@@ -213,12 +211,12 @@ public class UtenteDAO implements DAOinterface {
 		Utente utente=(Utente)args.get(0);
 		boolean valore=(boolean) args.get(1);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
 			Statement = connect.createStatement(); 
 			if(valore)
-				Statement.executeUpdate("UPDATE bibliotecadigitale.utente SET attivo=true WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
+				Statement.executeUpdate("UPDATE progettoprova.utente SET attivo=true WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
 			else
-				Statement.executeUpdate("UPDATE bibliotecadigitale.utente SET attivo=false WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
+				Statement.executeUpdate("UPDATE progettoprova.utente SET attivo=false WHERE email='" + utente.getEmail() + " ' AND password='" + utente.getPassword() + " ' ");
 		}catch(SQLException e){
 			success=false;
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -259,8 +257,8 @@ public class UtenteDAO implements DAOinterface {
 		boolean success=true; 
 		String emaildata=(String) args.get(0);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
-			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET nome=?,cognome=?,indirizzo=?,titolo_studio=?,professione=?,password=?,"
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE progettoprova.utente SET nome=?,cognome=?,indirizzo=?,titolo_studio=?,professione=?,password=?,"
 					+ "data_nascita=? WHERE email='"+emaildata+"'");
 			preparedStatement.setString(1, (String) args.get(1));
 			preparedStatement.setString(2, (String) args.get(2));
@@ -310,8 +308,8 @@ public class UtenteDAO implements DAOinterface {
 		boolean success=true; 
 		String emaildata=(String) args.get(0);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
-			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET statodomanda=? WHERE email='"+emaildata+"'");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE progettoprova.utente SET statodomanda=? WHERE email='"+emaildata+"'");
 			preparedStatement.setString(1, (String) args.get(1));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
@@ -357,8 +355,8 @@ public class UtenteDAO implements DAOinterface {
 		int idruolo=(int) args.get(2);
 		String titolostudio=(String) args.get(3);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
-			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.utente SET statodomanda=? WHERE nome='"+ nome +"'and cognome='" + cognome + "' and ID_ruolo='" + idruolo + "' and titolo_studio='" + titolostudio + "'");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			preparedStatement = connect.prepareStatement("UPDATE progettoprova.utente SET statodomanda=? WHERE nome='"+ nome +"'and cognome='" + cognome + "' and ID_ruolo='" + idruolo + "' and titolo_studio='" + titolostudio + "'");
 			preparedStatement.setString(1, (String) args.get(4));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){

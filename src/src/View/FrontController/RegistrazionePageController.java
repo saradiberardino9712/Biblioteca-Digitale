@@ -15,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -61,6 +62,9 @@ public class RegistrazionePageController {
 
     @FXML
     private DatePicker datapicker;
+    
+    @FXML
+    private Hyperlink linkIndietro;
 
     @FXML
     void initialize() {
@@ -76,6 +80,15 @@ public class RegistrazionePageController {
         assert datapicker != null : "fx:id=\"datapicker\" was not injected: check your FXML file 'RegistrazionePage.fxml'.";
         combobox.setItems(list);
         datapicker.setValue(LocalDate.now());
+    }
+    
+    public void Indietro(ActionEvent event) throws Exception {
+    	((Node) event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage = new Stage();
+		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/LoginPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
     }
     
     public void Registrati(ActionEvent event) throws Exception {

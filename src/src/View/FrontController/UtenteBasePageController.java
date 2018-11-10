@@ -42,10 +42,10 @@ public class UtenteBasePageController {
 	private Hyperlink linkDati;
 	
 	@FXML
-	private Label txtemailua;
+	private Label txtEmailua;
 
     @FXML
-    private Label txtruoloua;
+    private Label txtRuoloua;
     
     @FXML
     private Button btnAggiorna;
@@ -59,11 +59,11 @@ public class UtenteBasePageController {
 		assert btnRichiesta != null : "fx:id=\"btnModulo\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
-		assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
-		assert txtruoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert txtRuoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
-		txtemailua.setText(controller_login.email);
-		colore();
+		txtEmailua.setText(controller_login.email);
+		//colore();
 	}
 	
 	public void colore() {
@@ -73,7 +73,7 @@ public class UtenteBasePageController {
     }
     
     public void Aggiorna(ActionEvent event) throws Exception {
-		btnAggiorna.setStyle(" -fx-base: gray;");
+    /*	btnAggiorna.setStyle(" -fx-base: gray;");
 		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
 		if(notifiche.isEmpty()) {
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -103,11 +103,11 @@ public class UtenteBasePageController {
 		    		item.setDisable(true);
 				}
 			});
-    	}
+    	}*/
     }
 
 	public void Logout(ActionEvent event) throws Exception {		
-		boolean disattiva=controller_logout.disattivautente(txtemailua);
+		boolean disattiva=controller_logout.disattivautente();
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
     		Stage primaryStage = new Stage();
@@ -119,7 +119,7 @@ public class UtenteBasePageController {
 	}
 	
 	public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
+		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();
@@ -129,18 +129,9 @@ public class UtenteBasePageController {
 			primaryStage.show();
 		}
 	}
-
-	public void Ricerca(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
 	
 	public void Richiesta(ActionEvent event) throws Exception {
-		boolean prendi=controller_domanda.datirichiesta(txtemailua,txtruoloua);
+		boolean prendi=controller_domanda.datirichiesta();
 		if(prendi) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();
@@ -150,4 +141,13 @@ public class UtenteBasePageController {
 			primaryStage.show();
 		}	
 	}
+	
+	public void Ricerca(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
 }
