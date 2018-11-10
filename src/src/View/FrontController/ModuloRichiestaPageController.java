@@ -25,10 +25,10 @@ public class ModuloRichiestaPageController {
     private URL location;
 
     @FXML
-    private Label txtnomeua;
+    private Label txtNomeua;
 
     @FXML
-    private Label txtcognomeua;
+    private Label txtCognomeua;
 
     @FXML
     private TextField txtTitoloStudio;
@@ -41,13 +41,13 @@ public class ModuloRichiestaPageController {
 
     @FXML
     void initialize() {
-        assert txtnomeua != null : "fx:id=\"txtnomeua\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
-        assert txtcognomeua != null : "fx:id=\"txtcognomeua\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
+        assert txtNomeua != null : "fx:id=\"txtnomeua\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
+        assert txtCognomeua != null : "fx:id=\"txtcognomeua\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
         assert txtTitoloStudio != null : "fx:id=\"txtTitoloStudio\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
         assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
         assert btnInviaRichiesta != null : "fx:id=\"btnInviaRichiesta\" was not injected: check your FXML file 'ModuloRichiestaPage.fxml'.";
-        txtnomeua.setText(controller_domanda.nome);
-        txtcognomeua.setText(controller_domanda.cognome);
+        txtNomeua.setText(controller_domanda.nome);
+        txtCognomeua.setText(controller_domanda.cognome);
     }
     
     public void Indietro(ActionEvent event) throws Exception {
@@ -98,6 +98,8 @@ public class ModuloRichiestaPageController {
 			alert.setTitle("Invia richiesta");
 			alert.setHeaderText("Titolo di studio non corrisponde a quello inserito durante la registrazione");
 			alert.showAndWait();
+			txtTitoloStudio.setText(null);
+			txtTitoloStudio.setStyle(" -fx-base: red;");
     	}
     }
 }

@@ -76,15 +76,6 @@ public class UtentePrivilegiatoPageController {
     	}
     }
     
-    public void Ricerca(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
-    
     public void VediDati(ActionEvent event) throws Exception {
 		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
@@ -97,8 +88,8 @@ public class UtentePrivilegiatoPageController {
 		}
 	}
     
-    public void Richiesta(ActionEvent event) throws Exception {
-    	boolean prendi=controller_domanda.datirichiesta(txtemailua,txtruoloua);
+     public void Richiesta(ActionEvent event) throws Exception {
+    	boolean prendi=controller_domanda.datirichiesta();
 		if(prendi) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();
@@ -108,5 +99,14 @@ public class UtentePrivilegiatoPageController {
 			primaryStage.show();
 		}	
     }
+     
+    public void Ricerca(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }   
 }
 

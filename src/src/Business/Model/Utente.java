@@ -35,6 +35,10 @@ public class Utente {
 		this.ruolo = new Ruolo(ID_ruolo,null);
 	}
 	
+	public int getID() {
+		return id;
+	}
+	
 	public void setNome(String newnome) {
 		this.nome = newnome;
 	}
@@ -154,6 +158,14 @@ public class Utente {
 		return modificadb;
 	}
 
+	public static boolean settastato(String stato) {
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(instance.getEmail());
+		lista.add(stato);
+		boolean modificastato=new UtenteDAO().updatestato(lista);
+		return modificastato;
+	}
+	
 	public static Utente delete() {
 		instance = null;
 		return instance;

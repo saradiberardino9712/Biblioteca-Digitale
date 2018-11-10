@@ -7,7 +7,6 @@ import Business.Model.Notifica;
 import Business.Model.Ruolo;
 import Business.Model.Utente;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
@@ -40,6 +39,7 @@ public class controller_domanda {
 		}	
 		return true;
 	}
+	
 	public static int prendiidmanager() {
 		Ruolo ruolo=Ruolo.prendiiddb("Manager");
 		int idmanager=0;
@@ -47,26 +47,25 @@ public class controller_domanda {
 			idmanager=ruolo.getID();
 		return idmanager;
 	}
+	
 	public static boolean invia(TextField txttitolostudio) {
 		String titolostudio=txttitolostudio.getText();
 		if(!titolostudio.equals(utente.getTitoloStudio()))
 			return false;
-		boolean modificastato=Utente.settastato(utente,"in attesa");
-		Ruolo ruolo=Ruolo.prendiiddb("Manager");
-		int idmanager=0;
-		if(ruolo==null)
-			return false;
-		else
-			idmanager=ruolo.getID();
-		int idutente=utente.getID();
-		boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta Domande\" ",idmanager,idutente);
-		if(!(notifica)) {
-			notificacolore=false;
-			return false;
-		}else
-			notificacolore=true;
+		boolean modificastato=Utente.settastato("in attesa");
+		if(modificastato) {
+			int idmanager=prendiidmanager();
+			int idutente=utente.getID();
+			boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta Domande\" ",idmanager,idutente);
+			if(!(notifica)) {
+				notificacolore=false;
+				return false;
+			}else
+				notificacolore=true;
+		}
 		return modificastato;
 	}
+	
 	//prende le notifiche dal db per la domanda da trascrittore che devono arrivare al manager
 	public static ArrayList<String> prendinotifichedomanda(){
 		elenco= Notifica.prendinotifiche(prendiidmanager(),"Accetta Domande");
