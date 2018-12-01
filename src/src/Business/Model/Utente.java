@@ -166,6 +166,24 @@ public class Utente {
 		return modificastato;
 	}
 	
+	public static ArrayList<String> prendiutentidomandadb(ArrayList<Integer> listaid){
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(listaid);
+		ArrayList<String> listautenti=new UtenteDAO().retrieveutentidomanda(lista);
+		return listautenti;
+	} 
+	
+	public static boolean accettarifiutodomanda(String nome, String cognome, int idruolo, String titolostudio, String modifica) {
+		ArrayList<Object> lista=new ArrayList<>();
+		lista.add(nome);
+		lista.add(cognome);
+		lista.add(idruolo);
+		lista.add(titolostudio);
+		lista.add(modifica);
+		boolean aggiornato=new UtenteDAO().updatedomanda(lista);
+		return aggiornato;
+	}
+
 	public static Utente delete() {
 		instance = null;
 		return instance;

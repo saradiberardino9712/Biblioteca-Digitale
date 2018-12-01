@@ -40,4 +40,11 @@ public class Ruolo {
 		Ruolo newruolo=(Ruolo) new RuoloDAO().retrieve(lista);
 		return newruolo;
 	}
+	
+	public static Ruolo prendiruolodb(int idruolo) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(idruolo);
+		Ruolo newruolo=(Ruolo) new RuoloDAO().retrieveid(lista);
+		return newruolo;
+	}
 }
