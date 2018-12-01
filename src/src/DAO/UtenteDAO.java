@@ -133,12 +133,12 @@ public class UtenteDAO implements DAOinterface {
 	}
 	
 	@SuppressWarnings({ "finally"})
-	public ArrayList<Utente> retrieveutentidomanda(ArrayList<Object> args) {
+	public ArrayList<String> retrieveutentidomanda(ArrayList<Object> args) {
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		Utente utente=null;
-		ArrayList<Utente> listautenti = new ArrayList<>();
+		String utente=null;
+		ArrayList<String> listautenti = new ArrayList<>();
 		@SuppressWarnings("unchecked")
 		ArrayList<Integer> listaid= (ArrayList<Integer>) args.get(0);
 		try {
@@ -150,18 +150,17 @@ public class UtenteDAO implements DAOinterface {
 				int id=resultSet.getInt("ID");
 				String nome = resultSet.getString("nome");
 				String cognome = resultSet.getString("cognome");
-				String indirizzo = resultSet.getString("indirizzo");
+				/*String indirizzo = resultSet.getString("indirizzo");
 				String password = resultSet.getString("password");
 				Date data_nascita = resultSet.getDate("data_nascita");
-				String email = resultSet.getString("email");
+				String email = resultSet.getString("email");*/
 				String titolo_studio = resultSet.getString("titolo_studio");
-				String professione = resultSet.getString("professione");
+				//String professione = resultSet.getString("professione");
 				String statodomanda = resultSet.getString("statodomanda");
 				int ID_ruolo = resultSet.getInt("ID_ruolo");
-				for(int i: listaid) {	
+				for(int i: listaid) {			
 					if(id==i) {
-						utente = new Utente(id,nome, cognome, indirizzo, password, data_nascita, email, titolo_studio,
-								professione,statodomanda, ID_ruolo);
+						utente=": il signor/signora " + nome + " " + cognome + " con ruolo: " + ID_ruolo + " e titolo di studio: " + titolo_studio;
 						listautenti.add(utente);
 					}
 				}	
