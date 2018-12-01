@@ -43,7 +43,7 @@ public class RevisorePageController {
     private Button btnLogout;
 
     @FXML
-    private Label txtemailua;
+    private Label txtEmailua;
 
     @FXML
     private Hyperlink linkDati;
@@ -60,11 +60,11 @@ public class RevisorePageController {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnRevisiona != null : "fx:id=\"btnRevisiona\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'RevisorePage.fxml'.";
-        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'RevisorePage.fxml'.";
+        assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'RevisorePage.fxml'.";
-        txtemailua.setText(controller_login.email);
-        colore();
+        txtEmailua.setText(controller_login.email);
+        //colore();
     }
     
     public void colore() {
@@ -108,7 +108,7 @@ public class RevisorePageController {
     }
     
     public void Logout(ActionEvent event) throws Exception {
-    	boolean disattiva=controller_logout.disattivautente(txtemailua);
+    	boolean disattiva=controller_logout.disattivautente();
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
     		Stage primaryStage = new Stage();
@@ -119,17 +119,8 @@ public class RevisorePageController {
     	}
     }
     
-    public void Ricerca(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
-    
     public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
+		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();
@@ -140,6 +131,15 @@ public class RevisorePageController {
 		}
 	}
     
+    public void Ricerca(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
+      
     	public void Revisiona(ActionEvent event) throws Exception {
         	((Node)event.getSource()).getScene().getWindow().hide();
         	Stage primaryStage = new Stage();

@@ -30,9 +30,6 @@ public class UtentePrivilegiatoPageController {
     private URL location;
 
     @FXML
-    private Label txtRuoloua;
-
-    @FXML
     private Button btnLogout;
 
     @FXML
@@ -53,7 +50,6 @@ public class UtentePrivilegiatoPageController {
 
     @FXML
     void initialize() {
-        assert txtRuoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";
         assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtentePrivilegiatoPage.fxml'.";

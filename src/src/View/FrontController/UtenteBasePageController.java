@@ -37,9 +37,6 @@ public class UtenteBasePageController {
 	
 	@FXML
 	private Label txtEmailua;
-
-    @FXML
-    private Label txtRuoloua;
     
     @FXML
     private Button btnAggiorna;
@@ -54,7 +51,6 @@ public class UtenteBasePageController {
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
-		assert txtRuoloua != null : "fx:id=\"txtruoloua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
 		txtEmailua.setText(controller_login.email);
 		//colore();

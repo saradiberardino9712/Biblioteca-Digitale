@@ -37,13 +37,13 @@ public class TrascrittorePageController {
     private Button btnRicerca;
 
     @FXML
-    private Button btnLogOut;
+    private Button btnLogout;
 
     @FXML
     private Button btnTrascrivi;
 
     @FXML
-    private Label txtemailua;
+    private Label txtEmailua;
 
     @FXML
     private Hyperlink linkDati;
@@ -57,13 +57,13 @@ public class TrascrittorePageController {
     @FXML
     void initialize() {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
-        assert btnLogOut != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
+        assert btnLogout != null : "fx:id=\"btnLogOut\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
-        assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
+        assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'TrascrittorePage.fxml'.";
-        txtemailua.setText(controller_login.email);
-        colore();
+        txtEmailua.setText(controller_login.email);
+       // colore();
     }
     
     public void colore() {
@@ -107,7 +107,7 @@ public class TrascrittorePageController {
     }
     
     public void Logout(ActionEvent event) throws Exception {
-    	boolean disattiva=controller_logout.disattivautente(txtemailua);
+    	boolean disattiva=controller_logout.disattivautente();
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
     		Stage primaryStage = new Stage();
@@ -118,6 +118,18 @@ public class TrascrittorePageController {
     	}
     }
     
+     public void VediDati(ActionEvent event) throws Exception {
+		boolean visualizza=controller_dati.visualizza();
+		if(visualizza) {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}
+	}
+     
     public void Ricerca(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
@@ -134,17 +146,5 @@ public class TrascrittorePageController {
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-    }
-    
-    public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
-		if(visualizza) {
-			((Node) event.getSource()).getScene().getWindow().hide();
-			Stage primaryStage = new Stage();
-			BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/VisualizzaDatiPage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		}
-	}
+    }  
 }
