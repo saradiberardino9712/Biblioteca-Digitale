@@ -6,66 +6,64 @@ import Business.Model.Ruolo;
 import Business.Model.Utente;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class controller_richieste {
 	
-	private static ArrayList<Integer> richiestedaesaminare=new ArrayList<>();
-	private static ArrayList<Utente> utenti=new ArrayList<>();
 	public static String nome;
 	public static String cognome;
 	public static String ruolo;
 	public static String titolostudio;
-	public static String stringa;
 	
 	public static ObservableList<String> prendiutentidomanda(){
 		ArrayList<Integer> listaid=new ArrayList<>();
-		for(Notifica n:controller_domanda.elenco) {
-			listaid.add(n.getidutente());
+		for(Notifica n:controller_notifiche.elenco) {
+			if((n.getdescrizione()).contains("Accetta/Rifiuta"))
+				listaid.add(n.getidutente());
 		}
-		utenti=Utente.prendiutentidomandadb(listaid);
-		String nome;
-		String cognome;
-		String ruolo;
-		String titolostudio;
-		String stringa;
-		int id;
-		ObservableList<String> utentidomanda=FXCollections.observableArrayList();
+		ArrayList<String> utenti=Utente.prendiutentidomandadb(listaid);
 		int count=0;
-		for (Utente u:utenti) {
-				count+=1;
-				id=u.getID();
-				richiestedaesaminare.add(id);
-				nome =u.getNome();
-				cognome=u.getCognome();
-				Ruolo ruolodb=Ruolo.cercaruolodb(u);
-				ruolo=ruolodb.getNomeRuolo();
-				titolostudio=u.getTitoloStudio();
-				stringa="Richiesta " + count + ": il signor/signora " + nome + " " + cognome + " con ruolo: " + ruolo + " e titolo di studio: " + titolostudio;
-				utentidomanda.add(stringa);
-		}	
+		ObservableList<String> utentidomanda=FXCollections.observableArrayList();
+		for(String u:utenti) {
+			count+=1;
+			String sostituzione="ruolo: ";
+			int s=u.indexOf(sostituzione);
+			String finale=" e";
+			int f=u.indexOf(finale);
+			String cambiare=u.substring(s+sostituzione.length(),f);
+			Ruolo ruolo=Ruolo.prendiruolodb(Integer.parseInt(cambiare));
+			String r=ruolo.getNomeRuolo();
+			String stringa=u.replace(cambiare,r);
+			String newstringa="Richiesta " + count + stringa;
+			utentidomanda.add(newstringa);
+		}
 		return utentidomanda;
 	}
 	
 	public static boolean esaminarichiesta(String frase) {
-		String i="Richiesta ";
-		int inizio=frase.indexOf(i);
-		String f=": il";
-		int fine=frase.indexOf(f);
-		String posizione=frase.substring(inizio+i.length(),fine);
-		int pos=Integer.parseInt(posizione);
-		int idscelta=richiestedaesaminare.get(pos-1);
-		boolean trovato=false;
-		for(Utente u: utenti) {
-			if(u.getID()==idscelta) {
-				nome=u.getNome();
-				cognome=u.getCognome();
-				Ruolo ruolodb=Ruolo.cercaruolodb(u);
-				ruolo=ruolodb.getNomeRuolo();
-				titolostudio=u.getTitoloStudio();
-				trovato=true;
-			}
-		}
-		return trovato;
+		String inizionomecogn="signora ";
+		int inc=frase.indexOf(inizionomecogn);
+		String finenomecogn=" con";
+		int fnc=frase.indexOf(finenomecogn);
+		String nomecognome=frase.substring(inc+inizionomecogn.length(), fnc);
+		String spazio=" ";
+		int s=nomecognome.indexOf(spazio);
+		nome=nomecognome.substring(0,s);
+		cognome=nomecognome.substring(s);
+		String inizioruolo="ruolo: ";
+		int ir=frase.indexOf(inizioruolo);
+		String fineruolo=" e";
+		int fr= frase.indexOf(fineruolo);
+		ruolo=frase.substring(ir+inizioruolo.length(), fr);
+		String iniziotitolo="studio: ";
+		int it=frase.indexOf(iniziotitolo);
+		titolostudio=frase.substring(it+iniziotitolo.length());
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Invio responso domanda");
+		alert.setHeaderText(titolostudio);
+		alert.showAndWait();
+		return true;
 	}
 	
 	public static boolean accettadomanda() {

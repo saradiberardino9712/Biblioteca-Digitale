@@ -1,8 +1,6 @@
 package Business.Controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import Business.Model.Notifica;
 import Business.Model.Ruolo;
 import Business.Model.Utente;
@@ -16,8 +14,6 @@ public class controller_domanda {
 	public static String cognome;
 	public static String ruolo;
 	private static Utente utente;
-	public static boolean notificacolore;
-	public static ArrayList<Notifica> elenco;
 	
 	public static boolean datirichiesta() {
 		utente=Utente.getIstance();
@@ -26,7 +22,7 @@ public class controller_domanda {
 		nome=utente.getNome();
 		cognome=utente.getCognome();
 		ruolo=utente.getNomeRuolo();
-		ArrayList<Notifica> elenconot=Notifica.prendinotifiche(prendiidmanager(),"Accetta Domande");
+		ArrayList<Notifica> elenconot=Notifica.prendinotifiche(prendiidmanager(),"Accetta/Rifiuta");
 		for(Notifica n: elenconot) {
 			int id=n.getidutente();
 			if(utente.getID()==id) {
@@ -53,42 +49,15 @@ public class controller_domanda {
 		if(!titolostudio.equals(utente.getTitoloStudio()))
 			return false;
 		boolean modificastato=Utente.settastato("in attesa");
+		boolean notifica=false;
 		if(modificastato) {
 			int idmanager=prendiidmanager();
 			int idutente=utente.getID();
-			boolean notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta Domande\" ",idmanager,idutente);
-			if(!(notifica)) {
-				notificacolore=false;
-				return false;
-			}else
-				notificacolore=true;
+			notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta/Rifiuta\" ",idmanager,idutente);
 		}
-		return modificastato;
-	}
-	
-	//prende le notifiche dal db per la domanda da trascrittore che devono arrivare al manager
-	public static ArrayList<String> prendinotifichedomanda(){
-		elenco= Notifica.prendinotifiche(prendiidmanager(),"Accetta Domande");
-		Collections.sort(elenco, new Ordinamentodecrescente());
-		String descrizione=null;
-		String orario=null;
-		String stringa=null;
-		ArrayList<String> notifiche=new ArrayList<>();
-		for(Notifica n:elenco) {
-			descrizione=n.getdescrizione();
-			orario=(n.getorario()).toString();
-			stringa=descrizione.concat(orario);
-			if(notifiche.contains(stringa))
-				notifiche.remove(stringa);
-			else
-				notifiche.add(stringa);
-		}	
-		return notifiche;
-	}
-}
-
-class Ordinamentodecrescente implements Comparator<Notifica>{
-	public int compare(Notifica not1,Notifica not2) {
-		return not2.getid()-not1.getid();
+		if(notifica)
+			return true;
+		else
+			return false;
 	}
 }
