@@ -2,7 +2,6 @@ package Business.Model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
 import DAO.NotificaDAO;
 
 public class Notifica {
@@ -53,10 +52,11 @@ public class Notifica {
 		return elenconotifiche;
 	}
 	
-	public static boolean updatevistadb(ArrayList<Notifica> lista) {
-		ArrayList<Object> listadata= new ArrayList<>();
-		listadata.add(lista);
-		boolean update=new NotificaDAO().update(listadata);
+	public static boolean updatevistadb(String descrizione,String orario) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(descrizione);
+		lista.add(orario);
+		boolean update=new NotificaDAO().update(lista);
 		return update;
 	}
 }

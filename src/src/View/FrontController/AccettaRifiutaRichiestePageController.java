@@ -92,34 +92,58 @@ public class AccettaRifiutaRichiestePageController {
     }
     
     public void Accetta(ActionEvent event) throws Exception {
-    	boolean accetta= controller_richieste.accettadomanda();
-    	if(accetta) {
+    	String ruolo=txtRuolo.getText();
+    	if(ruolo.length()==0) {
     		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Invio responso domanda");
-			alert.setHeaderText("E' stato mandato il seguente messaggio all'utente che ha effettuato la richiesta:\" La sua richiesta è stata accettata \"");
+			alert.setTitle("Attenzione!!");
+			alert.setHeaderText("Selezionare prima la richiesta da esaminare!!");
 			alert.showAndWait();
-			((Node)event.getSource()).getScene().getWindow().hide();
-	    	Stage primaryStage = new Stage();
-	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+    	}
+    	else {
+    		String frase=listview.getSelectionModel().getSelectedItem();
+    		boolean accetta= controller_richieste.accettadomanda(frase);
+    		if(accetta) {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Invio responso domanda");
+    			alert.setHeaderText("E' stato mandato il seguente messaggio all'utente che ha effettuato la richiesta:\" La sua richiesta è stata accettata \"");
+    			alert.showAndWait();
+    			Stage torna= ManagerPageController.homepage;
+    			torna.close();
+    			((Node)event.getSource()).getScene().getWindow().hide();
+    			Stage primaryStage = new Stage();
+    			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+    			Scene scene = new Scene(root);
+    			primaryStage.setScene(scene);
+    			primaryStage.show();
+    		}
     	}
     }
     
     public void Rifiuta(ActionEvent event) throws Exception {
-    	boolean rifiuta= controller_richieste.rifiutadomanda();
-    	if(rifiuta) {
+    	String ruolo=txtRuolo.getText();
+    	if(ruolo.length()==0) {
     		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Invio responso domanda");
-			alert.setHeaderText("E' stato mandato il seguente messaggio all'utente che ha effettuato la richiesta:\" La sua richiesta è stata rifiutata \"");
+			alert.setTitle("Attenzione!!");
+			alert.setHeaderText("Selezionare prima la richiesta da esaminare!!");
 			alert.showAndWait();
-			((Node)event.getSource()).getScene().getWindow().hide();
-	    	Stage primaryStage = new Stage();
-	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
     	}
-    }
+    	else {
+    		String frase=listview.getSelectionModel().getSelectedItem();
+    		boolean rifiuta= controller_richieste.rifiutadomanda(frase);
+    		if(rifiuta) {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Invio responso domanda");
+    			alert.setHeaderText("E' stato mandato il seguente messaggio all'utente che ha effettuato la richiesta:\" La sua richiesta è stata rifiutata \"");
+    			alert.showAndWait();
+    			Stage torna= ManagerPageController.homepage;
+    			torna.close();
+    			((Node)event.getSource()).getScene().getWindow().hide();
+    			Stage primaryStage = new Stage();
+    			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+    			Scene scene = new Scene(root);
+    			primaryStage.setScene(scene);
+    			primaryStage.show();
+    		}
+    	}
+    }	
 }

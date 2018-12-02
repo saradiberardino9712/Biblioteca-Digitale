@@ -1,19 +1,27 @@
 package View.FrontController;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import Business.Controller.*;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert.AlertType;
 
 public class UtenteBasePageController {
 
@@ -44,6 +52,9 @@ public class UtenteBasePageController {
     @FXML
 	private Menu MenuNotifiche;
     
+    @FXML
+    private VBox tre;
+    
 	@FXML
 	void initialize() {
 		assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtenteBase.fxml'.";
@@ -51,49 +62,146 @@ public class UtenteBasePageController {
 		assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'UtenteBase.fxml'.";
 		assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'UtenteBase.fxml'.";
+		assert MenuNotifiche != null : "fx:id=\"MenuNotifiche\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
 		assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
+		assert tre != null : "fx:id=\"tre\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
 		txtEmailua.setText(controller_login.email);
-		//colore();
+		colore();
 	}
 	
-	public void colore() {
-    	if(controller_domanda.notificacolore) {
-    		btnAggiorna.setStyle(" -fx-base: red;");
+    public static boolean azione=false;
+    public void colore() {
+    	if(azione) {
+    		if(controller_notifiche.prendinotificheutenteid()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			VisualizzaNotifiche();
+    		}	
+    	}else {
+    		if(controller_notifiche.prendinotificheutenteid()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
+    			alert.showAndWait();
+    			VisualizzaNotifiche();
+    		}else {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Non ci sono notifiche al momento!!");
+    			alert.showAndWait();
+    		}
     	}
     }
     
+    public static Stage homepage;
+    //prende la homepage dell'utente base
+    private void onBtnClicked() throws IOException {
+        homepage = (Stage) tre.getScene().getWindow();
+        homepage.close();
+    }
+    
+	public static String notifica=null;
+    public void VisualizzaNotifiche() {
+    	ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	String finale=null;
+    	for(String e:notifiche) {
+    		finale=e;
+       		MenuItem item=new MenuItem(finale);
+    		MenuNotifiche.getItems().add(item);
+    		MenuNotifiche.setOnMenuValidation(event ->{
+    			MenuNotifiche.setStyle(" -fx-background-color : LIGHTGRAY;");
+    		});
+    		if(item.getText().contains("accettata")) {
+    			item.setOnAction(new EventHandler<ActionEvent>() {
+    				public void handle(ActionEvent e) {
+    					notifica=item.getText();
+    					if(cambia() && controller_notifiche.vista()) {
+    						try {
+								onBtnClicked();
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+    						Stage primaryStage = new Stage();
+    						AnchorPane root=null;
+    						try {
+    							root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/TrascrittorePage.fxml"));
+    						} catch (IOException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						Scene scene = new Scene(root);
+    						primaryStage.setScene(scene);
+    						primaryStage.show();
+    						item.setDisable(true);
+    					}
+    				}
+    			});
+    		}else if(item.getText().contains("rifiutata")) {
+    			item.setOnAction(new EventHandler<ActionEvent>() {
+    				public void handle(ActionEvent e) {
+    					notifica=item.getText();
+    					if(controller_notifiche.vista()) {
+    						Alert alert = new Alert(AlertType.INFORMATION);
+    						alert.setTitle("Notifiche");
+    						alert.setHeaderText("Mi dispiace la richiesta è stata rifiutata puoi ritentare in futuro!!");
+    						alert.showAndWait();
+    						azione=true;
+    						try {
+								onBtnClicked();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+    						Stage primaryStage = new Stage();
+    			    		AnchorPane root=null;
+							try {
+								root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBasePage.fxml"));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+    			    		Scene scene = new Scene(root);
+    			    		primaryStage.setScene(scene);
+    			    		primaryStage.show();
+    					}
+    				}
+    			});
+    		}	
+    	}			
+    }
+    
+    private boolean cambia() {
+    	boolean cambia=controller_richieste.cambia();
+    	if(cambia) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Sei diventato trascrittore!! Complimenti!! ");
+			alert.showAndWait();
+			return true;
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Riprova più tardi!!");
+			alert.showAndWait();
+			return false;
+    	}	
+    }
+    
     public void Aggiorna(ActionEvent event) throws Exception {
-    /*	btnAggiorna.setStyle(" -fx-base: gray;");
-		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
-		if(notifiche.isEmpty()) {
+    	if(controller_notifiche.prendinotificheutenteid()) {
+    		MenuNotifiche.setStyle(" -fx-background-color : red;");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
+			alert.showAndWait();
+			VisualizzaNotifiche();
+    	}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Notifiche");
 			alert.setHeaderText("Non ci sono notifiche al momento!!");
 			alert.showAndWait();
-		}
-    	String finale=null;
-    	for(String e:notifiche) {
-    		finale=e;
-    		MenuItem item=new MenuItem(finale);
-    		MenuNotifiche.getItems().add(item);
-    		item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e) {
-					((Node)event.getSource()).getScene().getWindow().hide();
-		    		Stage primaryStage = new Stage();
-		    		BorderPane root = null;
-					try {
-						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		    		Scene scene = new Scene(root);
-		    		primaryStage.setScene(scene);
-		    		primaryStage.show();
-		    		item.setDisable(true);
-				}
-			});
-    	}*/
+    	}
     }
 
 	public void Logout(ActionEvent event) throws Exception {		

@@ -112,20 +112,28 @@ public class ManagerPageController {
         colore();
     }
     
+    public static boolean azione=false;
     //aggiornamento automatico delle notifiche
     public void colore() {
-    	if(controller_notifiche.prendinotificheutente()) {
-    		MenuNotifiche.setStyle(" -fx-background-color : red;");
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Notifiche");
-			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
-			alert.showAndWait();
-			VisualizzaNotifiche();
+    	if(azione) {
+    		if(controller_notifiche.prendinotificheutente()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			VisualizzaNotifiche();
+    		}	
     	}else {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Notifiche");
-			alert.setHeaderText("Non ci sono notifiche al momento!!");
-			alert.showAndWait();
+    		if(controller_notifiche.prendinotificheutente()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
+    			alert.showAndWait();
+    			VisualizzaNotifiche();
+    		}else {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Non ci sono notifiche al momento!!");
+    			alert.showAndWait();
+    		}
     	}
     }
     
@@ -136,6 +144,7 @@ public class ManagerPageController {
         homepage.setIconified(true);
     }
     
+    public static String notifica=null;
     public void VisualizzaNotifiche() {
     	ArrayList<String> notifiche=controller_notifiche.notifiche;
     	String finale=null;
@@ -149,6 +158,8 @@ public class ManagerPageController {
     		item.setOnAction(new EventHandler<ActionEvent>() {
     			public void handle(ActionEvent e) {
     		    	try {
+    		    		notifica=item.getText();
+    		    		azione=true;
 						onBtnClicked();
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
@@ -217,10 +228,12 @@ public class ManagerPageController {
     	for(String e:notifiche) {
     		if(e.contains("Accetta")) {
     			domande=true;
+    			notifica=e;
     		}
     	}
     	if(domande) {
     		onBtnClicked();
+    		azione=true;
     		Stage primaryStage = new Stage();
     		BorderPane root=(BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
     		Scene scene = new Scene(root);

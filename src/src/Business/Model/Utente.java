@@ -1,6 +1,7 @@
 package Business.Model;
 
 import java.util.Date;
+import java.util.TreeMap;
 import java.util.ArrayList;
 import DAO.UtenteDAO;
 
@@ -166,24 +167,37 @@ public class Utente {
 		return modificastato;
 	}
 	
-	public static ArrayList<String> prendiutentidomandadb(ArrayList<Integer> listaid){
+	public static TreeMap<String,String> prendiutentidomandadb(ArrayList<Integer> listaid){
 		ArrayList<Object> lista=new ArrayList<>();
 		lista.add(listaid);
-		ArrayList<String> listautenti=new UtenteDAO().retrieveutentidomanda(lista);
+		TreeMap<String,String> listautenti=new UtenteDAO().retrieveutentidomanda(lista);
 		return listautenti;
 	} 
 	
-	public static boolean accettarifiutodomanda(String nome, String cognome, int idruolo, String titolostudio, String modifica) {
+	public static boolean accettarifiutadomanda(String email,String stato) {
 		ArrayList<Object> lista=new ArrayList<>();
-		lista.add(nome);
-		lista.add(cognome);
+		lista.add(email);
+		lista.add(stato);
+		boolean modificastato=new UtenteDAO().updatestato(lista);
+		return modificastato;
+	}
+	
+	public static int prendiidutente(String email,int idruolo) {
+		ArrayList<Object>lista=new ArrayList<>();
+		lista.add(email);
 		lista.add(idruolo);
-		lista.add(titolostudio);
-		lista.add(modifica);
-		boolean aggiornato=new UtenteDAO().updatedomanda(lista);
-		return aggiornato;
+		int id=new UtenteDAO().retrieveid(lista);
+		return id;
 	}
 
+	public static boolean cambiaruoloutente(int id) {
+		ArrayList<Object>lista=new ArrayList<>();
+		lista.add(instance.getEmail());
+		lista.add(id);
+		boolean cambia=new UtenteDAO().updateid(lista);
+		return cambia;
+	}
+	
 	public static Utente delete() {
 		instance = null;
 		return instance;

@@ -1,16 +1,17 @@
 package Business.Controller;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 import Business.Model.Notifica;
 import Business.Model.Ruolo;
 import Business.Model.Utente;
+import View.FrontController.ManagerPageController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class controller_richieste {
 	
+	private static ArrayList<String> email=new ArrayList<>();
 	public static String nome;
 	public static String cognome;
 	public static String ruolo;
@@ -22,21 +23,24 @@ public class controller_richieste {
 			if((n.getdescrizione()).contains("Accetta/Rifiuta"))
 				listaid.add(n.getidutente());
 		}
-		ArrayList<String> utenti=Utente.prendiutentidomandadb(listaid);
+		TreeMap<String,String> utenti=Utente.prendiutentidomandadb(listaid);
 		int count=0;
 		ObservableList<String> utentidomanda=FXCollections.observableArrayList();
-		for(String u:utenti) {
+		for(String k:utenti.keySet()) {
 			count+=1;
 			String sostituzione="ruolo: ";
-			int s=u.indexOf(sostituzione);
+			int s=k.indexOf(sostituzione);
 			String finale=" e";
-			int f=u.indexOf(finale);
-			String cambiare=u.substring(s+sostituzione.length(),f);
+			int f=k.indexOf(finale);
+			String cambiare=k.substring(s+sostituzione.length(),f);
 			Ruolo ruolo=Ruolo.prendiruolodb(Integer.parseInt(cambiare));
 			String r=ruolo.getNomeRuolo();
-			String stringa=u.replace(cambiare,r);
+			String stringa=k.replace(cambiare,r);
 			String newstringa="Richiesta " + count + stringa;
 			utentidomanda.add(newstringa);
+		}
+		for(String v:utenti.values()) {
+			email.add(v);
 		}
 		return utentidomanda;
 	}
@@ -59,24 +63,69 @@ public class controller_richieste {
 		String iniziotitolo="studio: ";
 		int it=frase.indexOf(iniziotitolo);
 		titolostudio=frase.substring(it+iniziotitolo.length());
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Invio responso domanda");
-		alert.setHeaderText(titolostudio);
-		alert.showAndWait();
 		return true;
 	}
 	
-	public static boolean accettadomanda() {
-		Ruolo ruolo1=Ruolo.prendiiddb(ruolo);
-		int idruolo=ruolo1.getID();
-		boolean aggiorna=Utente.accettarifiutodomanda(nome,cognome,idruolo,titolostudio,"accettata");
-		return aggiorna;
+	public static boolean accettadomanda(String frase) {
+		String in_richiesta= "Richiesta ";
+		int in_r=frase.indexOf(in_richiesta);
+		String fn_richiesta=": ";
+		int fn_r=frase.indexOf(fn_richiesta);
+		String posizione=frase.substring(in_r+in_richiesta.length(), fn_r);
+		int pos=Integer.parseInt(posizione);
+		String emailu= email.get(pos-1);
+		email.remove(pos-1);
+		boolean aggiorna=Utente.accettarifiutadomanda(emailu,"accettata");
+		boolean notifica=false;
+		boolean vista=false;
+		if(aggiorna) {
+			int idutente=Utente.getIstance().getID();
+			int idutentenot=Utente.prendiidutente(emailu,0);
+			notifica=Notifica.creanotifica("La tua richiesta è stata accettata!!",idutentenot,idutente);
+			String not=ManagerPageController.notifica;
+			String desc="Rifiuta\" ";
+			int d=not.indexOf(desc);
+			String orario=not.substring(d+desc.length());
+			vista=Notifica.updatevistadb("Accetta",orario);
+		}
+		if(notifica && vista)
+			return true;
+		else
+			return false;
 	}
 	
-	public static boolean rifiutadomanda() {
-		Ruolo ruolo1=Ruolo.prendiiddb(ruolo);
-		int idruolo=ruolo1.getID();
-		boolean aggiorna=Utente.accettarifiutodomanda(nome,cognome,idruolo,titolostudio,"rifiutata");
-		return aggiorna;
+	public static boolean rifiutadomanda(String frase) {
+		String in_richiesta= "Richiesta ";
+		int in_r=frase.indexOf(in_richiesta);
+		String fn_richiesta=": ";
+		int fn_r=frase.indexOf(fn_richiesta);
+		String posizione=frase.substring(in_r+in_richiesta.length(), fn_r);
+		int pos=Integer.parseInt(posizione);
+		String emailu= email.get(pos-1);
+		email.remove(pos-1);
+		boolean aggiorna=Utente.accettarifiutadomanda(emailu,"rifiutata");
+		boolean notifica=false;
+		boolean vista=false;
+		if(aggiorna) {
+			int idutente=Utente.getIstance().getID();
+			int idutentenot=Utente.prendiidutente(emailu,0);
+			notifica=Notifica.creanotifica("La tua richiesta è stata rifiutata!!",idutentenot,idutente);
+			String not=ManagerPageController.notifica;
+			String desc="Rifiuta\" ";
+			int d=not.indexOf(desc);
+			String orario=not.substring(d+desc.length());
+			vista=Notifica.updatevistadb("Rifiuta",orario);
+		}
+		if(notifica && vista)
+			return true;
+		else
+			return false;
+	}
+	
+	public static boolean cambia() {
+		Ruolo trascrittore=Ruolo.prendiiddb("Trascrittore");
+		int nuovoid=trascrittore.getID();
+		boolean cambia=Utente.cambiaruoloutente(nuovoid);
+		return cambia;
 	}
 }

@@ -125,16 +125,15 @@ public class NotificaDAO {
 	public boolean update(ArrayList<Object> args){
 		Connection connect = null;
 		Statement Statement = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement=null;
 		boolean success=true; 
-		@SuppressWarnings("unchecked")
-		ArrayList<Notifica> lista= (ArrayList<Notifica>) args.get(0);
+		String descrizione=(String) args.get(0);
+		String orario= (String) args.get(1);
 		try{
 			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
-			Statement = connect.createStatement(); 
-			for(Notifica n:lista) {
-				int id=n.getid();
-				Statement.executeUpdate("UPDATE bibliotecadigitale.notifica SET vista=true WHERE ID='" + id + " ' ");
-			}
+			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\")) and orario='"+orario+"'");
+			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -154,7 +153,7 @@ public class NotificaDAO {
 				finally{
 					try{
 						if(connect!=null) connect.close();
-						if(Statement!=null) Statement.close();
+						if(preparedStatement!=null) preparedStatement.close();
 						return success;
 						}
 					catch(final SQLException e){

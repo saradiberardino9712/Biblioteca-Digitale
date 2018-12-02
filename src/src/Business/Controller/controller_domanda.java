@@ -51,9 +51,9 @@ public class controller_domanda {
 		boolean modificastato=Utente.settastato("in attesa");
 		boolean notifica=false;
 		if(modificastato) {
-			int idmanager=prendiidmanager();
+			int idutentenot=prendiidmanager();
 			int idutente=utente.getID();
-			notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta/Rifiuta\" ",idmanager,idutente);
+			notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta/Rifiuta\" ",idutentenot,idutente);
 		}
 		if(notifica)
 			return true;
