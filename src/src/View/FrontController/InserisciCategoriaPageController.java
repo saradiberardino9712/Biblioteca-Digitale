@@ -31,13 +31,19 @@ public class InserisciCategoriaPageController {
         assert btnInserisci != null : "fx:id=\"btnInserisci\" was not injected: check your FXML file 'InserisciCategoriaPage.fxml'.";
     }
     
+    public static String avviso=null;
     public void Inserisci(ActionEvent event) throws Exception {
     	boolean categoria=controller_caricamento.inseriscicategoria(txtCategoria);
     	if(categoria) {
+    		avviso=txtCategoria.getText();
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Caricamento metadati");
-			alert.setHeaderText("L'inserimento della categoria è andato a buon fine");
+			alert.setHeaderText("L'inserimento della categoria è andato a buon fine!!");
 			alert.showAndWait();
+			Alert alert1 = new Alert(AlertType.INFORMATION);
+			alert1.setTitle("Caricamento metadati");
+			alert1.setHeaderText("Scegli la categoria che hai apena inserito dalla lista!!");
+			alert1.showAndWait();
     	} 
     	else {
     		Alert alert = new Alert(AlertType.INFORMATION);
@@ -46,6 +52,7 @@ public class InserisciCategoriaPageController {
 			alert.showAndWait();
 			
     	}
-    	((Node)(event.getSource())).getScene().getWindow().hide();
+		((Node)event.getSource()).getScene().getWindow().hide();
+    	InserisciMetadatiPageController.homepage.setIconified(false);
     }
 }

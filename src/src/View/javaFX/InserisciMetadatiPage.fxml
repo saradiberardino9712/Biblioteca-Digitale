@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.InserisciMetadatiPageController">
@@ -32,6 +33,7 @@
             <Hyperlink fx:id="txtIndietro" layoutX="17.0" layoutY="227.0" onAction="#Indietro" text="Indietro" />
             <Button fx:id="btnCaricaMetadati" layoutX="487.0" layoutY="226.0" mnemonicParsing="false" onAction="#CaricaMetadati" text="Carica Metadati" />
             <ComboBox fx:id="combobox" layoutX="400.0" layoutY="33.0" onMouseClicked="#Aggiorna" prefWidth="150.0" promptText="Categoria" />
+            <VBox fx:id="meta" layoutX="560.0" layoutY="4.0" prefHeight="21.0" prefWidth="26.0" />
          </children>
       </Pane>
    </center>

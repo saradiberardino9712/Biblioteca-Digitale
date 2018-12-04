@@ -20,7 +20,7 @@ password char (20) not null,
 attivo boolean default false,
 statodomanda enum('in attesa','accettata','rifiutata'),
 ID_ruolo integer unsigned not null,
-constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade on delete cascade
+constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade
 );
 
 create table categoria (
@@ -36,7 +36,7 @@ autore varchar (50) not null,
 pagine_totali int not null,
 ID_categoria integer unsigned,
 constraint opera_unica unique (titolo,anno,autore),
-constraint opera_categoria foreign key (ID_categoria) references categoria (ID) on update cascade on delete cascade
+constraint opera_categoria foreign key (ID_categoria) references categoria (ID) on update cascade on delete set null
 );
 
 create table consulta (

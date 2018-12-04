@@ -3,7 +3,6 @@ package Business.Controller;
 import java.util.ArrayList;
 import Business.Model.Categoria;
 import Business.Model.Opera;
-import View.FrontController.InserisciMetadatiPageController;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -13,19 +12,9 @@ public class controller_caricamento {
 	
 	public static String categoria;
 	
-	public static String verificacategoria(String categoria) {
-		if(categoria==null) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Errore inserimento metedati opera");
-			alert.setHeaderText("Compilare la categoria!!");
-			alert.showAndWait();
-			return "false";
-		}else {
-			if (categoria.equals("Altro")) 
-				return "categoria";
-			else
-				return "true";
-		}	
+	public static ArrayList<Categoria> prendicategorie(){
+		ArrayList<Categoria> elenco=Categoria.prendicategorie();
+		return elenco;
 	}
 	
 	public static String inseriscimetadati(TextField txtTitolo,TextField txtAnno,TextField txtAutore,TextField txtNpagine,ComboBox<String> combobox) {
@@ -49,9 +38,9 @@ public class controller_caricamento {
 			ID_categoria=associaid(categoria);
 		boolean inserimento;
 		inserimento = Opera.inseriscioperadb(titolo,annoint,autore,npagineint,ID_categoria);
-		if(inserimento)
+		if(inserimento) {
 			return "true";
-		else
+		}else
 			return "false";
 	}
 	
@@ -64,6 +53,21 @@ public class controller_caricamento {
 			return false;
 		}
 		return true;
+	}
+	
+	public static String verificacategoria(String categoria) {
+		if(categoria==null) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore inserimento metedati opera");
+			alert.setHeaderText("Compilare la categoria!!");
+			alert.showAndWait();
+			return "false";
+		}else {
+			if (categoria.equals("Altro")) 
+				return "categoria";
+			else
+				return "true";
+		}	
 	}
 	
 	private static int associaid(String categoria) {
@@ -88,13 +92,9 @@ public class controller_caricamento {
 		boolean inserisci = false;
 		if (contiene) {
 			inserisci=Categoria.inseriscidb(categoria);
-			InserisciMetadatiPageController.count=2;
 		}	
 		return inserisci;
 	}
 	
-	public static ArrayList<Categoria> prendicategorie(){
-		ArrayList<Categoria> elenco=Categoria.prendicategorie();
-		return elenco;
-	}
+	
 }
