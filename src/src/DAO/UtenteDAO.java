@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
-
 import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -89,10 +88,9 @@ public class UtenteDAO implements DAOinterface {
 				String email = resultSet.getString("email");
 				String titolo_studio = resultSet.getString("titolo_studio");
 				String professione = resultSet.getString("professione");
-				String statodomanda = resultSet.getString("statodomanda");
 				int ID_ruolo = resultSet.getInt("ID_ruolo");
 				if (email.equals((String) args.get(0)) && password.equals((String) args.get(1))) {
-					utente = Utente.setInstance(id, nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, statodomanda, ID_ruolo);
+					utente = Utente.setInstance(id, nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, ID_ruolo);
 					connect.close();
 					Statement.close();
 					resultSet.close();
@@ -151,13 +149,8 @@ public class UtenteDAO implements DAOinterface {
 				int id=resultSet.getInt("ID");
 				String nome = resultSet.getString("nome");
 				String cognome = resultSet.getString("cognome");
-				/*String indirizzo = resultSet.getString("indirizzo");
-				String password = resultSet.getString("password");
-				Date data_nascita = resultSet.getDate("data_nascita");*/
 				String email = resultSet.getString("email");
 				String titolo_studio = resultSet.getString("titolo_studio");
-				//String professione = resultSet.getString("professione");
-				String statodomanda = resultSet.getString("statodomanda");
 				int ID_ruolo = resultSet.getInt("ID_ruolo");
 				for(int i: listaid) {			
 					if(id==i) {

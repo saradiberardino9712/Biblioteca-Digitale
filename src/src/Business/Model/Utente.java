@@ -18,11 +18,10 @@ public class Utente {
 	private String email;
 	private String titolo_studio;
 	private String professione;
-	private String statodomanda;
 	private Ruolo ruolo;
 	
 	private Utente(int id, String nome, String cognome, String indirizzo, String password, Date data_nascita, String email,
-			String titolo_studio, String professione, String statodomanda, int ID_ruolo) {
+			String titolo_studio, String professione, int ID_ruolo) {
 		this.id=id;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -32,7 +31,6 @@ public class Utente {
 		this.email = email;
 		this.titolo_studio = titolo_studio;
 		this.professione = professione;
-		this.statodomanda = statodomanda;
 		this.ruolo = new Ruolo(ID_ruolo,null);
 	}
 	
@@ -204,9 +202,9 @@ public class Utente {
 	}
 
 	public static final synchronized Utente setInstance(int id, String nome, String cognome, String indirizzo, String password, Date data_nascita, String email,
-			String titolo_studio, String professione, String statodomanda, int ID_ruolo) {
+			String titolo_studio, String professione, int ID_ruolo) {
 		if ( instance == null ) {
-			instance = new Utente(id, nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, statodomanda, ID_ruolo);
+			instance = new Utente(id, nome, cognome, indirizzo, password, data_nascita, email, titolo_studio, professione, ID_ruolo);
 		}
 		return instance;
 	}

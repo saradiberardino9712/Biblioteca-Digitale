@@ -23,7 +23,7 @@ public class OperaDAO implements DAOinterface{
 			if(args.get(4)==null) {
 				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali) VALUES (?,?,?,?)");
 				preparedStatement.setString(1, (String)args.get(0));
-				preparedStatement.setInt(2,(int)args.get(1));
+				preparedStatement.setString(2,(String)args.get(1));
 				preparedStatement.setString(3, (String)args.get(2));
 				preparedStatement.setInt(4,(int)args.get(3));
 				preparedStatement.executeUpdate();
@@ -31,7 +31,7 @@ public class OperaDAO implements DAOinterface{
 			else {
 				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali,ID_categoria) VALUES (?,?,?,?,?)");
 				preparedStatement.setString(1, (String)args.get(0));
-				preparedStatement.setInt(2,(int)args.get(1));
+				preparedStatement.setString(2,(String)args.get(1));
 				preparedStatement.setString(3, (String)args.get(2));
 				preparedStatement.setInt(4,(int)args.get(3));
 				preparedStatement.setInt(5,(int)args.get(4));
@@ -67,32 +67,33 @@ public class OperaDAO implements DAOinterface{
 						}
 					}
 		}	
+	
 	@SuppressWarnings("finally")
-	public Object retrieve(ArrayList<Object> args) {
+	public ArrayList<Opera> retrieve(ArrayList<Object> args) {
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		Opera opera= null;
+		ArrayList<Opera> listaopere=new ArrayList<Opera>();
+		Opera opera=null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
 			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.opera");
 			while(resultSet.next()){
+				int id= resultSet.getInt("ID");
 				int ID_categoria = resultSet.getInt("ID_categoria");
 				String titolo = resultSet.getString("titolo");
-				int anno =resultSet.getInt("anno");
+				String anno =resultSet.getString("anno");
 				String autore = resultSet.getString("autore");
-				opera= new Opera (ID_categoria, titolo, anno, autore);
-				
-					connect.close();
-					Statement.close();
-					resultSet.close();
-					return opera;
-				 
-						
-			}	
+				int pagine=resultSet.getInt("pagine_totali");
+				opera=new Opera(id,ID_categoria, titolo, anno, autore, pagine);
+				listaopere.add(opera);
+			}
+			connect.close();
+			Statement.close();
+			resultSet.close();	
+			return listaopere;
 		}
-		
 		catch(SQLException e){
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore");
@@ -112,7 +113,7 @@ public class OperaDAO implements DAOinterface{
 				if(connect!=null) connect.close();
 				if(Statement!=null) Statement.close();
 				if(resultSet!=null) resultSet.close();
-				return opera;
+				return listaopere;
 				
 			}
 			catch(final SQLException e){		

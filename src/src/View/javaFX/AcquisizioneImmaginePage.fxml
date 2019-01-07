@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.AcquisizioneImmaginePageController">
+   <top>
+      <Label text="Acquisizione Immagine" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnSeleziona" layoutX="95.0" layoutY="25.0" mnemonicParsing="false" onAction="#Seleziona" prefHeight="25.0" prefWidth="149.0" text="Seleziona un'immagine" />
+            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="322.0" onAction="#indietro" text="Indietro" />
+            <Label layoutX="16.0" layoutY="102.0" text="Scegli opera:" />
+            <Label layoutX="9.0" layoutY="227.0" text="Numero pagina" />
+            <Button fx:id="btnCaricaImmagine" layoutX="96.0" layoutY="297.0" mnemonicParsing="false" onAction="#CaricaImmagine" prefHeight="25.0" prefWidth="149.0" text="Carica Immagine" />
+            <ImageView fx:id="imgAnteprima" fitHeight="270.0" fitWidth="236.0" layoutX="325.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="txtURL" editable="false" layoutX="325.0" layoutY="297.0" prefHeight="25.0" prefWidth="236.0" />
+            <ComboBox fx:id="comboboxNpag" layoutX="96.0" layoutY="223.0" prefWidth="150.0" promptText="Scegli n° pagina" />
+            <ListView fx:id="listViewOpere" layoutX="96.0" layoutY="71.0" onMouseClicked="#click" prefHeight="139.0" prefWidth="150.0" />
+         </children></Pane>
+   </center>
+</BorderPane>

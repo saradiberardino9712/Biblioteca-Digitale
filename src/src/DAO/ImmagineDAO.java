@@ -20,9 +20,12 @@ public class ImmagineDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.immagine(numero_pagina, ID_utente) VALUES (?,?)");
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.immagine(numero_pagina, stato, url, ID_utente, ID_opera) VALUES (?,?,?,?,?)");
 			preparedStatement.setInt(1, (int)args.get(0));
-			preparedStatement.setInt(2, (int)args.get(1));
+			preparedStatement.setString(2, (String)args.get(1));
+			preparedStatement.setString(3, (String)args.get(2));
+			preparedStatement.setInt(4, (int)args.get(3));
+			preparedStatement.setInt(5, (int)args.get(4));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
@@ -54,30 +57,33 @@ public class ImmagineDAO implements DAOinterface{
 						}
 					}
 		}	
-	@SuppressWarnings("finally")
-	public Object retrieve(ArrayList<Object> args) {
+	
+	@SuppressWarnings({"finally"})
+	public ArrayList<Immagine> retrieve(ArrayList<Object> args) {
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		Immagine immagine= null;
+		ArrayList<Immagine> immagine = new ArrayList<>();
+		Immagine img=null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.immagine");
+			resultSet = Statement.executeQuery("SELECT i.*,o.titolo FROM bibliotecadigitale.opera as o join bibliotecadigitale.immagine as i on (o.ID=i.ID_opera) where i.stato=\"in caricamento\"");
 			while(resultSet.next()){
 				int numero_pagina = resultSet.getInt("numero_pagina");
+				String url= resultSet.getString("url");
 				int ID_utente =resultSet.getInt("ID_utente");
-				immagine= new Immagine (numero_pagina, ID_utente);
-				
-					connect.close();
-					Statement.close();
-					resultSet.close();
-					return immagine;
-				 
-						
-			}	
+				String titolo=resultSet.getString("titolo");
+				if(ID_utente==(int)args.get(0)) {
+					img=new Immagine(numero_pagina,url,titolo);
+					immagine.add(img);
+				}	
+			}
+			connect.close();
+			Statement.close();
+			resultSet.close();
+			return immagine;	
 		}
-		
 		catch(SQLException e){
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore");
@@ -111,6 +117,156 @@ public class ImmagineDAO implements DAOinterface{
 						
 		}
 	}
+	
+	@SuppressWarnings({ "finally"})
+	public ArrayList<Immagine> retrieveacquisite(ArrayList<Object> args) {
+		Connection connect = null;
+		Statement Statement = null;
+		ResultSet resultSet = null;
+		ArrayList<Immagine> immagine = new ArrayList<>();
+		Immagine img=null;
+		try{
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			Statement = connect.createStatement();
+			resultSet = Statement.executeQuery("SELECT o.titolo, o.pagine_totali, i.numero_pagina from immagine i join opera o on (i.ID_opera=o.ID)");
+			while(resultSet.next()){
+				int numero_pagina = resultSet.getInt("numero_pagina");
+				String titolo=resultSet.getString("titolo");
+				int pagtot=resultSet.getInt("pagine_totali");
+				img=new Immagine(titolo,numero_pagina,pagtot);
+				immagine.add(img);
+			}
+			connect.close();
+			Statement.close();
+			resultSet.close();
+			return immagine;	
+		}
+		catch(SQLException e){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		catch(Exception e){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		finally{
+			try{
+				if(connect!=null) connect.close();
+				if(Statement!=null) Statement.close();
+				if(resultSet!=null) resultSet.close();
+				return immagine;
+				
+			}
+			catch(final SQLException e){		
+				final Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Errore");
+				alert.setHeaderText("Errore Database");
+				alert.setContentText(e.getMessage());
+				alert.showAndWait();
+				return null;
+			}
+						
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public boolean updatestato(ArrayList<Object> args){
+		Connection connect = null;
+		Statement Statement = null;
+		boolean success=true; 
+		String stato=(String) args.get(0);
+		String titolo=(String) args.get(1);
+		int npag=(int) args.get(2);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			Statement = connect.createStatement(); 
+			Statement.executeUpdate("UPDATE bibliotecadigitale.immagine SET stato='"+ stato +"' WHERE ID_opera=(select ID from opera where titolo='"+titolo+
+					"') and numero_pagina= '"+npag+"'");
+		}catch(SQLException e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+			catch(Exception e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+				finally{
+					try{
+						if(connect!=null) connect.close();
+						if(Statement!=null) Statement.close();
+						return success;
+						}
+					catch(final SQLException e){
+						final Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Errore");
+						alert.setHeaderText("Errore Database");
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+						return false;
+						}
+				}
+	}
+	
+	@SuppressWarnings({ "finally", "unchecked" })
+	public boolean delete(ArrayList<Object> args){
+		Connection connect = null;
+		Statement Statement = null;
+		boolean success=true;
+		ArrayList<Immagine> lista=(ArrayList<Immagine>) args.get(0);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			Statement = connect.createStatement(); 
+			for(Immagine i:lista) {
+				Statement.executeUpdate("DELETE FROM bibliotecadigitale.immagine WHERE url='" + i.getUrl() + " ' ");
+			}
+	}catch(SQLException e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Database");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+		catch(Exception e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Generico");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+			finally{
+				try{
+					if(connect!=null) connect.close();
+					if(Statement!=null) Statement.close();
+					return success;
+					}
+				catch(final SQLException e){
+					final Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Errore");
+					alert.setHeaderText("Errore Database");
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+					return false;
+					}
+			}
+}
+
+
 }
 	
 	

@@ -31,7 +31,7 @@ nome varchar (30)
 create table opera (
 ID integer unsigned primary key not null auto_increment,
 titolo varchar (50) not null,
-anno integer unsigned not null,
+anno varchar(10),
 autore varchar (50) not null,
 pagine_totali int not null,
 ID_categoria integer unsigned,
@@ -49,10 +49,13 @@ constraint consulta_opera foreign key (ID_opera) references opera(ID)
 
 create table immagine (
 ID integer unsigned primary key not null auto_increment,
-numero_pagina smallint,
-stato enum('in acquisizione','in revisione acquisizione','acquisito') not null,
+numero_pagina smallint not null,
+stato enum('in caricamento','in acquisizione','in revisione acquisizione','acquisito') not null,
+url varchar(150) not null,
 ID_utente integer unsigned not null,
-constraint immagine_utente foreign key (ID_utente) references utente (ID)
+ID_opera integer unsigned not null,
+constraint immagine_utente foreign key (ID_utente) references utente (ID), 
+constraint immagine_opera foreign key (ID_Opera) references opera(ID) on update cascade on delete cascade
 );
 
 create table trascrive (

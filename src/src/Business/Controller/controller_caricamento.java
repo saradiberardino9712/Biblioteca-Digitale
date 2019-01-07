@@ -1,16 +1,28 @@
 package Business.Controller;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 import Business.Model.Categoria;
+import Business.Model.Immagine;
+import Business.Model.Notifica;
 import Business.Model.Opera;
+import Business.Model.Ruolo;
+import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
 public class controller_caricamento {
 	
 	public static String categoria;
+	private static Opera cercaopera;
+	private static int n;
+	private static String url;
+	private static int idutente;
+	public static ArrayList<Opera> listaopere;
+	public static ArrayList<Immagine> listaimmagini;
 	
 	public static ArrayList<Categoria> prendicategorie(){
 		ArrayList<Categoria> elenco=Categoria.prendicategorie();
@@ -26,7 +38,6 @@ public class controller_caricamento {
 		// controllo campi che nel database sono not null
 		if (!(controllonotnull(titolo,anno,autore,npagine)))
 			return "false";		
-		int annoint=Integer.parseInt(anno);
 		int npagineint=Integer.parseInt(npagine);
 		// verifica la categoria
 		String responso=verificacategoria(categoria);
@@ -37,7 +48,7 @@ public class controller_caricamento {
 		if(!(categoria.equals("Non ha categoria")))
 			ID_categoria=associaid(categoria);
 		boolean inserimento;
-		inserimento = Opera.inseriscioperadb(titolo,annoint,autore,npagineint,ID_categoria);
+		inserimento = Opera.inseriscioperadb(titolo,anno,autore,npagineint,ID_categoria);
 		if(inserimento) {
 			return "true";
 		}else
@@ -96,5 +107,119 @@ public class controller_caricamento {
 		return inserisci;
 	}
 	
+	public static boolean verifica(){
+		listaopere=Opera.prendiopere();
+		if(listaopere.isEmpty()) { // per verificare se ci sono opere
+			return false;
+		}
+		listaimmagini=Immagine.immaginiacquisite();
+		String titolo;
+		int count=0;
+		TreeMap<String,Integer> immaginiacquisite= new TreeMap<>();
+		for(Immagine i:listaimmagini) {
+			titolo=i.getTitoloOpera();
+			if(!immaginiacquisite.containsKey(titolo)) {
+				count=1;
+			}else {
+				count=immaginiacquisite.get(titolo)+1;
+			}
+			immaginiacquisite.put(titolo, count);
+			if(i.getPagineOpera()==count) {
+				remove(titolo);
+			}
+		}
+		if(listaopere.isEmpty())// verificare che dopo il confronto tra pagine totali e numero immagini acquisite di una determianta opera ci siano ancora
+			return false;		//opere che devono essere completamente acquisite
+		return true;
+	}
 	
+	private static void remove(String titolo) {
+		int count = 0;
+		for (Opera o: listaopere) {
+			if(titolo.equals(o.getTitolo())) {
+				break;
+			}
+			count++;
+		}
+		listaopere.remove(count);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public static boolean controlloopera(ListView listViewOpere, ComboBox<String> comboboxNpag, TextField txtURL) {
+		String titolo=(String) listViewOpere.getSelectionModel().getSelectedItem();
+		String npag=comboboxNpag.getValue();
+		url=txtURL.getText();
+		if(!controllonotnullopera(titolo,npag,url)) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore inserimento pagina opera");
+			alert.setHeaderText("Compilare tutti i campi!!");
+			alert.showAndWait();
+			return false;
+		}
+		n=Integer.parseInt(npag);
+		for(Opera o:listaopere) {
+			if(titolo.equals(o.getTitolo())) {
+				cercaopera=o;
+			}
+		}
+		return true;
+	}
+
+	public static boolean controllonotnullopera(String titolo, String npagina, String url) {
+		if(titolo== null|| npagina==null || url.length()==0)
+			return false;
+		else 
+			return true;
+	}
+	
+	public static boolean carica() {
+		int idopera=cercaopera.getID();
+		idutente=Utente.getIstance().getID();
+		boolean carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+		return carica;
+	}
+	
+	public static int prendiidsupervisore() {
+		Ruolo ruolo=Ruolo.prendiiddb("Supervisore");
+		int idsupervisore=0;
+		if(!(ruolo==null))
+			idsupervisore=ruolo.getID();
+		return idsupervisore;
+	}
+	
+	public static ArrayList<Immagine> visualizzariepilogo() {
+		ArrayList<Immagine> img=Immagine.prendiimg(idutente);
+    	return img;
+	}
+	
+	static ArrayList<Immagine> caricamento=new ArrayList<>();
+	public static boolean caricadefinitiva(ArrayList<Immagine> images) {
+		boolean b=false;
+		boolean notifica=false;
+		ArrayList<Boolean> n=new ArrayList<>();
+		String titolo;
+		int npag=0;
+		for(Immagine i:images) {
+			npag=i.getNumeropagina();
+			titolo=i.getTitoloOpera();
+			b= Immagine.updatestato("in acquisizione",npag,titolo);
+			if(b) {
+				int idutentenot=prendiidsupervisore();
+				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! Clicca qui o su \" Controlla \" ",idutentenot,idutente);
+				n.add(notifica);
+			}else {
+				caricamento.add(i);
+				n.add(false);
+			}
+		}
+		if(!caricamento.isEmpty() || n.contains(false)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public static void annulla() {
+		Immagine.remove(caricamento);
+		caricamento.clear();
+	}
 }

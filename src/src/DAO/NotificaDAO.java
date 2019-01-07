@@ -124,8 +124,6 @@ public class NotificaDAO {
 	@SuppressWarnings("finally")
 	public boolean update(ArrayList<Object> args){
 		Connection connect = null;
-		Statement Statement = null;
-		ResultSet resultSet = null;
 		PreparedStatement preparedStatement=null;
 		boolean success=true; 
 		String descrizione=(String) args.get(0);

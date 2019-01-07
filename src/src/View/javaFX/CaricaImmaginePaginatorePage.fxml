@@ -12,7 +12,7 @@
    <children>
       <BorderPane prefHeight="500.0" prefWidth="600.0">
          <top>
-            <Label text="Paginatore" BorderPane.alignment="CENTER">
+            <Label text="Riepilogo immagini acquisite" BorderPane.alignment="CENTER">
                <font>
                   <Font size="24.0" />
                </font>
@@ -21,11 +21,10 @@
          <center>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pagination fx:id="pagination" layoutX="24.0" layoutY="14.0" maxPageIndicatorCount="5" pageCount="10" prefHeight="361.0" prefWidth="313.0" />
-                  <Button fx:id="btnSeleziona" layoutX="388.0" layoutY="38.0" mnemonicParsing="false" onAction="#SelezionaImg" text="Seleziona Immagini" />
-                  <Button fx:id="btnIndietro" layoutX="388.0" layoutY="88.0" mnemonicParsing="false" onAction="#indietro" text="Carica altre immagini" />
-                  <Button fx:id="btnCarica" layoutX="388.0" layoutY="138.0" mnemonicParsing="false" onAction="#CaricaDefinitiva" text="Carica definitivamente" />
-                  <Button fx:id="btnMiniatura" layoutX="387.0" layoutY="188.0" mnemonicParsing="false" onAction="#VisualizzaMiniatura" text="Visualizza miniatura" />
+                  <Pagination fx:id="pagination" accessibleRole="IMAGE_VIEW" layoutX="24.0" layoutY="14.0" maxPageIndicatorCount="5" pageCount="10" prefHeight="361.0" prefWidth="313.0" />
+                  <Button fx:id="btnCaricaAltre" layoutX="444.0" layoutY="27.0" mnemonicParsing="false" onAction="#CaricaAltre" text="Carica altre immagini" />
+                  <Button fx:id="btnCarica" layoutX="441.0" layoutY="93.0" mnemonicParsing="false" onAction="#CaricaDefinitiva" text="Continua caricamento" />
+                  <Button fx:id="btnMiniatura" layoutX="441.0" layoutY="152.0" mnemonicParsing="false" onAction="#VisualizzaMiniatura" text="Visualizza in miniatura" />
                </children>
             </Pane>
          </center>

@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import DAO.OperaDAO;
 
 public class Opera {
+	private int id;
 	private int ID_categoria;
 	private String titolo;
-	private int anno;
+	private String anno;
 	private String autore;
+	private int pagine;
 
-	public Opera(int ID_categoria, String titolo, int anno, String autore) {
+	public Opera(int id, int ID_categoria, String titolo, String anno, String autore,int pagine) {
+		this.id=id;
 		this.ID_categoria = ID_categoria;
 		this.titolo = titolo;
 		this.anno = anno;
 		this.autore = autore;
+		this.pagine=pagine;
 	}
-
+	
+	public int getID() {
+		return id;
+	}
+	
 	public void setIdcategoria(int newidcategoria) {
 		this.ID_categoria = newidcategoria;
 	}
@@ -32,11 +40,11 @@ public class Opera {
 		return titolo;
 	}
 
-	public void setAnno(int newanno) {
+	public void setAnno(String newanno) {
 		this.anno = newanno;
 	}
 
-	public int getAnno() {
+	public String getAnno() {
 		return anno;
 	}
 
@@ -47,8 +55,12 @@ public class Opera {
 	public String getAutore() {
 		return autore;
 	}
+	
+	public int getPagine() {
+		return pagine;
+	}
 
-	public static boolean inseriscioperadb(String titolo,int anno,String autore,int npagine,int ID_categoria) {
+	public static boolean inseriscioperadb(String titolo,String anno,String autore,int npagine,int ID_categoria) {
 		ArrayList<Object> lista = new ArrayList<>();
 		lista.add(titolo);
 		lista.add(anno);
@@ -60,5 +72,11 @@ public class Opera {
 			lista.add(ID_categoria);
 		boolean inserimentodb = new OperaDAO().insert(lista);
 		return inserimentodb;
+	}
+	
+	public static ArrayList<Opera> prendiopere(){
+		ArrayList<Object> lista = new ArrayList<>();
+		ArrayList<Opera> listaopere=(ArrayList<Opera>) new OperaDAO().retrieve(lista);
+		return listaopere;
 	}
 }
