@@ -55,7 +55,7 @@ public class ManagerPageController {
     private Button btnGestisciLivello;
 
     @FXML
-    private Button btnSupervisiona;
+    private Button btnConsentiSupervisione;
 
     @FXML
     private Button btnLogout;
@@ -88,10 +88,6 @@ public class ManagerPageController {
 
     }
 
-    @FXML
-    void Supervisiona(ActionEvent event) {
-
-    }
 
     @FXML
     void initialize() {
@@ -102,7 +98,7 @@ public class ManagerPageController {
         assert btnAssegnaPagine != null : "fx:id=\"btnAssegnaPagine\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnSupervisiona != null : "fx:id=\"btnSupervisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnConsentiSupervisione != null : "fx:id=\"btnConsentiSupervisione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'ManagerPage.fxml'.";
@@ -292,4 +288,16 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+	
+	public void ConsentiSupervisione(ActionEvent event) throws Exception {
+		boolean visualizza=controller_dati.visualizza();
+    	if(visualizza) {
+    		((Node) event.getSource()).getScene().getWindow().hide();
+    		Stage primaryStage = new Stage();
+    		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiSupervisionePage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    	}
+	}	
 }
