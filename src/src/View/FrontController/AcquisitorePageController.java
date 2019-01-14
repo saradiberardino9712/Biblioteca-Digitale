@@ -58,6 +58,9 @@ public class AcquisitorePageController {
     @FXML
 	private Menu MenuNotifiche;
     
+    @FXML
+    private Button btnAcquisizioniNegate;
+    
     
 
     @FXML
@@ -69,6 +72,7 @@ public class AcquisitorePageController {
         assert btnInserisciMetadati != null : "fx:id=\"btnInserisciMetadati\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
+        assert btnAcquisizioniNegate != null : "fx:id=\"btnAcquisizioniNegate\" was not injected: check your FXML file 'AcquisitorePage.fxml'.";
         txtemailua.setText(controller_login.email);
         colore();
     }
@@ -164,5 +168,13 @@ public class AcquisitorePageController {
 		}
 	}
     
+    public void AcquisizioniNegate(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AcquisizioniNegatePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
     
 }
