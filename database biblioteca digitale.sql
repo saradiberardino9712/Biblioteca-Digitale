@@ -50,7 +50,7 @@ constraint consulta_opera foreign key (ID_opera) references opera(ID)
 create table immagine (
 ID integer unsigned primary key not null auto_increment,
 numero_pagina smallint not null,
-stato enum('in caricamento','in acquisizione','in revisione acquisizione','acquisito') not null,
+stato enum('in caricamento','in acquisizione','in attesa supervisione','in revisione acquisizione','acquisito','eliminata') not null,
 url varchar(150) not null,
 ID_utente integer unsigned not null,
 ID_opera integer unsigned not null,

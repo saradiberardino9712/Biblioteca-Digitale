@@ -19,6 +19,12 @@ public class Immagine {
 		this.opera=new Opera(0,0,titolo,null,null,pagtot);
 	}
 	
+	public Immagine(String titolo,int numero_pagina, String url) {
+		this.numero_pagina=numero_pagina;
+		this.opera=new Opera(0,0,titolo,null,null,0);
+		this.url=url;
+	}
+	
 	public void setNumeropagina(int newnumeropagina) {
 		this.numero_pagina=newnumeropagina;
 	}
@@ -79,5 +85,12 @@ public class Immagine {
 			lista.add(i);
 		}
 		boolean remove= new ImmagineDAO().delete(lista);
+	}
+	
+	public static ArrayList<Immagine> verifica(String stato) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(stato);
+		ArrayList<Immagine> controllo= new ImmagineDAO().retrieveverifica(lista);
+		return controllo;
 	}
 }

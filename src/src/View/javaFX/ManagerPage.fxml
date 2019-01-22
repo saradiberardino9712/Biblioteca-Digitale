@@ -28,8 +28,8 @@
             <Button fx:id="btnConsentiPubblicazione" layoutX="300.0" layoutY="126.0" mnemonicParsing="false" onAction="#ConsentiPubblicazione" text="Consenti pubblicazione" />
             <Label layoutX="300.0" layoutY="176.0" text="Gestisci livello dei trascrittori" />
             <Button fx:id="btnGestisciLivello" layoutX="300.0" layoutY="193.0" mnemonicParsing="false" onAction="#GestisciLivello" text="Gestisci livello" />
-            <Label layoutX="300.0" layoutY="243.0" text="Consenti la supervisione delle immagini" />
-            <Button fx:id="btnConsentiSupervisione" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#ConsentiSupervisione" text="Consenti Supervisione" />
+            <Label layoutX="300.0" layoutY="243.0" text="Dare consenso alla supervisione delle immagini acquisite " />
+            <Button fx:id="btnConsentiSupervisione" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" onAction="#ConsentiSupervisione" text="Consenti supervisione" />
             <Button fx:id="btnLogout" layoutX="682.0" layoutY="361.0" mnemonicParsing="false" onAction="#Logout" text="Logout" />
             <Label fx:id="txtEmailua" layoutX="14.0" layoutY="6.0" text="Label" />
             <Hyperlink fx:id="linkDati" layoutX="15.0" layoutY="362.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />

@@ -4,12 +4,13 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.ConsentiSupervisioneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.ConsentiSupervisionePageController">
    <top>
       <Label text="Lista Immagini Acquisite" BorderPane.alignment="CENTER">
          <font>
@@ -20,10 +21,12 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="listImmAcq" layoutX="14.0" layoutY="29.0" prefHeight="291.0" prefWidth="229.0" />
-            <Button fx:id="btnConsenti" layoutX="300.0" layoutY="48.0" mnemonicParsing="false" onAction="#consenti" prefHeight="62.0" prefWidth="128.0" text="Consenti" />
-            <Button fx:id="btnNegaConsenso" layoutX="300.0" layoutY="162.0" mnemonicParsing="false" onAction="#negaConsenso" prefHeight="62.0" prefWidth="128.0" text="Nega Consenso" />
+            <ListView fx:id="listImmAcq" layoutX="14.0" layoutY="14.0" onMouseClicked="#click" prefHeight="291.0" prefWidth="276.0" />
+            <Button fx:id="btnConsenti" layoutX="316.0" layoutY="277.0" mnemonicParsing="false" onAction="#consenti" prefHeight="62.0" prefWidth="128.0" text="Consenti" />
+            <Button fx:id="btnNegaConsenso" layoutX="458.0" layoutY="277.0" mnemonicParsing="false" onAction="#negaConsenso" prefHeight="62.0" prefWidth="128.0" text="Nega Consenso" />
             <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="328.0" onAction="#indietro" text="Indietro" />
+            <ImageView fx:id="img" fitHeight="243.0" fitWidth="284.0" layoutX="302.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox fx:id="consup" layoutX="112.0" layoutY="325.0" prefHeight="23.0" prefWidth="100.0" />
          </children>
       </Pane>
    </center>

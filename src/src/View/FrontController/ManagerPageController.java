@@ -163,15 +163,28 @@ public class ManagerPageController {
 					}
     		    	Stage primaryStage = new Stage();
     		    	BorderPane root=null;
-					try {
-						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-    		    	Scene scene = new Scene(root);
-    		    	primaryStage.setScene(scene);
-    		    	primaryStage.show();
+    		    	if(notifica.contains("Accetta")) {
+    		    		try {
+    		    			root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
+    		    		} catch (IOException e1) {
+    		    			// TODO Auto-generated catch block
+    		    			e1.printStackTrace();
+    		    		}
+    		    		Scene scene = new Scene(root);
+        		    	primaryStage.setScene(scene);
+        		    	primaryStage.show();
+    		    	}
+    		    	if(notifica.contains("Consenso supervisione")) {
+    		    		try {
+    		    			root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiSupervisionePage.fxml"));
+    		    		} catch (IOException e1) {
+    		    			// TODO Auto-generated catch block
+    		    			e1.printStackTrace();
+    		    		}
+    		    		Scene scene = new Scene(root);
+        		    	primaryStage.setScene(scene);
+        		    	primaryStage.show();
+    		    	}
     				item.setDisable(true);
     			}
     		});
@@ -244,6 +257,30 @@ public class ManagerPageController {
     	}
     }
     
+    public void ConsentiSupervisione(ActionEvent event) throws Exception {
+    	ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	boolean controllo= false;
+    	for(String e:notifiche) {
+    		if(e.contains("Consenso supervisione")) {
+    			controllo=true;
+    			notifica=e;
+    		}
+    	}
+    	if(controllo) {
+    		((Node) event.getSource()).getScene().getWindow().hide();
+    		Stage primaryStage = new Stage();
+    		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiSupervisionePage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Accetta/Rifiuta");
+			alert.setHeaderText("Non ci sono consensi da esaminare al momento!!");
+			alert.showAndWait();
+    	}
+	}	
+    
 	public void Ricerca(ActionEvent event) throws Exception {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
@@ -288,16 +325,4 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
-	
-	public void ConsentiSupervisione(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza();
-    	if(visualizza) {
-    		((Node) event.getSource()).getScene().getWindow().hide();
-    		Stage primaryStage = new Stage();
-    		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiSupervisionePage.fxml"));
-    		Scene scene = new Scene(root);
-    		primaryStage.setScene(scene);
-    		primaryStage.show();
-    	}
-	}	
 }

@@ -31,6 +31,7 @@
                   </MenuBar>
                   <Button fx:id="btnAggiorna" layoutX="399.0" layoutY="72.0" mnemonicParsing="false" onAction="#Aggiorna" text="Aggiorna" />
                   <VBox fx:id="tre" layoutX="459.0" layoutY="34.0" prefHeight="19.0" prefWidth="26.0" />
+                  <Button fx:id="btnEventi" layoutX="200.0" layoutY="199.0" mnemonicParsing="false" />
                </children>
             </Pane>
          </center>

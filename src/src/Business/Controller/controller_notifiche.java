@@ -92,6 +92,11 @@ public class controller_notifiche {
 		}
 		return vista;
 	}
+	
+	public static ArrayList<Notifica> esistenza(){
+		ArrayList<Notifica> lista= Notifica.prendinotifiche(Utente.getIstance().getIDruolo(), "Elenco immagini negate");
+		return lista;
+	}
 }
 
 	class Ordinamentodecrescente implements Comparator<Notifica>{

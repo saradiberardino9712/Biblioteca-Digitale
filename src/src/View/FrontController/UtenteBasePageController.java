@@ -14,8 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -55,6 +58,9 @@ public class UtenteBasePageController {
     @FXML
     private VBox tre;
     
+    @FXML
+    private Button btnEventi;
+    
 	@FXML
 	void initialize() {
 		assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'UtenteBase.fxml'.";
@@ -65,7 +71,10 @@ public class UtenteBasePageController {
 		assert MenuNotifiche != null : "fx:id=\"MenuNotifiche\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
 		assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
 		assert tre != null : "fx:id=\"tre\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
-		txtEmailua.setText(controller_login.email);
+		assert btnEventi != null : "fx:id=\"btnEventi\" was not injected: check your FXML file 'UtenteBasePage.fxml'.";
+		btnEventi.setDisable(true);
+		btnEventi.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT,null,null)));
+	    txtEmailua.setText(controller_login.email);
 		colore();
 	}
 	
@@ -110,6 +119,9 @@ public class UtenteBasePageController {
     		MenuNotifiche.getItems().add(item);
     		MenuNotifiche.setOnMenuValidation(event ->{
     			MenuNotifiche.setStyle(" -fx-background-color : LIGHTGRAY;");
+    			if(item.getText().contains("accettata")) {
+    				click(item.getText());
+    			}
     		});
     		if(item.getText().contains("accettata")) {
     			item.setOnAction(new EventHandler<ActionEvent>() {
@@ -186,6 +198,36 @@ public class UtenteBasePageController {
 			alert.showAndWait();
 			return false;
     	}	
+    }
+    
+    public void click(String s) {
+    	btnEventi.setDisable(false);
+    	btnEventi.setBackground(new Background(new BackgroundFill(Color.RED,null,null)));
+    	btnEventi.setText("Vai al tuo nuovo profilo");
+    	btnEventi.setOnAction(new EventHandler<ActionEvent>() {
+    				public void handle(ActionEvent e) {
+    					notifica=s;
+    					if(cambia() && controller_notifiche.vista()) {
+    						try {
+								onBtnClicked();
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+    						Stage primaryStage = new Stage();
+    						AnchorPane root=null;
+    						try {
+    							root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/TrascrittorePage.fxml"));
+    						} catch (IOException e1) {
+    							// TODO Auto-generated catch block
+    							e1.printStackTrace();
+    						}
+    						Scene scene = new Scene(root);
+    						primaryStage.setScene(scene);
+    						primaryStage.show();
+    					}
+    				}
+    	});
     }
     
     public void Aggiorna(ActionEvent event) throws Exception {

@@ -2,6 +2,8 @@ package Business.Controller;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
+
 import Business.Model.Categoria;
 import Business.Model.Immagine;
 import Business.Model.Notifica;
@@ -175,16 +177,26 @@ public class controller_caricamento {
 	public static boolean carica() {
 		int idopera=cercaopera.getID();
 		idutente=Utente.getIstance().getID();
-		boolean carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+		ArrayList<Immagine> elim=controller_consenso_supervisione.imgeliminate;
+		boolean carica = false;
+		if(elim.isEmpty()) {
+			carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+		}else {
+			for(Immagine img: elim) {
+				if(!(img.getNumeropagina()==n && img.getUrl().equals(url))) {
+					carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+				}
+			}
+		}
 		return carica;
 	}
 	
-	public static int prendiidsupervisore() {
-		Ruolo ruolo=Ruolo.prendiiddb("Supervisore");
-		int idsupervisore=0;
+	public static int prendiidmanager() {
+		Ruolo ruolo=Ruolo.prendiiddb("Manager");
+		int idmanager=0;
 		if(!(ruolo==null))
-			idsupervisore=ruolo.getID();
-		return idsupervisore;
+			idmanager=ruolo.getID();
+		return idmanager;
 	}
 	
 	public static ArrayList<Immagine> visualizzariepilogo() {
@@ -193,7 +205,7 @@ public class controller_caricamento {
 	}
 	
 	static ArrayList<Immagine> caricamento=new ArrayList<>();
-	public static boolean caricadefinitiva(ArrayList<Immagine> images) {
+	public static boolean caricadefinitiva(ArrayList<Immagine> images) throws InterruptedException {
 		boolean b=false;
 		boolean notifica=false;
 		ArrayList<Boolean> n=new ArrayList<>();
@@ -204,9 +216,10 @@ public class controller_caricamento {
 			titolo=i.getTitoloOpera();
 			b= Immagine.updatestato("in acquisizione",npag,titolo);
 			if(b) {
-				int idutentenot=prendiidsupervisore();
-				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! Clicca qui o su \" Controlla \" ",idutentenot,idutente);
+				int idutentenot=prendiidmanager();
+				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! E' richiesto il suo consenso!! Clicca qui o su \" Consenso supervisione \" ",idutentenot,idutente);
 				n.add(notifica);
+				TimeUnit.SECONDS.sleep(1);
 			}else {
 				caricamento.add(i);
 				n.add(false);

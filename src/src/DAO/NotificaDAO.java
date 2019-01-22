@@ -80,7 +80,6 @@ public class NotificaDAO {
 					Timestamp orario=resultSet.getTimestamp("orario");
 					String descrizione=resultSet.getString("descrizione");
 					int idutente=resultSet.getInt("ID_utente");
-					//int idutentenot=resultSet.getInt("IDutentenot");
 					notifica=new Notifica(id,orario,descrizione,idutente);
 					out.add(notifica);
 				}

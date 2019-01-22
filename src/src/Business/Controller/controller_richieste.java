@@ -81,7 +81,7 @@ public class controller_richieste {
 		if(aggiorna) {
 			int idutente=Utente.getIstance().getID();
 			int idutentenot=Utente.prendiidutente(emailu,0);
-			notifica=Notifica.creanotifica("La tua richiesta è stata accettata!!",idutentenot,idutente);
+			notifica=Notifica.creanotifica("La tua richiesta è stata accettata!! ",idutentenot,idutente);
 			String not=ManagerPageController.notifica;
 			String desc="Rifiuta\" ";
 			int d=not.indexOf(desc);
@@ -109,7 +109,7 @@ public class controller_richieste {
 		if(aggiorna) {
 			int idutente=Utente.getIstance().getID();
 			int idutentenot=Utente.prendiidutente(emailu,0);
-			notifica=Notifica.creanotifica("La tua richiesta è stata rifiutata!!",idutentenot,idutente);
+			notifica=Notifica.creanotifica("La tua richiesta è stata rifiutata!! ",idutentenot,idutente);
 			String not=ManagerPageController.notifica;
 			String desc="Rifiuta\" ";
 			int d=not.indexOf(desc);

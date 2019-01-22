@@ -5,8 +5,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.AcquisizioniNegatePageController">
    <top>
@@ -19,8 +19,9 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="listAcquisizioniNegate" layoutX="154.0" layoutY="14.0" prefHeight="302.0" prefWidth="292.0" />
+            <ListView fx:id="listAcquisizioniNegate" layoutX="154.0" layoutY="14.0" onMouseClicked="#click" prefHeight="302.0" prefWidth="292.0" />
             <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="328.0" onAction="#Indietro" text="Indietro" />
+            <VBox fx:id="acqneg" layoutX="486.0" prefHeight="30.0" prefWidth="100.0" />
          </children>
       </Pane>
    </center>
