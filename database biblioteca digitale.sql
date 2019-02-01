@@ -34,6 +34,7 @@ titolo varchar (50) not null,
 anno varchar(10),
 autore varchar (50) not null,
 pagine_totali int not null,
+statoO enum('in fase di acquisizione','pubblicata') not null,
 ID_categoria integer unsigned,
 constraint opera_unica unique (titolo,anno,autore),
 constraint opera_categoria foreign key (ID_categoria) references categoria (ID) on update cascade on delete set null
@@ -50,7 +51,7 @@ constraint consulta_opera foreign key (ID_opera) references opera(ID)
 create table immagine (
 ID integer unsigned primary key not null auto_increment,
 numero_pagina smallint not null,
-stato enum('in caricamento','in acquisizione','in attesa supervisione','in caricamento acquisizione','in revisione acquisizione','acquisito','eliminata') not null,
+statoI enum('in caricamento','in acquisizione','in attesa supervisione','in caricamento acquisizione','in revisione acquisizione','acquisito','eliminata') not null,
 url varchar(150) not null,
 ID_utente integer unsigned not null,
 ID_opera integer unsigned not null,
