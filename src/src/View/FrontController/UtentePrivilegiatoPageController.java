@@ -86,12 +86,12 @@ public class UtentePrivilegiatoPageController {
     public static boolean azione=false;
     public void colore() {
     	if(azione) {
-    		if(controller_notifiche.prendinotificheutenteid()) {
+    		if(controller_notifiche.prendinotificheutente()) {
     			MenuNotifiche.setStyle(" -fx-background-color : red;");
     			VisualizzaNotifiche();
     		}	
     	}else {
-    		if(controller_notifiche.prendinotificheutenteid()) {
+    		if(controller_notifiche.prendinotificheutente()) {
     			MenuNotifiche.setStyle(" -fx-background-color : red;");
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Notifiche");
@@ -118,6 +118,7 @@ public class UtentePrivilegiatoPageController {
     public void VisualizzaNotifiche() {
     	ArrayList<String> notifiche=controller_notifiche.notifiche;
     	String finale=null;
+    	MenuNotifiche.getItems().clear();
     	for(String e:notifiche) {
     		finale=e;
        		MenuItem item=new MenuItem(finale);
@@ -236,7 +237,7 @@ public class UtentePrivilegiatoPageController {
     }
     
     public void Aggiorna(ActionEvent event) {
-    	if(controller_notifiche.prendinotificheutenteid()) {
+    	if(controller_notifiche.prendinotificheutente()) {
     		MenuNotifiche.setStyle(" -fx-background-color : red;");
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Notifiche");

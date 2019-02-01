@@ -81,12 +81,12 @@ public class UtenteBasePageController {
     public static boolean azione=false;
     public void colore() {
     	if(azione) {
-    		if(controller_notifiche.prendinotificheutenteid()) {
+    		if(controller_notifiche.prendinotificheutente()) {
     			MenuNotifiche.setStyle(" -fx-background-color : red;");
     			VisualizzaNotifiche();
     		}	
     	}else {
-    		if(controller_notifiche.prendinotificheutenteid()) {
+    		if(controller_notifiche.prendinotificheutente()) {
     			MenuNotifiche.setStyle(" -fx-background-color : red;");
     			Alert alert = new Alert(AlertType.INFORMATION);
     			alert.setTitle("Notifiche");
@@ -113,6 +113,7 @@ public class UtenteBasePageController {
     public void VisualizzaNotifiche() {
     	ArrayList<String> notifiche=controller_notifiche.notifiche;
     	String finale=null;
+    	MenuNotifiche.getItems().clear();
     	for(String e:notifiche) {
     		finale=e;
        		MenuItem item=new MenuItem(finale);
@@ -129,6 +130,7 @@ public class UtenteBasePageController {
     					notifica=item.getText();
     					if(cambia() && controller_notifiche.vista()) {
     						try {
+    							azione=true;
 								onBtnClicked();
 							} catch (IOException e2) {
 								// TODO Auto-generated catch block
@@ -209,6 +211,7 @@ public class UtenteBasePageController {
     					notifica=s;
     					if(cambia() && controller_notifiche.vista()) {
     						try {
+    							azione=true;
 								onBtnClicked();
 							} catch (IOException e2) {
 								// TODO Auto-generated catch block
@@ -231,7 +234,7 @@ public class UtenteBasePageController {
     }
     
     public void Aggiorna(ActionEvent event) throws Exception {
-    	if(controller_notifiche.prendinotificheutenteid()) {
+    	if(controller_notifiche.prendinotificheutente()) {
     		MenuNotifiche.setStyle(" -fx-background-color : red;");
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Notifiche");
@@ -259,6 +262,7 @@ public class UtenteBasePageController {
 	}
 	
 	public void VediDati(ActionEvent event) throws Exception {
+		azione=true;
 		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
@@ -271,6 +275,7 @@ public class UtenteBasePageController {
 	}
 	
 	public void Richiesta(ActionEvent event) throws Exception {
+		azione=true;
 		boolean prendi=controller_domanda.datirichiesta();
 		if(prendi) {
 			((Node) event.getSource()).getScene().getWindow().hide();
@@ -283,6 +288,7 @@ public class UtenteBasePageController {
 	}
 	
 	public void Ricerca(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));

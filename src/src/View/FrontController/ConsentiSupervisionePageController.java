@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Business.Controller.controller_consenso_supervisione;
 import Business.Model.Immagine;
 import javafx.collections.FXCollections;
@@ -54,7 +53,7 @@ public class ConsentiSupervisionePageController {
     private VBox consup;
 
     @FXML
-    void initialize() {
+    void initialize() throws IOException {
         assert listImmAcq != null : "fx:id=\"listImmAcq\" was not injected: check your FXML file 'ConsentiSupervisionePage.fxml'.";
         assert btnConsenti != null : "fx:id=\"btnConsenti\" was not injected: check your FXML file 'ConsentiSupervisionePage.fxml'.";
         assert btnNegaConsenso != null : "fx:id=\"btnNegaConsenso\" was not injected: check your FXML file 'ConsentiSupervisionePage.fxml'.";
@@ -82,8 +81,9 @@ public class ConsentiSupervisionePageController {
         torna.setIconified(false);
     }
     
+    public static String selezione="no selezione";
     public void click(MouseEvent event) throws FileNotFoundException {
-    	String selezione=listImmAcq.getSelectionModel().getSelectedItem();
+    	selezione=listImmAcq.getSelectionModel().getSelectedItem();
     	String url=controller_consenso_supervisione.prendiurl(selezione);
     	if(url!=null) {
     		FileInputStream inputstream = new FileInputStream(url); 
@@ -98,48 +98,62 @@ public class ConsentiSupervisionePageController {
     }
     
     public void consenti(ActionEvent event) throws IOException {
-    	boolean consenti=controller_consenso_supervisione.consenso("yes");
-    	if(consenti) {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Consenso Supervisione");
-			alert.setHeaderText("Consenso ammesso!!");
-			alert.showAndWait();
-			Stage torna= ManagerPageController.homepage;
-			torna.close();
-			((Node)event.getSource()).getScene().getWindow().hide();
-	    	Stage primaryStage3 = new Stage();
-			BorderPane root3 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-			Scene scene3 = new Scene(root3);
-			primaryStage3.setScene(scene3);
-			primaryStage3.show();
-    	}else {
+    	if(selezione.contains("no selezione")) {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Attenzione!!");
-			alert.setHeaderText("C'è un errore riprovare!!");
+			alert.setHeaderText("Non hai selezionato nessuna immagine!");
 			alert.showAndWait();
+    	}else {
+	    	boolean consenti=controller_consenso_supervisione.consenso("yes");
+	    	if(consenti) {
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Consenso Supervisione");
+				alert.setHeaderText("Consenso ammesso!!");
+				alert.showAndWait();
+				Stage torna= ManagerPageController.homepage;
+				torna.close();
+				((Node)event.getSource()).getScene().getWindow().hide();
+			    Stage primaryStage3 = new Stage();
+				BorderPane root3 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+				Scene scene3 = new Scene(root3);
+				primaryStage3.setScene(scene3);
+				primaryStage3.show();
+	    	}else {
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Attenzione!!");
+				alert.setHeaderText("C'è un errore riprovare!!");
+				alert.showAndWait();
+	    	}
     	}
     }
     
     public void negaConsenso(ActionEvent event) throws IOException {
-    	boolean nonconsenti=controller_consenso_supervisione.consenso("no");
-    	if(nonconsenti) {
-    		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Consenso Supervisione");
-			alert.setHeaderText("Consenso non ammesso!!");
-			alert.showAndWait();
-			Stage torna= ManagerPageController.homepage;
-			torna.close();
-			((Node)event.getSource()).getScene().getWindow().hide();
-	    	Stage primaryStage3 = new Stage();
-			BorderPane root3 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-			Scene scene3 = new Scene(root3);
-			primaryStage3.setScene(scene3);
-			primaryStage3.show();
-    	}else {
+    	if(selezione.contains("no selezione")) {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Attenzione!!");
-			alert.setHeaderText("C'è un errore riprovare!!");
+			alert.setHeaderText("Non hai selezionato nessuna immagine!");
 			alert.showAndWait();
-    	}
+    	}else {
+	    	boolean nonconsenti=controller_consenso_supervisione.consenso("no");
+	    	if(nonconsenti) {
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Consenso Supervisione");
+				alert.setHeaderText("Consenso non ammesso!!");
+				alert.showAndWait();
+				Stage torna= ManagerPageController.homepage;
+				torna.close();
+				((Node)event.getSource()).getScene().getWindow().hide();
+			    Stage primaryStage3 = new Stage();
+				BorderPane root3 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+				Scene scene3 = new Scene(root3);
+				primaryStage3.setScene(scene3);
+				primaryStage3.show();
+	    	}else {
+	    		Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Attenzione!!");
+				alert.setHeaderText("C'è un errore riprovare!!");
+				alert.showAndWait();
+	    	}
+	    }
     }
 }

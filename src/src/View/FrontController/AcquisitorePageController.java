@@ -99,6 +99,12 @@ public class AcquisitorePageController {
     			orario=c.getorario().toString();
     			controller_consenso_supervisione.updatenot(desc, orario);
     		}
+    	}else {
+    		ArrayList<Notifica> esistenza=controller_notifiche.esistenza();
+    		if(esistenza.size()!=controller_consenso_supervisione.imgeliminate.size()) {
+    			Notifica n=esistenza.get(0);
+    			controller_consenso_supervisione.updatenot(n.getdescrizione(), n.getorario().toString());
+    		}	
     	}
     }
     
@@ -138,6 +144,7 @@ public class AcquisitorePageController {
     public void VisualizzaNotifiche() {
     	ArrayList<String> notifiche=controller_notifiche.notifiche;
     	String finale=null;
+    	MenuNotifiche.getItems().clear();
     	for(String e:notifiche) {
     		finale=e;
        		MenuItem item=new MenuItem(finale);
@@ -201,6 +208,7 @@ public class AcquisitorePageController {
 			public void handle(ActionEvent e) {
 				try {
 					onBtnClicked();
+					azione=true;
 				} catch (IOException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -233,6 +241,7 @@ public class AcquisitorePageController {
     }
     
     public void VediDati(ActionEvent event) throws Exception {
+    	azione=true;
 		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
@@ -245,6 +254,7 @@ public class AcquisitorePageController {
 	}
     
     public void InserisciMetadati(ActionEvent event) throws Exception {
+    	azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/InserisciMetadatiPage.fxml"));
@@ -254,6 +264,7 @@ public class AcquisitorePageController {
     } 
     
     public void Carica(ActionEvent event) throws Exception {
+    	azione=true;
     	boolean esistenza=controller_caricamento.verifica();
     	if(esistenza) {
     		((Node)event.getSource()).getScene().getWindow().hide();
@@ -271,6 +282,7 @@ public class AcquisitorePageController {
     }  
     
     public void Ricerca(ActionEvent event) throws Exception {
+    	azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));

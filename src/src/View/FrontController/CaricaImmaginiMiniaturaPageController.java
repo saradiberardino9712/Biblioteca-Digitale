@@ -171,7 +171,7 @@ public class CaricaImmaginiMiniaturaPageController {
     		}	
     	}
     }
-	public static int conteggio=1;
+	public static int conteggio=0;
     public void CaricaAltre(ActionEvent event) throws Exception {
     	conteggio+=1;
     	if(conteggio>5) {

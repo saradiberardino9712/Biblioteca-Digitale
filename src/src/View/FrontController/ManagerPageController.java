@@ -144,6 +144,7 @@ public class ManagerPageController {
     public void VisualizzaNotifiche() {
     	ArrayList<String> notifiche=controller_notifiche.notifiche;
     	String finale=null;
+    	MenuNotifiche.getItems().clear();
     	for(String e:notifiche) {
     		finale=e;
        		MenuItem item=new MenuItem(finale);
@@ -220,6 +221,7 @@ public class ManagerPageController {
     }
 	
 	public void VediDati(ActionEvent event) throws Exception {
+		azione=true;
 		boolean visualizza=controller_dati.visualizza();
     	if(visualizza) {
     		((Node) event.getSource()).getScene().getWindow().hide();
@@ -267,7 +269,8 @@ public class ManagerPageController {
     		}
     	}
     	if(controllo) {
-    		((Node) event.getSource()).getScene().getWindow().hide();
+    		onBtnClicked();
+    		azione=true;
     		Stage primaryStage = new Stage();
     		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiSupervisionePage.fxml"));
     		Scene scene = new Scene(root);
@@ -275,13 +278,14 @@ public class ManagerPageController {
     		primaryStage.show();
     	}else {
     		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Accetta/Rifiuta");
+			alert.setTitle("Consenti Supervisione");
 			alert.setHeaderText("Non ci sono consensi da esaminare al momento!!");
 			alert.showAndWait();
     	}
 	}	
     
 	public void Ricerca(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
@@ -291,6 +295,7 @@ public class ManagerPageController {
     }
 	
 	public void Trascrivi(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/TrascriviPage.fxml"));
@@ -300,6 +305,7 @@ public class ManagerPageController {
     }
 	
 	public void AssegnaOpere(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaOpere.fxml"));
@@ -309,6 +315,7 @@ public class ManagerPageController {
     }
 	
 	public void Revisiona(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
@@ -318,6 +325,7 @@ public class ManagerPageController {
     }
 	
 	public void AssegnaPagine(ActionEvent event) throws Exception {
+		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaPagine.fxml"));
