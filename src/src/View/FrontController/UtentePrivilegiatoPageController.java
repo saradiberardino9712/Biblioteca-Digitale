@@ -9,6 +9,7 @@ import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
 import Business.Controller.controller_notifiche;
+import Business.Controller.controller_ricerca;
 import Business.Controller.controller_richieste;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -136,6 +137,7 @@ public class UtentePrivilegiatoPageController {
     					if(cambia() && controller_notifiche.vista1()) {
     						try {
 								onBtnClicked();
+								azione=true;
 							} catch (IOException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
@@ -216,6 +218,7 @@ public class UtentePrivilegiatoPageController {
     					if(cambia() && controller_notifiche.vista()) {
     						try {
 								onBtnClicked();
+								azione=true;
 							} catch (IOException e2) {
 								// TODO Auto-generated catch block
 								e2.printStackTrace();
@@ -265,6 +268,7 @@ public class UtentePrivilegiatoPageController {
     }
     
     public void VediDati(ActionEvent event) throws Exception {
+    	azione=true;
 		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
@@ -277,6 +281,7 @@ public class UtentePrivilegiatoPageController {
 	}
     
      public void Richiesta(ActionEvent event) throws Exception {
+    	azione=true;
     	boolean prendi=controller_domanda.datirichiesta();
 		if(prendi) {
 			((Node) event.getSource()).getScene().getWindow().hide();
@@ -289,12 +294,21 @@ public class UtentePrivilegiatoPageController {
     }
      
     public void Ricerca(ActionEvent event) throws Exception {
+    	azione=true;
+    	boolean ricerca=controller_ricerca.verifica();
+		if(ricerca) {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Non ci sono opere al momento!!");
+			alert.showAndWait();
+		}
     }   
 }
 

@@ -289,11 +289,19 @@ public class UtenteBasePageController {
 	
 	public void Ricerca(ActionEvent event) throws Exception {
 		azione=true;
+		boolean ricerca=controller_ricerca.verifica();
+		if(ricerca) {
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Non ci sono opere al momento!!");
+			alert.showAndWait();
+		}
     }
 }

@@ -20,7 +20,7 @@ public class ImmagineDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.immagine(numero_pagina, stato, url, ID_utente, ID_opera) VALUES (?,?,?,?,?)");
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.immagine(numero_pagina, statoI, url, ID_utente, ID_opera) VALUES (?,?,?,?,?)");
 			preparedStatement.setInt(1, (int)args.get(0));
 			preparedStatement.setString(2, (String)args.get(1));
 			preparedStatement.setString(3, (String)args.get(2));
@@ -68,7 +68,7 @@ public class ImmagineDAO implements DAOinterface{
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT i.*,o.titolo FROM bibliotecadigitale.opera as o join bibliotecadigitale.immagine as i on (o.ID=i.ID_opera) where i.stato=\"in caricamento\"");
+			resultSet = Statement.executeQuery("SELECT i.*,o.titolo FROM bibliotecadigitale.opera as o join bibliotecadigitale.immagine as i on (o.ID=i.ID_opera) where i.statoI=\"in caricamento\"");
 			while(resultSet.next()){
 				int numero_pagina = resultSet.getInt("numero_pagina");
 				String url= resultSet.getString("url");
@@ -128,11 +128,11 @@ public class ImmagineDAO implements DAOinterface{
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT o.titolo, o.pagine_totali, i.stato, i.numero_pagina from immagine i join opera o on (i.ID_opera=o.ID)");
+			resultSet = Statement.executeQuery("SELECT o.titolo, o.pagine_totali, i.statoI, i.numero_pagina from immagine i join opera o on (i.ID_opera=o.ID)");
 			while(resultSet.next()){
 				int numero_pagina = resultSet.getInt("numero_pagina");
 				String titolo=resultSet.getString("titolo");
-				String stato=resultSet.getString("stato");
+				String stato=resultSet.getString("statoI");
 				int pagtot=resultSet.getInt("pagine_totali");
 				if(!stato.contains("eliminata")) {
 					img=new Immagine(titolo,numero_pagina,pagtot);
@@ -188,7 +188,7 @@ public class ImmagineDAO implements DAOinterface{
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, i.url from immagine i join opera o on (i.ID_opera=o.ID) where stato='" + args.get(0)+"'");
+			resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, i.url from immagine i join opera o on (i.ID_opera=o.ID) where statoI='" + args.get(0)+"'");
 			while(resultSet.next()){
 				int numero_pagina = resultSet.getInt("numero_pagina");
 				String titolo=resultSet.getString("titolo");
@@ -246,7 +246,7 @@ public class ImmagineDAO implements DAOinterface{
 		try{
 			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
 			Statement = connect.createStatement(); 
-			Statement.executeUpdate("UPDATE bibliotecadigitale.immagine SET stato='"+ stato +"' WHERE ID_opera=(select ID from opera where titolo='"+titolo+
+			Statement.executeUpdate("UPDATE bibliotecadigitale.immagine SET statoI= '"+ stato +"' WHERE ID_opera=(select ID from opera where titolo='"+titolo+
 					"') and numero_pagina= '"+npag+"'");
 		}catch(SQLException e){
 			success=false;

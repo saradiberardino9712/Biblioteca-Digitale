@@ -66,6 +66,7 @@ public class Opera {
 		lista.add(anno);
 		lista.add(autore);
 		lista.add(npagine);
+		lista.add("in fase di acquisizione");
 		if(ID_categoria==0)
 			lista.add(null);
 		else
@@ -74,9 +75,11 @@ public class Opera {
 		return inserimentodb;
 	}
 	
-	public static ArrayList<Opera> prendiopere(){
+	public static ArrayList<Opera> prendiopere(String stato){
 		ArrayList<Object> lista = new ArrayList<>();
+		lista.add(stato);
 		ArrayList<Opera> listaopere=(ArrayList<Opera>) new OperaDAO().retrieve(lista);
 		return listaopere;
 	}
+
 }

@@ -110,7 +110,7 @@ public class controller_caricamento {
 	}
 	
 	public static boolean verifica(){
-		listaopere=Opera.prendiopere();
+		listaopere=Opera.prendiopere("in fase di acquisizione");
 		if(listaopere.isEmpty()) { // per verificare se ci sono opere
 			return false;
 		}

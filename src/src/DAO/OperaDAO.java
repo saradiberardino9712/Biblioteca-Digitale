@@ -20,21 +20,23 @@ public class OperaDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			if(args.get(4)==null) {
-				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali) VALUES (?,?,?,?)");
+			if(args.get(5)==null) {
+				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali,statoO) VALUES (?,?,?,?,?)");
 				preparedStatement.setString(1, (String)args.get(0));
 				preparedStatement.setString(2,(String)args.get(1));
 				preparedStatement.setString(3, (String)args.get(2));
 				preparedStatement.setInt(4,(int)args.get(3));
+				preparedStatement.setString(5, (String)args.get(4));
 				preparedStatement.executeUpdate();
 			}
 			else {
-				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali,ID_categoria) VALUES (?,?,?,?,?)");
+				preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.opera(titolo, anno, autore, pagine_totali,statoO,ID_categoria) VALUES (?,?,?,?,?,?)");
 				preparedStatement.setString(1, (String)args.get(0));
 				preparedStatement.setString(2,(String)args.get(1));
 				preparedStatement.setString(3, (String)args.get(2));
 				preparedStatement.setInt(4,(int)args.get(3));
-				preparedStatement.setInt(5,(int)args.get(4));
+				preparedStatement.setString(5, (String)args.get(4));
+				preparedStatement.setInt(6,(int)args.get(5));
 				preparedStatement.executeUpdate();
 			}
 		}catch(SQLException e){
@@ -74,11 +76,12 @@ public class OperaDAO implements DAOinterface{
 		Statement Statement = null;
 		ResultSet resultSet = null;
 		ArrayList<Opera> listaopere=new ArrayList<Opera>();
+		String stato=(String) args.get(0);
 		Opera opera=null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.opera");
+			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.opera where statoO='"+ stato +"'");
 			while(resultSet.next()){
 				int id= resultSet.getInt("ID");
 				int ID_categoria = resultSet.getInt("ID_categoria");
