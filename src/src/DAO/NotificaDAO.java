@@ -19,10 +19,10 @@ public class NotificaDAO {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO progettoprova.notifica(orario,descrizione,idutentenot,idruolonot,ID_utente) VALUES (?,?,?,?,?)");
+					"INSERT INTO bibliotecadigitale.notifica(orario,descrizione,idutentenot,idruolonot,ID_utente) VALUES (?,?,?,?,?)");
 			preparedStatement.setTimestamp(1, (Timestamp) args.get(0));
 			preparedStatement.setString(2,(String) args.get(1));
 			preparedStatement.setInt(3, (int) args.get(2));
@@ -72,11 +72,11 @@ public class NotificaDAO {
 		String tipo=(String) args.get(2);
 		ArrayList<Notifica> out=new ArrayList<>();
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
 					"root", "ciao");
 			Statement = connect.createStatement();
 			if(tipo!= null) {
-					resultSet = Statement.executeQuery("SELECT * FROM progettoprova.notifica where (vista=false and IDutentenot='"+ idutentenot 
+					resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.notifica where (vista=false and IDutentenot='"+ idutentenot 
 							+ "'and descrizione like(concat('%','\"+ tipo +\"','%'))) or ( vista=false and IDruolonot='"+ idruolonot +"' and descrizione like(concat('%','"+ tipo +"','%')))");
 						while (resultSet.next()) {
 							int id=resultSet.getInt("ID");
@@ -87,7 +87,7 @@ public class NotificaDAO {
 							out.add(notifica);
 						}
 			}else {
-				resultSet = Statement.executeQuery("SELECT * FROM progettoprova.notifica where (vista=false and IDutentenot='"+ idutentenot 
+				resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.notifica where (vista=false and IDutentenot='"+ idutentenot 
 						+ "') or ( vista=false and IDruolonot='"+ idruolonot +"')");
 					while (resultSet.next()) {
 						int id=resultSet.getInt("ID");
@@ -143,11 +143,11 @@ public class NotificaDAO {
 		String descrizione=(String) args.get(0);
 		String orario= (String) args.get(1);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
 			if(orario==null) {
-				preparedStatement = connect.prepareStatement("UPDATE progettoprova.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\"))");
+				preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\"))");
 			}else
-				preparedStatement = connect.prepareStatement("UPDATE progettoprova.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\")) and orario='"+orario+"'");
+				preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\")) and orario='"+orario+"'");
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
