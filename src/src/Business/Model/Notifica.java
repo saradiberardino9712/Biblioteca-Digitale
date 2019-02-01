@@ -33,20 +33,22 @@ public class Notifica {
 		return this.id;
 	}
 	
-	public static boolean creanotifica(String descrizione,int idutentenot,int idutente) {
+	public static boolean creanotifica(String descrizione,int idutentenot,int idruolonot,int idutente) {
 		Timestamp orario=new Timestamp(System.currentTimeMillis());
 		ArrayList<Object> lista= new ArrayList<>();
 		lista.add(orario);
 		lista.add(descrizione);
 		lista.add(idutentenot);
+		lista.add(idruolonot);
 		lista.add(idutente);
 		boolean crea= new NotificaDAO().insert(lista);
 		return crea;
 	}
 	
-	public static ArrayList<Notifica> prendinotifiche(int idutentenot,String tipo) {
+	public static ArrayList<Notifica> prendinotifiche(int idutentenot,int idruolonot,String tipo) {
 		ArrayList<Object> lista= new ArrayList<>();
 		lista.add(idutentenot);
+		lista.add(idruolonot);
 		lista.add(tipo);
 		ArrayList<Notifica> elenconotifiche= new NotificaDAO().retrieve(lista);
 		return elenconotifiche;

@@ -19,14 +19,15 @@ public class NotificaDAO {
 		PreparedStatement preparedStatement = null;
 		boolean success = true;
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
 					"root", "ciao");
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO bibliotecadigitale.notifica(orario,descrizione,idutentenot,ID_utente) VALUES (?,?,?,?)");
+					"INSERT INTO progettoprova.notifica(orario,descrizione,idutentenot,idruolonot,ID_utente) VALUES (?,?,?,?,?)");
 			preparedStatement.setTimestamp(1, (Timestamp) args.get(0));
 			preparedStatement.setString(2,(String) args.get(1));
 			preparedStatement.setInt(3, (int) args.get(2));
 			preparedStatement.setInt(4, (int) args.get(3));
+			preparedStatement.setInt(5, (int) args.get(4));
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			success = false;
@@ -66,23 +67,37 @@ public class NotificaDAO {
 		Statement Statement = null;
 		ResultSet resultSet = null;
 		Notifica notifica=null;
-		int iddato=(int) args.get(0);
-		String tipo=(String) args.get(1);
+		int idutentenot=(int) args.get(0);
+		int idruolonot=(int) args.get(1);
+		String tipo=(String) args.get(2);
 		ArrayList<Notifica> out=new ArrayList<>();
 		try {
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale",
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova",
 					"root", "ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.notifica where vista=false and IDutentenot='"+ iddato 
-					+ "' and descrizione like(concat('%','"+ tipo +"','%'))");
-				while (resultSet.next()) {
-					int id=resultSet.getInt("ID");
-					Timestamp orario=resultSet.getTimestamp("orario");
-					String descrizione=resultSet.getString("descrizione");
-					int idutente=resultSet.getInt("ID_utente");
-					notifica=new Notifica(id,orario,descrizione,idutente);
-					out.add(notifica);
-				}
+			if(tipo!= null) {
+					resultSet = Statement.executeQuery("SELECT * FROM progettoprova.notifica where (vista=false and IDutentenot='"+ idutentenot 
+							+ "'and descrizione like(concat('%','\"+ tipo +\"','%'))) or ( vista=false and IDruolonot='"+ idruolonot +"' and descrizione like(concat('%','"+ tipo +"','%')))");
+						while (resultSet.next()) {
+							int id=resultSet.getInt("ID");
+							Timestamp orario=resultSet.getTimestamp("orario");
+							String descrizione=resultSet.getString("descrizione");
+							int idutente=resultSet.getInt("ID_utente");
+							notifica=new Notifica(id,orario,descrizione,idutente);
+							out.add(notifica);
+						}
+			}else {
+				resultSet = Statement.executeQuery("SELECT * FROM progettoprova.notifica where (vista=false and IDutentenot='"+ idutentenot 
+						+ "') or ( vista=false and IDruolonot='"+ idruolonot +"')");
+					while (resultSet.next()) {
+						int id=resultSet.getInt("ID");
+						Timestamp orario=resultSet.getTimestamp("orario");
+						String descrizione=resultSet.getString("descrizione");
+						int idutente=resultSet.getInt("ID_utente");
+						notifica=new Notifica(id,orario,descrizione,idutente);
+						out.add(notifica);
+					}
+			}
 				connect.close();
 				Statement.close();
 				resultSet.close();
@@ -128,8 +143,11 @@ public class NotificaDAO {
 		String descrizione=(String) args.get(0);
 		String orario= (String) args.get(1);
 		try{
-			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
-			preparedStatement = connect.prepareStatement("UPDATE bibliotecadigitale.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\")) and orario='"+orario+"'");
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/progettoprova","root", "ciao");
+			if(orario==null) {
+				preparedStatement = connect.prepareStatement("UPDATE progettoprova.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\"))");
+			}else
+				preparedStatement = connect.prepareStatement("UPDATE progettoprova.notifica SET vista=true WHERE descrizione like(concat(\"%\",'"+descrizione+"',\"%\")) and orario='"+orario+"'");
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
