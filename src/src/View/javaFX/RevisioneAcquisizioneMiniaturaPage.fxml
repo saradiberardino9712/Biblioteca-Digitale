@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.RevisioneAcquisizioneMiniaturaPageController">
+   <top>
+      <Label text="Revisione Acquisizioni" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnVisualizzaPaginatore" layoutX="439.0" layoutY="426.0" mnemonicParsing="false" onAction="#Paginatore" text="Visualizza con paginatore" />
+            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="427.0" onAction="#Indietro" text="Torna indietro per controllare altre immagini o per completare la revisione" />
+            <ImageView fx:id="img1" fitHeight="150.0" fitWidth="145.0" layoutX="30.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img3" fitHeight="150.0" fitWidth="145.0" layoutX="441.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img2" fitHeight="150.0" fitWidth="145.0" layoutX="239.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img4" fitHeight="150.0" fitWidth="145.0" layoutX="30.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img5" fitHeight="150.0" fitWidth="145.0" layoutX="239.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img6" fitHeight="150.0" fitWidth="145.0" layoutX="441.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="txttesto11" layoutX="30.0" layoutY="172.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto12" layoutX="30.0" layoutY="194.0" prefHeight="17.0" prefWidth="145.0" />
+            <Label fx:id="txttesto41" layoutX="30.0" layoutY="375.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto42" layoutX="30.0" layoutY="398.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto32" layoutX="441.0" layoutY="194.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto31" layoutX="441.0" layoutY="172.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto22" layoutX="239.0" layoutY="194.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto21" layoutX="239.0" layoutY="172.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto62" layoutX="441.0" layoutY="398.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto61" layoutX="441.0" layoutY="375.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto52" layoutX="239.0" layoutY="398.0" prefHeight="17.0" prefWidth="146.0" />
+            <Label fx:id="txttesto51" layoutX="239.0" layoutY="375.0" prefHeight="17.0" prefWidth="146.0" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

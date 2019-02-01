@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.SupervisorePageController">
    <children>
@@ -25,10 +26,11 @@
                   <Hyperlink fx:id="linkDati" layoutX="13.0" layoutY="161.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
                   <MenuBar layoutX="283.0" layoutY="27.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Notifiche" />
+                      <Menu fx:id="MenuNotifiche" mnemonicParsing="false" text="Notifiche" />
                     </menus>
                   </MenuBar>
                   <Button fx:id="btnAggiorna" layoutX="364.0" layoutY="27.0" mnemonicParsing="false" onAction="#Aggiorna" text="Aggiorna" />
+                  <VBox fx:id="sup" layoutX="296.0" layoutY="222.0" prefHeight="19.0" prefWidth="100.0" />
                </children>
             </Pane>
          </center>

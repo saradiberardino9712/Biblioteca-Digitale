@@ -3,14 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.RevisioneAcquisizionePageController">
    <top>
-      <Label text="Revisione Acquisizioni" BorderPane.alignment="CENTER">
+      <Label prefHeight="35.0" prefWidth="334.0" text="Lista Immagini da controllare" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
@@ -19,18 +21,12 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnVisualizza" layoutX="421.0" layoutY="75.0" mnemonicParsing="false" onAction="#visualizza" text="Visualizza con paginatore" />
-            <Button fx:id="btnAvanti" layoutX="522.0" layoutY="315.0" mnemonicParsing="false" onAction="#avanti" text="Avanti" />
-            <Hyperlink fx:id="linkIndietro" layoutX="29.0" layoutY="327.0" onAction="#Indietro" text="Indietro" />
-            <Label layoutX="54.0" layoutY="29.0" text="Immagini acquisite">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="81.0" fitWidth="105.0" layoutX="26.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="81.0" fitWidth="105.0" layoutX="26.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="81.0" fitWidth="105.0" layoutX="141.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="81.0" fitWidth="105.0" layoutX="152.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
+            <ListView fx:id="listImg" layoutX="14.0" layoutY="14.0" onMouseClicked="#click" prefHeight="291.0" prefWidth="276.0" />
+            <Button fx:id="btnCorretta" layoutX="316.0" layoutY="277.0" mnemonicParsing="false" onAction="#corretta" prefHeight="62.0" prefWidth="128.0" text="Corretta" />
+            <Button fx:id="btnSbagliata" layoutX="458.0" layoutY="277.0" mnemonicParsing="false" onAction="#sbagliata" prefHeight="62.0" prefWidth="128.0" text="Sbagliata" />
+            <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="328.0" onAction="#indietro" text="Indietro" />
+            <ImageView fx:id="img" fitHeight="243.0" fitWidth="284.0" layoutX="302.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox fx:id="revimg" layoutX="112.0" layoutY="325.0" prefHeight="23.0" prefWidth="100.0" />
          </children>
       </Pane>
    </center>
