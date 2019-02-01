@@ -26,7 +26,7 @@ public class controller_consenso_supervisione {
 	
 	public static String prendiurl(String selezione) {
 		String url = null;
-		for(Immagine i:controller_consenso_supervisione.listaimg) {
+		for(Immagine i:listaimg) {
 			npag=i.getNumeropagina();
 			titolo=i.getTitoloOpera();
     		if(selezione.contains(titolo) && selezione.contains(Integer.toString(npag))) {
@@ -52,8 +52,8 @@ public class controller_consenso_supervisione {
 		if(esito.equals("yes")) {
 			boolean update=Immagine.updatestato("in attesa supervisione", npag, titolo);
 			if(update) {
-				int idutentenot=prendiid("Supervisore");
-				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! Clicca qui o su \" Controlla \" ",idutentenot,idutente);
+				int idruolonot=prendiid("Supervisore");
+				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! Clicca qui o su \" Controlla \" ",0,idruolonot,idutente);
 				String not=ManagerPageController.notifica;
 				String desc="Consenso supervisione \" ";
 				int d=not.indexOf(desc);
@@ -63,8 +63,8 @@ public class controller_consenso_supervisione {
 		}else {
 			boolean update=Immagine.updatestato("eliminata", npag, titolo);
 			if(update) {
-				int idutentenot=prendiid("Acquisitore");
-				notifica=Notifica.creanotifica("Una immagine non è stata approvata!! Clicca qui o vedere \" Elenco immagini negate \" ",idutentenot,idutente);
+				int idruolonot=prendiid("Acquisitore");
+				notifica=Notifica.creanotifica("Una immagine non è stata approvata!! Clicca qui o vedere \" Elenco immagini negate \" ",0,idruolonot,idutente);
 				String not=ManagerPageController.notifica;
 				String desc="Consenso supervisione \" ";
 				int d=not.indexOf(desc);

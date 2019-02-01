@@ -15,30 +15,7 @@ public class controller_notifiche {
 	
 	public static boolean prendinotificheutente(){
 		Utente utente=Utente.getIstance();
-		elenco= Notifica.prendinotifiche(utente.getIDruolo()," ");
-		Collections.sort(elenco, new Ordinamentodecrescente());
-		String descrizione=null;
-		String orario=null;
-		String stringa=null;
-		notifiche=new ArrayList<>();
-		for(Notifica n:elenco) {
-			descrizione=n.getdescrizione();
-			orario=(n.getorario()).toString();
-			stringa=descrizione.concat(orario);
-			if(notifiche.contains(stringa))
-				notifiche.remove(stringa);
-			else
-				notifiche.add(stringa);
-		}	
-		if(notifiche.isEmpty())
-			return false;
-		else
-			return true;
-	}
-	
-	public static boolean prendinotificheutenteid(){
-		Utente utente=Utente.getIstance();
-		elenco= Notifica.prendinotifiche(utente.getID()," ");
+		elenco= Notifica.prendinotifiche(utente.getID(),utente.getIDruolo(),null);
 		Collections.sort(elenco, new Ordinamentodecrescente());
 		String descrizione=null;
 		String orario=null;
@@ -94,7 +71,7 @@ public class controller_notifiche {
 	}
 	
 	public static ArrayList<Notifica> esistenza(){
-		ArrayList<Notifica> lista= Notifica.prendinotifiche(Utente.getIstance().getIDruolo(), "Elenco immagini negate");
+		ArrayList<Notifica> lista= Notifica.prendinotifiche(0,Utente.getIstance().getIDruolo(), "Elenco immagini negate");
 		return lista;
 	}
 }

@@ -22,7 +22,7 @@ public class controller_domanda {
 		nome=utente.getNome();
 		cognome=utente.getCognome();
 		ruolo=utente.getNomeRuolo();
-		ArrayList<Notifica> elenconot=Notifica.prendinotifiche(prendiidmanager(),"Accetta/Rifiuta");
+		ArrayList<Notifica> elenconot=Notifica.prendinotifiche(0,prendiidmanager(),"Accetta/Rifiuta");
 		for(Notifica n: elenconot) {
 			int id=n.getidutente();
 			if(utente.getID()==id) {
@@ -51,9 +51,9 @@ public class controller_domanda {
 		boolean modificastato=Utente.settastato("in attesa");
 		boolean notifica=false;
 		if(modificastato) {
-			int idutentenot=prendiidmanager();
+			int idruolonot=prendiidmanager();
 			int idutente=utente.getID();
-			notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta/Rifiuta\" ",idutentenot,idutente);
+			notifica=Notifica.creanotifica("E' stata effettuata una richiesta per diventare trascrittore!! Clicca qui o su \"Accetta/Rifiuta\" ",0,idruolonot,idutente);
 		}
 		if(notifica)
 			return true;

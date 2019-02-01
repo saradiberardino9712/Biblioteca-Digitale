@@ -21,6 +21,7 @@ public class controller_caricamento {
 	private static Opera cercaopera;
 	private static int n;
 	private static String url;
+	private static String titolo;
 	private static int idutente;
 	public static ArrayList<Opera> listaopere;
 	public static ArrayList<Immagine> listaimmagini;
@@ -147,7 +148,7 @@ public class controller_caricamento {
 	
 	@SuppressWarnings("rawtypes")
 	public static boolean controlloopera(ListView listViewOpere, ComboBox<String> comboboxNpag, TextField txtURL) {
-		String titolo=(String) listViewOpere.getSelectionModel().getSelectedItem();
+		titolo=(String) listViewOpere.getSelectionModel().getSelectedItem();
 		String npag=comboboxNpag.getValue();
 		url=txtURL.getText();
 		if(!controllonotnullopera(titolo,npag,url)) {
@@ -181,11 +182,14 @@ public class controller_caricamento {
 		if(elim.isEmpty()) {
 			carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
 		}else {
+			Immagine i = null;
 			for(Immagine img: elim) {
-				if(!(img.getNumeropagina()==n && img.getUrl().equals(url))) {
-					carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+				if(img.getNumeropagina()==n && img.getUrl().equals(url) && img.getTitoloOpera().equals(titolo)) {
+					carica=Immagine.updatestato("in caricamento",n,titolo);
+					i=img;
 				}
 			}
+			elim.remove(i);
 		}
 		return carica;
 	}
@@ -215,8 +219,8 @@ public class controller_caricamento {
 			titolo=i.getTitoloOpera();
 			b= Immagine.updatestato("in acquisizione",npag,titolo);
 			if(b) {
-				int idutentenot=prendiidmanager();
-				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! E' richiesto il suo consenso!! Clicca qui o su \" Consenso supervisione \" ",idutentenot,idutente);
+				int idruolonot=prendiidmanager();
+				notifica=Notifica.creanotifica("E' stata caricata un'immagine!! E' richiesto il suo consenso!! Clicca qui o su \" Consenso supervisione \" ",0,idruolonot,idutente);
 				n.add(notifica);
 				TimeUnit.SECONDS.sleep(1);
 			}else {
