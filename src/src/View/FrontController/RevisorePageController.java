@@ -52,6 +52,9 @@ public class RevisorePageController {
     private Button btnAggiorna;
     
     @FXML
+    private Button btnPubblicaTrascrizioni;
+    
+    @FXML
 	private Menu MenuNotifiche;
     
 
@@ -63,6 +66,7 @@ public class RevisorePageController {
         assert txtEmailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'RevisorePage.fxml'.";
+        assert btnPubblicaTrascrizioni != null : "fx:id=\"btnPubblicaTrascrizioni\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         txtEmailua.setText(controller_login.email);
         //colore();
     }
@@ -144,6 +148,15 @@ public class RevisorePageController {
         	((Node)event.getSource()).getScene().getWindow().hide();
         	Stage primaryStage = new Stage();
         	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+        }
+    	
+    	public void PubblicaTrascrizioni(ActionEvent event) throws Exception {
+        	((Node)event.getSource()).getScene().getWindow().hide();
+        	Stage primaryStage = new Stage();
+        	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneTrascrizionePage.fxml"));
     		Scene scene = new Scene(root);
     		primaryStage.setScene(scene);
     		primaryStage.show();

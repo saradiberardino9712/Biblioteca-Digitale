@@ -53,6 +53,9 @@ public class SupervisorePageController {
     
     @FXML
 	private Menu MenuNotifiche;
+    
+    @FXML
+    private Button btnPubblicaOpera;
 
     @FXML
     void initialize() {
@@ -62,6 +65,7 @@ public class SupervisorePageController {
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'SupervisorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'SupervisorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'SupervisorePage.fxml'.";
+        assert btnPubblicaOpera != null : "fx:id=\"btnPubblicaOpera\" was not injected: check your FXML file 'SupervisorePage.fxml'.";
         txtemailua.setText(controller_login.email);
         colore();
     }
@@ -147,5 +151,14 @@ public class SupervisorePageController {
 			primaryStage.show();
 		}
 	}
+    
+    public void PubblicaOpera(ActionEvent event) throws Exception {
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneOperaPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
 }
 
