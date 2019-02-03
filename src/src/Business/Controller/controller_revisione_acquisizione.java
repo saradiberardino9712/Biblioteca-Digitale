@@ -2,7 +2,6 @@ package Business.Controller;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-
 import Business.Model.Immagine;
 import Business.Model.Notifica;
 import Business.Model.Ruolo;
@@ -169,5 +168,4 @@ public class controller_revisione_acquisizione {
 		}
 		return true;
 	}
-
 }

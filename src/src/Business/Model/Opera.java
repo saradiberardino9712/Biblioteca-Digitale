@@ -81,5 +81,12 @@ public class Opera {
 		ArrayList<Opera> listaopere=(ArrayList<Opera>) new OperaDAO().retrieve(lista);
 		return listaopere;
 	}
-
+	
+	public static boolean updatestato(String stato,String titolo) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(stato);
+		lista.add(titolo);
+		boolean update= new OperaDAO().updatestato(lista);
+		return update;
+	}
 }

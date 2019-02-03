@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import Business.Controller.controller_consenso_pubblicazione;
 import Business.Controller.controller_dati;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
@@ -12,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,6 +25,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -77,11 +81,6 @@ public class ManagerPageController {
     
     @FXML
     private Button btnAggiorna;
-
-    @FXML
-    void ConsentiPubblicazione(ActionEvent event) {
-
-    }
 
     @FXML
     void GestisciLivello(ActionEvent event) {
@@ -186,6 +185,9 @@ public class ManagerPageController {
         		    	primaryStage.setScene(scene);
         		    	primaryStage.show();
     		    	}
+    		    	if(notifica.contains("Consenti pubblicazione")) {
+    		    		choosestage();
+    		    	}
     				item.setDisable(true);
     			}
     		});
@@ -282,7 +284,108 @@ public class ManagerPageController {
 			alert.setHeaderText("Non ci sono consensi da esaminare al momento!!");
 			alert.showAndWait();
     	}
-	}	
+	}
+    
+    public void ConsentiPubblicazione(ActionEvent event) {
+    	ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	boolean controllo= false;
+    	for(String e:notifiche) {
+    		if(e.contains("Consenti pubblicazione")) {
+    			controllo=true;
+    			notifica=e;
+    		}
+    	}
+    	if(controllo) {
+    		choosestage();
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Accetta/Rifiuta");
+			alert.setHeaderText("Non ci sono pubblicazioni da esaminare al momento!!");
+			alert.showAndWait();
+    	}
+    }
+    
+    public void choosestage() {
+    	BorderPane choosestage=new BorderPane();
+    	VBox contentBox = new VBox();
+		Label testo = new Label("Pubblicazione opere o trascrizioni??");
+		testo.setWrapText(true);
+		testo.setId("label");
+		testo.setStyle("-fx-font-family: Cambria; -fx-font-size: 20pt");
+		contentBox.getChildren().add(testo);
+		contentBox.setAlignment(Pos.CENTER);
+		HBox buttonsBox = new HBox(20);
+		for (int i = 0; i < 2; i++) {
+			if(i==0) {
+				Button button = new Button("Pubblicazione opera");
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent ae) {
+						boolean verifica=controller_consenso_pubblicazione.verifica();
+						if(verifica) {
+							try {
+								onBtnClicked();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							Stage choose=(Stage) choosestage.getScene().getWindow();
+							choose.close();
+				    		Stage primaryStage = new Stage();
+				    		BorderPane root = null;
+							try {
+								root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneOperaPage.fxml"));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				    		Scene scene = new Scene(root);
+				    		primaryStage.setScene(scene);
+				    		primaryStage.show();
+						}else {
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Consenti pubblicazione");
+							alert.setHeaderText("Non ci sono pubblicazioni di opere da esaminare al momento!!");
+							alert.showAndWait();
+							Stage choose=(Stage) choosestage.getScene().getWindow();
+							choose.close();
+							homepage.setIconified(false);
+						}
+					}
+				});
+				buttonsBox.getChildren().add(button);
+			}else {
+				Button button = new Button("Pubblicazione trascrizione");
+				button.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent ae) {
+						((Node) ae.getSource()).getScene().getWindow().hide();
+			    		Stage primaryStage = new Stage();
+			    		BorderPane root = null;
+						try {
+							root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneTrascrizionePage.fxml"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+			    		Scene scene = new Scene(root);
+			    		primaryStage.setScene(scene);
+			    		primaryStage.show();
+					}
+				});
+				buttonsBox.getChildren().add(button);
+			}		
+		}
+		buttonsBox.setAlignment(Pos.CENTER);
+		choosestage.setCenter(contentBox);
+		choosestage.setBottom(buttonsBox);
+		BorderPane.setMargin(contentBox, new Insets(20, 10, 10, 10));
+		BorderPane.setMargin(buttonsBox, new Insets(10, 10, 20, 10));
+		Stage primaryStage = new Stage();
+		Scene scene = new Scene(choosestage,500,200);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    }
     
 	public void Ricerca(ActionEvent event) throws Exception {
 		azione=true;

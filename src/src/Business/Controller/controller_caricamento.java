@@ -189,7 +189,10 @@ public class controller_caricamento {
 					i=img;
 				}
 			}
-			elim.remove(i);
+			if(i==null) {
+				carica=Immagine.caricaimmagine(url,n,"in caricamento",idopera,idutente);
+			}else 
+				elim.remove(i);
 		}
 		return carica;
 	}
