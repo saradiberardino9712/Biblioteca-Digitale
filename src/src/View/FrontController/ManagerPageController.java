@@ -82,11 +82,6 @@ public class ManagerPageController {
     @FXML
     private Button btnAggiorna;
 
-    @FXML
-    void GestisciLivello(ActionEvent event) {
-
-    }
-
 
     @FXML
     void initialize() {
@@ -436,4 +431,14 @@ public class ManagerPageController {
 		primaryStage.setScene(scene);
 		primaryStage.show();
     }
+	
+	public void GestisciLivello(ActionEvent event) throws Exception {
+    	azione=true;
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/GestioneLivelloPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    } 
 }
