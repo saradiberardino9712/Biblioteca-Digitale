@@ -13,6 +13,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class GestioneLivelloPageController {
@@ -51,12 +52,12 @@ public class GestioneLivelloPageController {
     }
     
     public void Indietro(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage4 = new Stage();
-		AnchorPane root4 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-		Scene scene4 = new Scene(root4);
-		primaryStage4.setScene(scene4);
-		primaryStage4.show();
+    	((Node) event.getSource()).getScene().getWindow().hide();
+		Stage primaryStage6 = new Stage();
+		BorderPane root6 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
+		Scene scene6 = new Scene(root6);
+		primaryStage6.setScene(scene6);
+		primaryStage6.show();
     }
     
 }
