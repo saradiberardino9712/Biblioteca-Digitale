@@ -89,4 +89,9 @@ public class Opera {
 		boolean update= new OperaDAO().updatestato(lista);
 		return update;
 	}
+
+	public static boolean remove(int id) {
+		boolean remove=new OperaDAO().remove(id);
+		return remove;
+	}
 }

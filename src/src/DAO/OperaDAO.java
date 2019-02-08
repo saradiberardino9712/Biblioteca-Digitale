@@ -188,6 +188,48 @@ public class OperaDAO implements DAOinterface{
 						}
 				}
 	}
+
+	@SuppressWarnings("finally")
+	public boolean remove(int id) {
+		Connection connect = null;
+		Statement Statement = null;
+		boolean success=true;
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			Statement = connect.createStatement(); 
+			Statement.executeUpdate("DELETE FROM bibliotecadigitale.opera WHERE id='"+id+"'" );
+	}catch(SQLException e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Database");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+		catch(Exception e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Generico");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+			finally{
+				try{
+					if(connect!=null) connect.close();
+					if(Statement!=null) Statement.close();
+					return success;
+					}
+				catch(final SQLException e){
+					final Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Errore");
+					alert.setHeaderText("Errore Database");
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+					return false;
+					}
+			}
+	}
 }
 	
 	

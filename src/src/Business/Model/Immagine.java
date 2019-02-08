@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import DAO.ImmagineDAO;
 
 public class Immagine {
+	private int id;
 	private int numero_pagina;
 	private String url;
 	private Opera opera;
@@ -19,10 +20,21 @@ public class Immagine {
 		this.opera=new Opera(0,0,titolo,null,null,pagtot);
 	}
 	
-	public Immagine(String titolo,int numero_pagina, String url) {
+	public Immagine(int id,String titolo,int numero_pagina, String url) {
 		this.numero_pagina=numero_pagina;
 		this.opera=new Opera(0,0,titolo,null,null,0);
 		this.url=url;
+		this.id=id;
+	}
+	
+	public Immagine(int id,int numero_pagina, String url) {
+		this.numero_pagina=numero_pagina;
+		this.id=id;
+		this.url=url;
+	}
+	
+	public int getID() {
+		return id;
 	}
 	
 	public void setNumeropagina(int newnumeropagina) {
@@ -90,7 +102,14 @@ public class Immagine {
 	public static ArrayList<Immagine> verifica(String stato) {
 		ArrayList<Object> lista= new ArrayList<>();
 		lista.add(stato);
-		ArrayList<Immagine> controllo= new ImmagineDAO().retrieveverifica(lista);
-		return controllo;
+		ArrayList<Immagine> img= new ImmagineDAO().retrieveverifica(lista);
+		return img;
+	}
+
+	public static ArrayList<Immagine> prendiimgopera(String titolo) {
+		ArrayList<Object> lista= new ArrayList<>();
+		lista.add(titolo);
+		ArrayList<Immagine> img= new ImmagineDAO().retrieveimgopera(lista);
+		return img;
 	}
 }

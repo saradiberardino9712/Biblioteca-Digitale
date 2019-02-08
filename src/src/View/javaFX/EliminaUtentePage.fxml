@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.EliminaUtentePageController">
    <top>
       <Label text="Elimina Utente" BorderPane.alignment="CENTER">
@@ -21,7 +20,7 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView layoutX="14.0" layoutY="14.0" prefHeight="267.0" prefWidth="266.0" />
+            <ListView fx:id="listutente" layoutX="14.0" layoutY="14.0" onMouseClicked="#click" prefHeight="267.0" prefWidth="266.0" />
             <Label layoutX="300.0" layoutY="79.0" text="Email dell'utente da eliminare" />
             <TextField fx:id="lblEmail" layoutX="300.0" layoutY="96.0" prefHeight="25.0" prefWidth="243.0" />
             <Button fx:id="btnElimina" layoutX="300.0" layoutY="121.0" mnemonicParsing="false" onAction="#Elimina" text="Elimina" />

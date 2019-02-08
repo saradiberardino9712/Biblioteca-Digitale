@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,13 +15,19 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="immagine" fitHeight="413.0" fitWidth="311.0" layoutX="14.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="immagine" fitHeight="507.0" fitWidth="315.0" layoutX="21.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <Button fx:id="btnImmagine" layoutX="135.0" layoutY="453.0" mnemonicParsing="false" onAction="#Immagine" text="immagine" />
             <HTMLEditor fx:id="TextEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="355.0" layoutY="31.0" prefHeight="592.0" prefWidth="624.0" />
-            <Button fx:id="btnConfermaTrascrizione" layoutX="102.0" layoutY="510.0" mnemonicParsing="false" onAction="#ConfermaTrascrizione" text="Conferma Trascrizione" />
+            <Button fx:id="btnConfermaTrascrizione" layoutX="125.0" layoutY="598.0" mnemonicParsing="false" onAction="#ConfermaTrascrizione" text="Conferma Trascrizione" />
             <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="663.0" onAction="#Indietro" text="Indietro" />
-            <Label fx:id="lblWarning" layoutX="64.0" layoutY="666.0" text="*ATTENZIONE: se si va indietro, la trascrizione verrà persa." textFill="RED" />
+            <Label fx:id="lblWarning" layoutX="100.0" layoutY="666.0" text="*ATTENZIONE: se si va indietro, la trascrizione verrà persa." textFill="RED" />
+            <MenuButton fx:id="MenuPagine" layoutX="198.0" layoutY="31.0" mnemonicParsing="false" onMouseClicked="#clickpagina" text="Seleziona pagina">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <ComboBox fx:id="comboOpera" layoutX="14.0" layoutY="31.0" onMouseClicked="#click" prefHeight="25.0" prefWidth="130.0" promptText="Seleziona opera" />
          </children>
       </Pane>
    </center>

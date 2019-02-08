@@ -188,12 +188,13 @@ public class ImmagineDAO implements DAOinterface{
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, i.url from immagine i join opera o on (i.ID_opera=o.ID) where statoI='" + args.get(0)+"'");
+			resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, i.url, i.ID from immagine i join opera o on (i.ID_opera=o.ID) where statoI='" + args.get(0)+"'");
 			while(resultSet.next()){
+				int id=resultSet.getInt("ID");
 				int numero_pagina = resultSet.getInt("numero_pagina");
 				String titolo=resultSet.getString("titolo");
 				String url=resultSet.getString("url");
-				img=new Immagine(titolo,numero_pagina,url);
+				img=new Immagine(id,titolo,numero_pagina,url);
 				immagine.add(img);
 			}
 			connect.close();
@@ -325,6 +326,63 @@ public class ImmagineDAO implements DAOinterface{
 					}
 			}
 }
+
+	@SuppressWarnings("finally")
+	public ArrayList<Immagine> retrieveimgopera(ArrayList<Object> args) {
+		Connection connect = null;
+		Statement Statement = null;
+		ResultSet resultSet = null;
+		ArrayList<Immagine> immagine = new ArrayList<>();
+		Immagine img=null;
+		try{
+			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
+			Statement = connect.createStatement();
+			resultSet = Statement.executeQuery("SELECT i.ID,i.numero_pagina, i.url from immagine i join opera o on (i.ID_opera=o.ID) where o.titolo='" + args.get(0)+"'order by i.numero_pagina");
+			while(resultSet.next()){
+				int numero_pagina = resultSet.getInt("numero_pagina");
+				int id=resultSet.getInt("ID");
+				String url=resultSet.getString("url");
+				img=new Immagine(id,numero_pagina,url);
+				immagine.add(img);
+			}
+			connect.close();
+			Statement.close();
+			resultSet.close();
+			return immagine;	
+		}
+		catch(SQLException e){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		catch(Exception e){
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+		}
+		finally{
+			try{
+				if(connect!=null) connect.close();
+				if(Statement!=null) Statement.close();
+				if(resultSet!=null) resultSet.close();
+				return immagine;
+				
+			}
+			catch(final SQLException e){		
+				final Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Errore");
+				alert.setHeaderText("Errore Database");
+				alert.setContentText(e.getMessage());
+				alert.showAndWait();
+				return null;
+			}
+						
+		}
+	}
 
 
 }

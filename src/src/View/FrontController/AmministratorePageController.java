@@ -50,10 +50,8 @@ public class AmministratorePageController {
         txtemailua.setText(controller_login.email);
     }
     
-    public static boolean azione=false;
-    
     public void Logout(ActionEvent event) throws Exception {
-    	boolean disattiva=controller_logout.disattivautente(txtemailua);
+    	boolean disattiva=controller_logout.disattivautente();
     	if(disattiva) {
     		((Node)event.getSource()).getScene().getWindow().hide();
     		Stage primaryStage = new Stage();
@@ -65,7 +63,7 @@ public class AmministratorePageController {
     }
     
     public void VediDati(ActionEvent event) throws Exception {
-		boolean visualizza=controller_dati.visualizza(txtemailua);
+		boolean visualizza=controller_dati.visualizza();
 		if(visualizza) {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Stage primaryStage = new Stage();
@@ -77,7 +75,6 @@ public class AmministratorePageController {
 	}
     
     public void EliminaOpera(ActionEvent event) throws Exception {
-    	azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/EliminaOperaPage.fxml"));
@@ -87,7 +84,6 @@ public class AmministratorePageController {
     } 
     
     public void EliminaUtente(ActionEvent event) throws Exception {
-    	azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
     	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/EliminaUtentePage.fxml"));

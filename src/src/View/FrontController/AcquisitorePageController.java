@@ -276,7 +276,7 @@ public class AcquisitorePageController {
     	}else {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Errore");
-			alert.setHeaderText("Non ci sono pagine di opere da acquisire!!");
+			alert.setHeaderText("Non ci sono pagine di opere da acquisire!! Inserisci prima i metadati!!");
 			alert.showAndWait();
     	}
     }  

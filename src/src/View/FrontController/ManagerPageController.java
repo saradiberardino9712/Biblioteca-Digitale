@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import Business.Controller.controller_assegnazione_trascrizioni;
 import Business.Controller.controller_consenso_pubblicazione;
 import Business.Controller.controller_dati;
 import Business.Controller.controller_login;
@@ -41,16 +42,13 @@ public class ManagerPageController {
     private Button btnRicerca;
 
     @FXML
-    private Button btnAssegnaOpere;
+    private Button btnAssegnaTrascrizioni;
 
     @FXML
-    private Button btnRevisiona;
+    private Button btnConsentiRevisione;
 
     @FXML
     private Button btnTrascrivi;
-
-    @FXML
-    private Button btnAssegnaPagine;
 
     @FXML
     private Button btnConsentiPubblicazione;
@@ -82,14 +80,12 @@ public class ManagerPageController {
     @FXML
     private Button btnAggiorna;
 
-
     @FXML
     void initialize() {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnAssegnaOpere != null : "fx:id=\"btnAssegnaOpere\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnRevisiona != null : "fx:id=\"btnRevisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnAssegnaTrascrizioni != null : "fx:id=\"btnAssegnaOpere\" was not injected: check your FXML file 'ManagerPage.fxml'.";
+        assert btnConsentiRevisione != null : "fx:id=\"btnRevisiona\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnTrascrivi != null : "fx:id=\"btnTrascrivi\" was not injected: check your FXML file 'ManagerPage.fxml'.";
-        assert btnAssegnaPagine != null : "fx:id=\"btnAssegnaPagine\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnConsentiPubblicazione != null : "fx:id=\"btnConsentiPubblicazione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnGestisciLivello != null : "fx:id=\"btnGestisciLivello\" was not injected: check your FXML file 'ManagerPage.fxml'.";
         assert btnConsentiSupervisione != null : "fx:id=\"btnConsentiSupervisione\" was not injected: check your FXML file 'ManagerPage.fxml'.";
@@ -182,6 +178,17 @@ public class ManagerPageController {
     		    	}
     		    	if(notifica.contains("Consenti pubblicazione")) {
     		    		choosestage();
+    		    	}
+    		    	if(notifica.contains("Consenti revisione")) {
+    		    		try {
+    		    			root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiRevisionePage.fxml"));
+    		    		} catch (IOException e1) {
+    		    			// TODO Auto-generated catch block
+    		    			e1.printStackTrace();
+    		    		}
+    		    		Scene scene = new Scene(root);
+        		    	primaryStage.setScene(scene);
+        		    	primaryStage.show();
     		    	}
     				item.setDisable(true);
     			}
@@ -294,7 +301,7 @@ public class ManagerPageController {
     		choosestage();
     	}else {
     		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Accetta/Rifiuta");
+			alert.setTitle("Consenti pubblicazione");
 			alert.setHeaderText("Non ci sono pubblicazioni da esaminare al momento!!");
 			alert.showAndWait();
     	}
@@ -344,7 +351,18 @@ public class ManagerPageController {
 							alert.showAndWait();
 							Stage choose=(Stage) choosestage.getScene().getWindow();
 							choose.close();
-							homepage.setIconified(false);
+							homepage.close();
+							Stage primaryStage = new Stage();
+				    		BorderPane root = null;
+							try {
+								root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneTrascrizionePage.fxml"));
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				    		Scene scene = new Scene(root);
+				    		primaryStage.setScene(scene);
+				    		primaryStage.show();
 						}
 					}
 				});
@@ -354,7 +372,14 @@ public class ManagerPageController {
 				button.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent ae) {
-						((Node) ae.getSource()).getScene().getWindow().hide();
+						try {
+							onBtnClicked();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						Stage choose=(Stage) choosestage.getScene().getWindow();
+						choose.close();
 			    		Stage primaryStage = new Stage();
 			    		BorderPane root = null;
 						try {
@@ -382,6 +407,31 @@ public class ManagerPageController {
 		primaryStage.show();
     }
     
+    public void ConsentiRevisione(ActionEvent event) throws Exception {
+		azione=true;
+		ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	boolean controllo= false;
+    	for(String e:notifiche) {
+    		if(e.contains("Consenti revisione")) {
+    			controllo=true;
+    			notifica=e;
+    		}
+    	}
+    	if(controllo) {
+    		((Node)event.getSource()).getScene().getWindow().hide();
+        	Stage primaryStage = new Stage();
+        	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiRevisionePage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Consenti revisione");
+			alert.setHeaderText("Non ci sono trascrizioni da esaminare al momento!!");
+			alert.showAndWait();
+    	}
+    }
+    
 	public void Ricerca(ActionEvent event) throws Exception {
 		azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
@@ -402,37 +452,25 @@ public class ManagerPageController {
 		primaryStage.show();
     }
 	
-	public void AssegnaOpere(ActionEvent event) throws Exception {
+	public void AssegnaTrascrizioni(ActionEvent event) throws Exception {
 		azione=true;
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaOpere.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		boolean esiste=controller_assegnazione_trascrizioni.verifica();
+		if(esiste) {
+	    	((Node)event.getSource()).getScene().getWindow().hide();
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaTrascrizioni.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Assegna Opere");
+			alert.setHeaderText("Non ci sono trascrizioni da assegnare al momento!!");
+			alert.showAndWait();
+		}
     }
 	
-	public void Revisiona(ActionEvent event) throws Exception {
-		azione=true;
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
-	
-	public void AssegnaPagine(ActionEvent event) throws Exception {
-		azione=true;
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AssegnaPagine.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
-    }
-	
-	public void GestisciLivello(ActionEvent event) throws Exception {
+    public void GestisciLivello(ActionEvent event) throws IOException {
     	azione=true;
     	((Node)event.getSource()).getScene().getWindow().hide();
     	Stage primaryStage = new Stage();
@@ -440,5 +478,5 @@ public class ManagerPageController {
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-    } 
+    }
 }

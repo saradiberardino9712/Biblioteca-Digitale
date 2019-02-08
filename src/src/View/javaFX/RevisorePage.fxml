@@ -25,7 +25,7 @@
                   <Hyperlink fx:id="linkDati" layoutX="14.0" layoutY="212.0" onAction="#VediDati" text="Visualizza e/o modifica i tuoi dati." />
                   <MenuBar layoutX="290.0" layoutY="37.0">
                     <menus>
-                      <Menu mnemonicParsing="false" text="Notifiche" />
+                      <Menu fx:id="MenuNotifiche" mnemonicParsing="false" text="Notifiche" />
                     </menus>
                   </MenuBar>
                   <Button fx:id="btnAggiorna" layoutX="371.0" layoutY="37.0" mnemonicParsing="false" onAction="#Aggiorna" text="Aggiorna" />

@@ -187,6 +187,13 @@ public class Utente {
 		int id=new UtenteDAO().retrieveid(lista);
 		return id;
 	}
+	
+	public static ArrayList<String> prendiutenti(int idruolo) {
+		ArrayList<Object>lista=new ArrayList<>();
+		lista.add(idruolo);
+		ArrayList<String> utenti=new UtenteDAO().retrieveutenti(lista);
+		return utenti;
+	}
 
 	public static boolean cambiaruoloutente(int id) {
 		ArrayList<Object>lista=new ArrayList<>();
@@ -211,6 +218,26 @@ public class Utente {
 	
 	public static final Utente getIstance() {
 		return instance;
+	}
+
+	public static boolean updatelivello(String nome, String cognome,int id, int livellomod) {
+		ArrayList<Object>lista=new ArrayList<>();
+		lista.add(nome);
+		lista.add(cognome);
+		lista.add(id);
+		lista.add(livellomod);
+		boolean modifica=new UtenteDAO().updatelivello(lista);
+		return modifica;
+	}
+
+	public static ArrayList<String> prendiutentiAll() {
+		ArrayList<String> utenti=new UtenteDAO().retrieveutentiAll();
+		return utenti;
+	}
+
+	public static boolean remove(String email) {
+		boolean remove=new UtenteDAO().remove(email);
+		return remove;
 	}
 	
 }

@@ -2,6 +2,7 @@ package View.FrontController;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import Business.Controller.controller_pubblicazione_opera;
 import Business.Model.Immagine;
@@ -9,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -18,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class PubblicaImmaginiPageController {
@@ -79,7 +84,7 @@ public class PubblicaImmaginiPageController {
     	pagination.setPageFactory(n->images.get(n));
     }
     
-    public void pubblica(ActionEvent event) {
+    public void pubblica(ActionEvent event) throws IOException {
     	String titolo=listopere.getSelectionModel().getSelectedItem();
     	boolean pubblica=controller_pubblicazione_opera.pubblica(titolo);
     	if(pubblica) {
@@ -87,10 +92,14 @@ public class PubblicaImmaginiPageController {
 			alert.setTitle("Pubblica opera");
 			alert.setHeaderText("La pubblicazione è andata a buon fine!!");
 			alert.showAndWait();
-			Stage home=(Stage) listopere.getScene().getWindow();
-			home.close();
 			Stage torna=SupervisorePageController.homepage;
-			torna.setIconified(false);
+			torna.close();
+			((Node)event.getSource()).getScene().getWindow().hide();
+			Stage primaryStage = new Stage();
+    		BorderPane root = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/SupervisorePage.fxml"));
+    		Scene scene = new Scene(root);
+    		primaryStage.setScene(scene);
+    		primaryStage.show();
     	}else {
     		Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Pubblica opera");

@@ -20,10 +20,11 @@ public class TestoDigitaleDAO implements DAOinterface{
 		boolean success=true;
 		try{	
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
-			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.testo_digitale(ID_utente, ID_immagine, textail) VALUES (?,?,?)");
-			preparedStatement.setInt(1, (int)args.get(0));
-			preparedStatement.setInt(2, (int)args.get(1));
-			preparedStatement.setString(3,(String)args.get(2));
+			preparedStatement = connect.prepareStatement("INSERT INTO bibliotecadigitale.testo_digitale(testo,statoT,ID_utente,ID_immagine) VALUES (?,?,?,?)");
+			preparedStatement.setString(1,(String)args.get(0));
+			preparedStatement.setString(2,(String)args.get(1));
+			preparedStatement.setInt(3,(int)args.get(2));
+			preparedStatement.setInt(4,(int)args.get(3));
 			preparedStatement.executeUpdate();
 		}catch(SQLException e){
 			success=false;
@@ -55,31 +56,46 @@ public class TestoDigitaleDAO implements DAOinterface{
 						}
 					}
 		}	
-	
-	
-	@SuppressWarnings("finally")
-	public Object retrieve(ArrayList<Object> args) {
+
+	@SuppressWarnings({ "finally"})
+	public ArrayList<TestoDigitale> retrieve(ArrayList<Object> args) {
 		Connection connect = null;
 		Statement Statement = null;
 		ResultSet resultSet = null;
-		TestoDigitale TestoDigitale = null;
+		ArrayList<TestoDigitale> trascrizioni = new ArrayList<>();
+		TestoDigitale text=null;
 		try{
 			connect=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root","ciao");
 			Statement = connect.createStatement();
-			resultSet = Statement.executeQuery("SELECT * FROM bibliotecadigitale.testo_digitale");
-			while(resultSet.next()){
-				int ID_utente=resultSet.getInt("ID_utente");
-				int ID_immagine=resultSet.getInt("ID_immagine");
-				String text=resultSet.getString("text");
-				TestoDigitale= new TestoDigitale (ID_utente, ID_immagine, text);
-				
-					connect.close();
-					Statement.close();
-					resultSet.close();
-					return TestoDigitale; 
-				
-					
-			}	
+			if(args.get(0)==null) {
+				resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, t.testo,i.ID,t.ID_utente from immagine i join opera o on (i.ID_opera=o.ID) "
+						+ "join testo_digitale t on (i.ID=t.ID_immagine)");
+				while(resultSet.next()){
+					int numero_pagina = resultSet.getInt("numero_pagina");
+					String titolo=resultSet.getString("titolo");
+					String testo=resultSet.getString("testo");
+					int idimg=resultSet.getInt("ID");
+					int idutente=resultSet.getInt("ID_utente");
+					text=new TestoDigitale(idutente,idimg,testo,titolo,numero_pagina);
+					trascrizioni.add(text);
+				}
+			}else {
+				resultSet = Statement.executeQuery("SELECT o.titolo, i.numero_pagina, t.testo,i.ID,t.ID_utente from immagine i join opera o on (i.ID_opera=o.ID) "
+						+ "join testo_digitale t on (i.ID=t.ID_immagine) where statoT='" + args.get(0)+"'");
+				while(resultSet.next()){
+					int numero_pagina = resultSet.getInt("numero_pagina");
+					String titolo=resultSet.getString("titolo");
+					String testo=resultSet.getString("testo");
+					int idimg=resultSet.getInt("ID");
+					int idutente=resultSet.getInt("ID_utente");
+					text=new TestoDigitale(idutente,idimg,testo,titolo,numero_pagina);
+					trascrizioni.add(text);
+				}
+			}
+			connect.close();
+			Statement.close();
+			resultSet.close();
+			return trascrizioni;	
 		}
 		catch(SQLException e){
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -100,7 +116,8 @@ public class TestoDigitaleDAO implements DAOinterface{
 				if(connect!=null) connect.close();
 				if(Statement!=null) Statement.close();
 				if(resultSet!=null) resultSet.close();
-				return TestoDigitale;
+				return trascrizioni;
+				
 			}
 			catch(final SQLException e){		
 				final Alert alert = new Alert(AlertType.INFORMATION);
@@ -112,5 +129,91 @@ public class TestoDigitaleDAO implements DAOinterface{
 			}
 						
 		}
+	}
+
+	@SuppressWarnings("finally")
+	public boolean updatestato(ArrayList<Object> args) {
+		Connection connect = null;
+		Statement Statement = null;
+		boolean success=true; 
+		String stato=(String) args.get(0);
+		int idimg=(int) args.get(1);
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			Statement = connect.createStatement(); 
+			Statement.executeUpdate("UPDATE bibliotecadigitale.testo_digitale SET statoT= '"+ stato +"' WHERE ID_immagine='"+idimg+"'");
+		}catch(SQLException e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Database");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+			catch(Exception e){
+			success=false;
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Errore");
+			alert.setHeaderText("Errore Generico");
+			alert.setContentText(e.getMessage());
+			alert.showAndWait();
+			}
+				finally{
+					try{
+						if(connect!=null) connect.close();
+						if(Statement!=null) Statement.close();
+						return success;
+						}
+					catch(final SQLException e){
+						final Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Errore");
+						alert.setHeaderText("Errore Database");
+						alert.setContentText(e.getMessage());
+						alert.showAndWait();
+						return false;
+						}
+				}
+	}
+
+	@SuppressWarnings("finally")
+	public boolean remove(ArrayList<Object> args) {
+		Connection connect = null;
+		Statement Statement = null;
+		boolean success=true;
+		try{
+			connect = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bibliotecadigitale","root", "ciao");
+			Statement = connect.createStatement(); 
+			Statement.executeUpdate("DELETE FROM bibliotecadigitale.testo_digitale WHERE testo='" + args.get(0)+ "' and ID_immagine='" + args.get(1) +"'" );
+	}catch(SQLException e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Database");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+		catch(Exception e){
+		success=false;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Errore");
+		alert.setHeaderText("Errore Generico");
+		alert.setContentText(e.getMessage());
+		alert.showAndWait();
+		}
+			finally{
+				try{
+					if(connect!=null) connect.close();
+					if(Statement!=null) Statement.close();
+					return success;
+					}
+				catch(final SQLException e){
+					final Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Errore");
+					alert.setHeaderText("Errore Database");
+					alert.setContentText(e.getMessage());
+					alert.showAndWait();
+					return false;
+					}
+			}
 	}
 }

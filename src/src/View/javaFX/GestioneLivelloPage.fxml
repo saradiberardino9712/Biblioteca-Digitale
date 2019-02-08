@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.GestioneLivelloPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FrontController.GestioneLivelloPageController">
    <top>
       <Label text="Gestione Livello Utente" BorderPane.alignment="CENTER">
          <font>
@@ -22,13 +21,18 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView layoutX="14.0" layoutY="14.0" prefHeight="280.0" prefWidth="226.0" />
+            <ListView fx:id="listutenti" layoutX="14.0" layoutY="14.0" onMouseClicked="#click" prefHeight="280.0" prefWidth="226.0" />
             <Label layoutX="300.0" layoutY="14.0" text="Nome Utente" />
             <TextField fx:id="txtNomeUtente" layoutX="300.0" layoutY="31.0" prefHeight="25.0" prefWidth="232.0" />
-            <Label layoutX="300.0" layoutY="82.0" text="Livello" />
-            <Spinner fx:id="spinnerLivello" layoutX="300.0" layoutY="99.0" />
+            <Label layoutX="300.0" layoutY="123.0" text="Livello" />
+            <Spinner fx:id="spinnerLivello" layoutX="297.0" layoutY="157.0" />
             <Hyperlink fx:id="linkIndietro" layoutX="14.0" layoutY="328.0" onAction="#Indietro" text="Indietro" />
-            <Button fx:id="btnModifica" layoutX="300.0" layoutY="142.0" mnemonicParsing="false" onAction="#Modifica" text="Conferma Modifica" />
+            <Button fx:id="btnModifica" layoutX="300.0" layoutY="203.0" mnemonicParsing="false" onAction="#Modifica" text="Conferma Modifica" />
+            <Label fx:id="txtavviso" layoutX="281.0" layoutY="69.0" prefHeight="45.0" prefWidth="376.0" textFill="RED">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </center>

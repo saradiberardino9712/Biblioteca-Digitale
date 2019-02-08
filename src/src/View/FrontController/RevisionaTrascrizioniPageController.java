@@ -1,95 +1,120 @@
 package View.FrontController;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import Business.Controller.controller_login;
+import Business.Controller.controller_revisione_trascrizione;
+import Business.Model.TestoDigitale;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 
 public class RevisionaTrascrizioniPageController {
 
+    @FXML
+    private ResourceBundle resources;
 
-	    @FXML
-	    private ResourceBundle resources;
+    @FXML
+    private URL location;
 
-	    @FXML
-	    private URL location;
+    @FXML
+    private ListView<String> listtrascrizioni;
 
-	    @FXML
-	    private Button btnConferma;
+    @FXML
+    private Button btnConferma;
 
-	    @FXML
-	    private Hyperlink linkIndietro;
+    @FXML
+    private Hyperlink linkIndietro;
 
-	    @FXML
-	    void initialize() {
-	        assert btnConferma != null : "fx:id=\"btnConferma\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
-	        assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
+    @FXML
+    private HTMLEditor text;
 
-	    }
-	    
-	    public void Indietro(ActionEvent event) throws Exception {
-    		switch(controller_login.ruolo) {
-    		case "Utente Base":((Node) event.getSource()).getScene().getWindow().hide();
-    							Stage primaryStage = new Stage();
-    							AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtenteBase.fxml"));
-    							Scene scene = new Scene(root);
-    							primaryStage.setScene(scene);
-    							primaryStage.show();
-    							break;
-    		case "Utente Privilegiato":((Node) event.getSource()).getScene().getWindow().hide();
-    									Stage primaryStage1 = new Stage();
-    									AnchorPane root1 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/UtentePrivilegiatoPage.fxml"));
-    									Scene scene1 = new Scene(root1);
-    									primaryStage1.setScene(scene1);
-    									primaryStage1.show();
-    									break;
-    		case "Acquisitore":((Node) event.getSource()).getScene().getWindow().hide();
-    							Stage primaryStage2 = new Stage();
-    							AnchorPane root2 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/AcquisitorePage.fxml"));
-    							Scene scene2 = new Scene(root2);
-    							primaryStage2.setScene(scene2);
-    							primaryStage2.show();
-    							break;
-    		case "Supervisore":((Node) event.getSource()).getScene().getWindow().hide();
-    							Stage primaryStage3 = new Stage();
-    							AnchorPane root3 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/SupervisorePage.fxml"));
-    							Scene scene3 = new Scene(root3);
-    							primaryStage3.setScene(scene3);
-    							primaryStage3.show();
-    							break;
-    		case "Trascrittore":((Node) event.getSource()).getScene().getWindow().hide();
-    							Stage primaryStage4 = new Stage();
-    							AnchorPane root4 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/TrascrittorePage.fxml"));
-    							Scene scene4 = new Scene(root4);
-    							primaryStage4.setScene(scene4);
-    							primaryStage4.show();
-    							break;
-    		case "Revisore":((Node) event.getSource()).getScene().getWindow().hide();
-    						Stage primaryStage5 = new Stage();
-    						AnchorPane root5 = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/javaFX/RevisorePage.fxml"));
-    						Scene scene5 = new Scene(root5);
-    						primaryStage5.setScene(scene5);
-    						primaryStage5.show();
-    						break;
-    		case "Manager":((Node) event.getSource()).getScene().getWindow().hide();
-							Stage primaryStage6 = new Stage();
-							BorderPane root6 = (BorderPane) FXMLLoader.load(getClass().getResource("/View/javaFX/ManagerPage.fxml"));
-							Scene scene6 = new Scene(root6);
-							primaryStage6.setScene(scene6);
-							primaryStage6.show();
-							break;
-    		}
+    @FXML
+    void initialize() {
+        assert listtrascrizioni != null : "fx:id=\"listtrascrizioni\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
+        assert btnConferma != null : "fx:id=\"btnConferma\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
+        assert linkIndietro != null : "fx:id=\"linkIndietro\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
+        assert text != null : "fx:id=\"text\" was not injected: check your FXML file 'RevisionaTrascrizioniPage.fxml'.";
+        carica();
+    }
+    
+    public void carica() {
+    	String s;
+    	ObservableList<String> lista= FXCollections.observableArrayList();
+    	for(TestoDigitale t:controller_revisione_trascrizione.traesaminare) {
+    		s="Opera: " + t.getTitoloOpera() + ", Pagina n°: " + t.getNumpag();
+    		if(!lista.contains(s))
+    			lista.add(s);
     	}
-
-
+    	listtrascrizioni.setItems(lista);
+    }
+    
+    public void Indietro(ActionEvent event) {
+    	Stage homepage1 = (Stage) btnConferma.getScene().getWindow();
+        homepage1.close();
+        Stage torna= RevisorePageController.homepage;
+        torna.setIconified(false);
+    }
+    
+    public static String selezione="no selezione";
+    public void click(MouseEvent event) throws FileNotFoundException {
+    	selezione=listtrascrizioni.getSelectionModel().getSelectedItem();
+    	ArrayList<String> testo=controller_revisione_trascrizione.prenditesto(selezione);
+    	if(testo.size()>1) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Attenzione!!");
+			alert.setHeaderText("Ci sono trascrizioni fatte da vari trascrittori. Unisci le varie versioni e crea quella definitiva!!");
+			alert.showAndWait();
+			String stringa;
+			int count=1;
+			for(String s:testo) {
+				stringa= text.getHtmlText()+"Versione "+ Integer.toString(count)+ "\n" +s;
+				text.setHtmlText(stringa);
+				count++;
+			}
+    	}else {
+    		for(String s:testo) {
+				text.setHtmlText(s);
+			}
+    	}
+    }
+    
+    public void Conferma(ActionEvent event) throws IOException {
+    	String testo=text.getHtmlText();
+    	boolean conferma=controller_revisione_trascrizione.conferma(testo);
+    	if(conferma) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Revisione trascrizione");
+			alert.setHeaderText("La revisione è avvenuta con successo!!");
+			alert.showAndWait();
+			Stage torna=RevisorePageController.homepage;
+			torna.close();
+			((Node)event.getSource()).getScene().getWindow().hide();
+		 	Stage primaryStage = new Stage();
+		    AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisorePage.fxml"));
+		    Scene scene = new Scene(root);
+		    primaryStage.setScene(scene);
+		    primaryStage.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+		    alert.setTitle("Revisione trascrizione");
+		    alert.setHeaderText("C'è stato un problema!!");
+		    alert.showAndWait();
+    	}
+    }
 }

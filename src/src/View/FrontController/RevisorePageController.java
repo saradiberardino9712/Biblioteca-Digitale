@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import Business.Controller.controller_dati;
-import Business.Controller.controller_domanda;
 import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
+import Business.Controller.controller_notifiche;
+import Business.Controller.controller_revisione_trascrizione;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -57,7 +57,6 @@ public class RevisorePageController {
     @FXML
 	private Menu MenuNotifiche;
     
-
     @FXML
     void initialize() {
         assert btnRicerca != null : "fx:id=\"btnRicerca\" was not injected: check your FXML file 'RevisorePage.fxml'.";
@@ -67,47 +66,110 @@ public class RevisorePageController {
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnAggiorna != null : "fx:id=\"btnAggiorna\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         assert btnPubblicaTrascrizioni != null : "fx:id=\"btnPubblicaTrascrizioni\" was not injected: check your FXML file 'RevisorePage.fxml'.";
+        assert MenuNotifiche != null : "fx:id=\"MenuNotifiche\" was not injected: check your FXML file 'RevisorePage.fxml'.";
         txtEmailua.setText(controller_login.email);
-        //colore();
+        colore();
     }
     
+    public static boolean azione=false;
+    //aggiornamento automatico delle notifiche
     public void colore() {
-    	if(controller_domanda.notificacolore) {
-    		btnAggiorna.setStyle(" -fx-base: red;");
+    	if(azione) {
+    		if(controller_notifiche.prendinotificheutente()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			VisualizzaNotifiche();
+    		}	
+    	}else {
+    		if(controller_notifiche.prendinotificheutente()) {
+    			MenuNotifiche.setStyle(" -fx-background-color : red;");
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
+    			alert.showAndWait();
+    			VisualizzaNotifiche();
+    		}else {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setTitle("Notifiche");
+    			alert.setHeaderText("Non ci sono notifiche al momento!!");
+    			alert.showAndWait();
+    		}
     	}
     }
     
+    public static Stage homepage;
+    //prende la homepage del manager
+    private void onBtnClicked() throws IOException {
+        homepage = (Stage) btnAggiorna.getScene().getWindow();
+        homepage.setIconified(true);
+    }
+    
+    public static String notifica=null;
+    public void VisualizzaNotifiche() {
+    	ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	String finale=null;
+    	MenuNotifiche.getItems().clear();
+    	for(String e:notifiche) {
+    		finale=e;
+       		MenuItem item=new MenuItem(finale);
+    		MenuNotifiche.getItems().add(item);
+    		MenuNotifiche.setOnMenuValidation(event ->{
+    			MenuNotifiche.setStyle(" -fx-background-color : LIGHTGRAY;");
+    		});
+    		item.setOnAction(new EventHandler<ActionEvent>() {
+    			public void handle(ActionEvent e) {
+    		    	try {
+    		    		notifica=item.getText();
+    		    		azione=true;
+						onBtnClicked();
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+    		    	Stage primaryStage = new Stage();
+    		    	BorderPane root=null;
+    		    	if(notifica.contains("Revisiona")) {
+    		    		controller_revisione_trascrizione.verifica();
+    		    		try {
+    		    			root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
+    		    		} catch (IOException e1) {
+    		    			// TODO Auto-generated catch block
+    		    			e1.printStackTrace();
+    		    		}
+    		    		Scene scene = new Scene(root);
+        		    	primaryStage.setScene(scene);
+        		    	primaryStage.show();
+    		    	}
+    		    	if(notifica.contains("Pubblica")) {
+    		    		controller_revisione_trascrizione.verifica();
+    		    		try {
+    		    			root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/PubblicaTrascrizioniPage.fxml"));
+    		    		} catch (IOException e1) {
+    		    			// TODO Auto-generated catch block
+    		    			e1.printStackTrace();
+    		    		}
+    		    		Scene scene = new Scene(root);
+        		    	primaryStage.setScene(scene);
+        		    	primaryStage.show();
+    		    	}
+    				item.setDisable(true);
+    			}
+    		});
+    	}	
+    }
+    
     public void Aggiorna(ActionEvent event) throws Exception {
-		btnAggiorna.setStyle(" -fx-base: gray;");
-		ArrayList<String> notifiche=controller_domanda.prendinotifichedomanda();
-		if(notifiche.isEmpty()) {
+    	if(controller_notifiche.prendinotificheutente()) {
+    		MenuNotifiche.setStyle(" -fx-background-color : red;");
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Notifiche");
+			alert.setHeaderText("Ci sono notifiche!! Clicca sul pulsante rosso \"Notifiche\" per vederle!! ");
+			alert.showAndWait();
+			VisualizzaNotifiche();
+    	}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Notifiche");
 			alert.setHeaderText("Non ci sono notifiche al momento!!");
 			alert.showAndWait();
-		}
-    	String finale=null;
-    	for(String e:notifiche) {
-    		finale=e;
-    		MenuItem item=new MenuItem(finale);
-    		MenuNotifiche.getItems().add(item);
-    		item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent e) {
-					((Node)event.getSource()).getScene().getWindow().hide();
-		    		Stage primaryStage = new Stage();
-		    		BorderPane root = null;
-					try {
-						root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/AccettaRifiutaRichiestePage.fxml"));
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-		    		Scene scene = new Scene(root);
-		    		primaryStage.setScene(scene);
-		    		primaryStage.show();
-		    		item.setDisable(true);
-				}
-			});
     	}
     }
     
@@ -144,22 +206,47 @@ public class RevisorePageController {
 		primaryStage.show();
     }
       
-    	public void Revisiona(ActionEvent event) throws Exception {
-        	((Node)event.getSource()).getScene().getWindow().hide();
-        	Stage primaryStage = new Stage();
-        	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
-    		Scene scene = new Scene(root);
-    		primaryStage.setScene(scene);
-    		primaryStage.show();
-        }
+    public void Revisiona(ActionEvent event) throws Exception {
+    	azione=true;
+	    boolean controlla=controller_revisione_trascrizione.verifica();
+	    if(controlla) {
+	    	((Node)event.getSource()).getScene().getWindow().hide();
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RevisionaTrascrizioniPage.fxml"));
+	    	Scene scene = new Scene(root);
+	    	primaryStage.setScene(scene);
+	    	primaryStage.show();
+	    }else {
+	    	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Revisiona trascrizioni");
+			alert.setHeaderText("Non ci sono trascrizioni da esaminare al momento!!");
+			alert.showAndWait();
+	    }
+    }
     	
-    	public void PubblicaTrascrizioni(ActionEvent event) throws Exception {
-        	((Node)event.getSource()).getScene().getWindow().hide();
-        	Stage primaryStage = new Stage();
-        	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/ConsentiPubblicazioneTrascrizionePage.fxml"));
-    		Scene scene = new Scene(root);
-    		primaryStage.setScene(scene);
-    		primaryStage.show();
-        }
+    public void PubblicaTrascrizioni(ActionEvent event) throws Exception {
+    	ArrayList<String> notifiche=controller_notifiche.notifiche;
+    	boolean controllo= false;
+    	for(String e:notifiche) {
+    		if(e.contains("Pubblica")) {
+    			controllo=true;
+    			notifica=e;
+    		}
+    	}
+    	if(controllo) {
+    		onBtnClicked();
+    		azione=true;
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/PubblicaTrascrizioniPage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+    	}else {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Pubblica trascrizioni");
+			alert.setHeaderText("Non ci sono opere da pubblicare al momento!!");
+			alert.showAndWait();
+    	}
+    }
 }
 

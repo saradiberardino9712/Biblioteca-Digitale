@@ -7,6 +7,7 @@ import Business.Model.Immagine;
 import Business.Model.Notifica;
 import Business.Model.Opera;
 import Business.Model.Ruolo;
+import Business.Model.TestoDigitale;
 import Business.Model.Utente;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -15,6 +16,7 @@ public class controller_consenso_pubblicazione {
 
 	public static ArrayList<Immagine> listaimg;
 	public static ArrayList<Immagine> img;
+	public static ArrayList<TestoDigitale> trascrizioni;
 	private static ArrayList<String> opere=new ArrayList<>();
 	
 	public static boolean verifica() {
@@ -149,6 +151,95 @@ public class controller_consenso_pubblicazione {
 					int idutente=Utente.getIstance().getID();
 					notifica=Notifica.creanotifica("La revisione dell'immagine non è stata approvata!! Clicca qui o su \" Controlla \" ",0,idruolonot,idutente);
 				}
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Consenti pubblicazione");
+				alert.setHeaderText("Il consenso è stato negato");
+				alert.showAndWait();
+			}
+		}
+		if(notifica)
+			return true;
+		else 
+			return false;	
+	}
+
+	public static ArrayList<TestoDigitale> prenditra() {
+		trascrizioni= TestoDigitale.verifica("in revisione");
+		return trascrizioni;
+	}
+
+	public static ArrayList<String> prenditesto(String selezione) {
+		ArrayList<String> lista=new ArrayList<>();
+		int npag;
+		String titolo;
+		String testo;
+		for(TestoDigitale t:trascrizioni) {
+			npag=t.getNumpag();
+			titolo=t.getTitoloOpera();
+    		if(selezione.contains(titolo) && selezione.contains(Integer.toString(npag))) {
+    			testo=t.getText();
+    			lista.add(testo);
+    		}
+    	}
+		return lista;
+	}
+
+	public static boolean consensotra(String selezione, boolean esito) {
+		boolean update;
+		boolean v;
+		ArrayList<Boolean> vista=new ArrayList<>();
+		ArrayList<Boolean> u=new ArrayList<>();
+		boolean notifica = false;
+		String elimina = null;
+		int idimg = 0;
+		if(esito) {
+			for(TestoDigitale i:trascrizioni) {
+				if(selezione.contains(i.getTitoloOpera()) && selezione.contains(Integer.toString(i.getNumpag()))) {
+					update=TestoDigitale.updatestato("trascritto", i.getIdimmagine());
+					idimg=i.getIdimmagine();
+					u.add(update);
+					for(String s:controller_notifiche.notifiche) {
+						if(s.contains("Consenti pubblicazione")) {
+							elimina=s;
+							v=Notifica.updatevistadbtesto("Consenti pubblicazione",null,i.getIdimmagine(),0);
+							vista.add(v);
+							break;
+						}
+					}
+				}
+				controller_notifiche.notifiche.remove(elimina);
+			}
+			if(u.contains(false)|| vista.contains(false)) {
+				return false;
+			}else {
+				int idruolonot=prendiid("Revisore");
+				int idutente=Utente.getIstance().getID();
+				notifica=Notifica.creanotificatesto("E' stato dato il consenso per la pubblicazione!! Clicca qui o su \" Pubblica \" ",0,idruolonot,idutente,idimg);
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Consenti pubblicazione");
+				alert.setHeaderText("Il consenso è stato ammesso");
+				alert.showAndWait();
+			}
+		}else {
+			for(TestoDigitale i:trascrizioni) {
+				if(selezione.contains(i.getTitoloOpera()) && selezione.contains(Integer.toString(i.getNumpag()))) {
+					update=TestoDigitale.remove(i.getText(), i.getIdimmagine());
+					u.add(update);
+					for(String s:controller_notifiche.notifiche) {
+						if(s.contains("Consenti pubblicazione")) {
+							elimina=s;
+							v=Notifica.updatevistadbtesto("Consenti pubblicazione",null,i.getIdimmagine(),0);
+							vista.add(v);
+							break;
+						}
+					}
+				}
+				controller_notifiche.notifiche.remove(elimina);
+			}
+			if(u.contains(false)|| vista.contains(false)) {
+				return false;
+			}else {
+				notifica=true;
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Consenti pubblicazione");
 				alert.setHeaderText("Il consenso è stato negato");

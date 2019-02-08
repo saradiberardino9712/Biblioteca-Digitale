@@ -248,7 +248,7 @@ public class SupervisorePageController {
 			primaryStage.show();
     	}else {
     		Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Controlla immagini");
+			alert.setTitle("Publica opera");
 			alert.setHeaderText("Non ci sono opere da pubblicare al momento!!");
 			alert.showAndWait();
     	}
