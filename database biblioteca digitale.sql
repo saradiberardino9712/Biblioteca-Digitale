@@ -19,6 +19,7 @@ email varchar (50) unique not null,
 password char (20) not null,
 attivo boolean default false,
 statodomanda enum('in attesa','accettata','rifiutata'),
+livello enum('1','2','3','4','5'),
 ID_ruolo integer unsigned not null,
 constraint utente_ruolo foreign key (ID_ruolo) references ruolo(ID) on update cascade
 );
@@ -40,48 +41,35 @@ constraint opera_unica unique (titolo,anno,autore),
 constraint opera_categoria foreign key (ID_categoria) references categoria (ID) on update cascade on delete set null
 );
 
-create table consulta (
-ID integer unsigned primary key not null auto_increment,
-ID_utente integer unsigned not null,
-ID_opera integer unsigned not null,
-constraint consulta_utente foreign key (ID_utente) references utente (ID) on update cascade on delete cascade,
-constraint consulta_opera foreign key (ID_opera) references opera(ID)
-);
-
 create table immagine (
 ID integer unsigned primary key not null auto_increment,
 numero_pagina smallint not null,
 statoI enum('in caricamento','in acquisizione','in attesa supervisione','in caricamento acquisizione','in revisione acquisizione','acquisito','eliminata') not null,
 url varchar(150) not null,
-ID_utente integer unsigned not null,
-ID_opera integer unsigned not null,
-constraint immagine_utente foreign key (ID_utente) references utente (ID), 
-constraint immagine_opera foreign key (ID_Opera) references opera(ID) on update cascade on delete cascade
-);
-
-create table trascrive (
 ID_utente integer unsigned,
-ID_immagine integer unsigned,
-constraint trascrive_utente foreign key (ID_utente) references utente(ID),
-constraint trascrive_immagine foreign key (ID_immagine) references immagine(ID)
+ID_opera integer unsigned not null,
+constraint immagine_utente foreign key (ID_utente) references utente (ID) on update cascade on delete set null,
+constraint immagine_opera foreign key (ID_Opera) references opera(ID) on update cascade on delete cascade
 );
 
 create table testo_digitale (
 ID integer unsigned primary key not null auto_increment,
 testo varchar (50000),
-ID_utente integer unsigned not null,
+statoT enum('in trascrizione','in attesa revisione','in revisione','trascritto','pubblicato'),
+ID_utente integer unsigned,
 ID_immagine integer unsigned not null,
-constraint testo_digitale_utente foreign key (ID_utente) references utente (ID),
-constraint testo_digitale_imamgine  foreign key (ID_immagine) references immagine (ID)
+constraint testo_digitale_utente foreign key (ID_utente) references utente (ID) on update cascade on delete set null,
+constraint testo_digitale_imamgine  foreign key (ID_immagine) references immagine (ID) on delete cascade on update cascade
 );
 
 create table notifica(
 ID integer unsigned primary key not null auto_increment,
 orario timestamp not null,
-descrizione varchar(250),
+descrizione varchar(450),
 vista boolean default false,
 IDutentenot integer unsigned not null,
 IDruolonot integer unsigned not null,
-ID_utente integer unsigned not null,
-constraint notifica_utente foreign key (ID_utente) references utente(ID)
+ID_utente integer unsigned,
+IDimmagine integer unsigned,
+constraint notifica_utente foreign key (ID_utente) references utente(ID) on update cascade on delete set null
 );
