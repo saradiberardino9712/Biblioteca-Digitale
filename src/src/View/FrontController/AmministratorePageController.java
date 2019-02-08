@@ -27,6 +27,12 @@ public class AmministratorePageController {
 
     @FXML
     private Button btnLogout;
+    
+    @FXML
+    private Button btnEliminaUtente;
+
+    @FXML
+    private Button btnEliminaOpera;
 
     @FXML
     private Label txtemailua;
@@ -39,8 +45,12 @@ public class AmministratorePageController {
         assert btnLogout != null : "fx:id=\"btnLogout\" was not injected: check your FXML file 'AmministratorePage.fxml'.";
         assert txtemailua != null : "fx:id=\"txtemailua\" was not injected: check your FXML file 'AmministratorePage.fxml'.";
         assert linkDati != null : "fx:id=\"linkDati\" was not injected: check your FXML file 'AmministratorePage.fxml'.";
+        assert btnEliminaUtente != null : "fx:id=\"btnEliminaUtente\" was not injected: check your FXML file 'AmministratorePage.fxml'.";
+        assert btnEliminaOpera != null : "fx:id=\"btnEliminaOpera\" was not injected: check your FXML file 'AmministratorePage.fxml'.";
         txtemailua.setText(controller_login.email);
     }
+    
+    public static boolean azione=false;
     
     public void Logout(ActionEvent event) throws Exception {
     	boolean disattiva=controller_logout.disattivautente(txtemailua);
@@ -65,5 +75,25 @@ public class AmministratorePageController {
 			primaryStage.show();
 		}
 	}
+    
+    public void EliminaOpera(ActionEvent event) throws Exception {
+    	azione=true;
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/EliminaOperaPage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    } 
+    
+    public void EliminaUtente(ActionEvent event) throws Exception {
+    	azione=true;
+    	((Node)event.getSource()).getScene().getWindow().hide();
+    	Stage primaryStage = new Stage();
+    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/EliminaUtentePage.fxml"));
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+    } 
 }
 
