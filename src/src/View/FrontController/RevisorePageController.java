@@ -9,6 +9,7 @@ import Business.Controller.controller_login;
 import Business.Controller.controller_logout;
 import Business.Controller.controller_notifiche;
 import Business.Controller.controller_revisione_trascrizione;
+import Business.Controller.controller_ricerca;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -198,12 +199,21 @@ public class RevisorePageController {
 	}
     
     public void Ricerca(ActionEvent event) throws Exception {
-    	((Node)event.getSource()).getScene().getWindow().hide();
-    	Stage primaryStage = new Stage();
-    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOpere.fxml"));
-		Scene scene = new Scene(root);
-		primaryStage.setScene(scene);
-		primaryStage.show();
+    	azione=true;
+		boolean ricerca=controller_ricerca.verifica();
+		if(ricerca) {
+	    	((Node)event.getSource()).getScene().getWindow().hide();
+	    	Stage primaryStage = new Stage();
+	    	BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/View/javaFX/RicercaOperePage.fxml"));
+			Scene scene = new Scene(root);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Ricerca");
+			alert.setHeaderText("Non ci sono opere al momento!!");
+			alert.showAndWait();
+		}
     }
       
     public void Revisiona(ActionEvent event) throws Exception {

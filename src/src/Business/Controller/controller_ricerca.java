@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 public class controller_ricerca {
 	
 	public static ArrayList<Opera> listaopere;
+	public static ArrayList<TestoDigitale> trascrizioni;
 	public static ArrayList<String> lista=new ArrayList<>();
 	
 	public static boolean verifica() {
@@ -41,7 +42,7 @@ public class controller_ricerca {
 			String text;
 			String te;
 			String stringa;
-			ArrayList<TestoDigitale> trascrizioni= TestoDigitale.verifica("pubblicato");
+			trascrizioni= TestoDigitale.verifica("pubblicato");
 			for(TestoDigitale t: trascrizioni) {
 				text=t.getText();
 				te=text.toLowerCase();

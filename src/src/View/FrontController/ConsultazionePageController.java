@@ -1,8 +1,5 @@
 package View.FrontController;
 
-import java.awt.Component;
-import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,25 +10,20 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-
 import Business.Controller.controller_consultazione;
 import Business.Model.Immagine;
-import javafx.embed.swing.SwingFXUtils;
+import Business.Model.TestoDigitale;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.print.PageRange;
-import javafx.scene.ImageCursorBuilder;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -95,10 +87,26 @@ public class ConsultazionePageController {
     	paginatoreImmagine.pageCountProperty().set(count);
     	paginatoreImmagine.maxPageIndicatorCountProperty().set(count);
     	paginatoreImmagine.setPageFactory(n->images.get(n));
-    	/*ArrayList<Immagine> trascrizioni=controller_consultazione.prendiimmagini();
+    	ArrayList<TextArea> tra= new ArrayList<>();
+    	String testo;
+    	String text;
+    	ArrayList<TestoDigitale> trascrizioni=controller_consultazione.prenditrascrizioni();
+    	for(int i=1;i<=count;i++) {
+    		for(TestoDigitale t:trascrizioni) {
+    			if(t.getNumpag()==i) {
+    				testo=t.getText();
+    				text=testo.replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
+    	    		TextArea area=new TextArea(text);
+    	    		tra.add(area);
+    			}else {
+    				TextArea area=new TextArea("Trascrizione non disponibile");
+    	    		tra.add(area);
+    			}
+    		}
+    	}
     	paginatoreTrascrizione.pageCountProperty().set(count);
     	paginatoreTrascrizione.maxPageIndicatorCountProperty().set(count);
-    	paginatoreTrascrizione.setPageFactory(n->images.get(n));*/
+    	paginatoreTrascrizione.setPageFactory(n->tra.get(n));
     }
     
     public void Indietro(ActionEvent event) throws Exception {
@@ -164,22 +172,23 @@ public class ConsultazionePageController {
 	}
     
     public void Download(ActionEvent event) throws IOException {
-    	/*StringBuilder sb = new StringBuilder();
-    	FileInputStream inputstream = new FileInputStream("C:\\Users\\Sara\\Desktop\\Drive\\img\\Salterio_diurno_del_XVII_secolo.jpg"); 
-		Image image = new Image(inputstream);
-    	sb.append(image);
+    	StringBuilder sb = new StringBuilder();
+    	ArrayList<TestoDigitale> trascrizioni=controller_consultazione.prenditrascrizioni();
+    	for(TestoDigitale t:trascrizioni) {
+    		String testo=t.getText().replaceAll("(?s)<[^>]*>(\\s*<[^>]*>)*", " ");
+    		sb.append(testo);
+    	}
     	File f = new File("C:\\Users\\Sara\\Desktop\\"+controller_consultazione.open+".zip");
     	ZipOutputStream out = new ZipOutputStream(new FileOutputStream(f));
-    	ZipEntry e = new ZipEntry("pag1.jpg");
+    	ZipEntry e = new ZipEntry("Trascrizione.txt");
     	out.putNextEntry(e);
     	byte[] data = sb.toString().getBytes();
     	out.write(data, 0, data.length);
     	out.closeEntry();
-    	out.close();*/
-    	FileInputStream inputstream = new FileInputStream("C:\\Users\\Sara\\Desktop\\Drive\\img\\Salterio_diurno_del_XVII_secolo.jpg"); 
-		Image image = new Image(inputstream);
-    	File outputFile = new File("C:\\Users\\Sara\\Desktop");
-        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
-        
+    	out.close();
+    	Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Download");
+		alert.setHeaderText("Avvenuto con successo");
+		alert.showAndWait();
     }
 }
